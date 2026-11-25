@@ -28,6 +28,11 @@ interface Strings {
   probing: string;
   objects: (list: string) => string;
   plainMode: string;
+  downloadTitle: string;
+  downloadBody: string;
+  downloadWin: string;
+  downloadLinux: string;
+  downloadDismiss: string;
   connectFailed: (reason: string, error: string) => string;
   initFailed: (error: string) => string;
   dir: Record<string, string>;
@@ -52,6 +57,11 @@ const zh: Strings = {
   probing: "正在探测 Python 后端…",
   objects: (list) => `通道对象：${list}`,
   plainMode: "纯文档模式：没有检测到 Python 后端，示例按钮不可用",
+  downloadTitle: "想点一下试试？",
+  downloadBody: "下载桌面客户端，同一个页面就能真调 Python：",
+  downloadWin: "Windows（免安装）",
+  downloadLinux: "Linux（tar.gz）",
+  downloadDismiss: "在网页看就行",
   connectFailed: (reason, error) => `连接失败（${reason}）：${error}`,
   initFailed: (error) => `初始化异常：${error}`,
   dir: { js2py: "JS → PY", py2js: "PY → JS", event: "事件", info: "本地", error: "异常" },
@@ -76,6 +86,11 @@ const en: Strings = {
   probing: "Looking for the Python backend…",
   objects: (list) => `Channel objects: ${list}`,
   plainMode: "Documentation-only mode: no Python backend detected, live buttons stay hidden",
+  downloadTitle: "Want to click through the examples?",
+  downloadBody: "Grab the desktop client and the same pages call Python for real:",
+  downloadWin: "Windows (no install)",
+  downloadLinux: "Linux (tar.gz)",
+  downloadDismiss: "Stay in the browser",
   connectFailed: (reason, error) => `Connection failed (${reason}): ${error}`,
   initFailed: (error) => `Initialisation failed: ${error}`,
   dir: { js2py: "JS → PY", py2js: "PY → JS", event: "event", info: "local", error: "error" },

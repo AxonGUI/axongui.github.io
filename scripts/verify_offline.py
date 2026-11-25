@@ -32,6 +32,8 @@ PROBE_JS = """(() => {
     tryItCount: document.querySelectorAll('.try-it').length,
     runButtonCount: document.querySelectorAll('.try-it__run').length,
     statusBarCount: document.querySelectorAll('.axon-status').length,
+    downloadBar: document.querySelectorAll('.axon-download').length,
+    downloadLinks: [...document.querySelectorAll('.axon-download a')].map((a) => a.getAttribute('href')),
     mentionsBackend:
       bodyText.includes('需要 Python 后端') || bodyText.includes('纯文档模式') ||
       /needs a python backend/i.test(bodyText) || /documentation-only/i.test(bodyText),
@@ -121,6 +123,11 @@ def check_page(page: str, result: dict[str, object]) -> int:
         "没有出现「需要 Python 后端 / 纯文档模式」字样": result["mentionsBackend"] is False,
         "示例代码照样可读": int(result["codeBlocks"]) >= 3,
         "标题正常渲染": int(len(result["headings"])) >= 2,
+        "出现了客户端下载引导（纯网页才显示）": result["downloadBar"] == 1,
+        "下载链接指向 latest release": all(
+            "/releases/latest/download/" in (h or "") for h in result["downloadLinks"]
+        )
+        and len(result["downloadLinks"]) == 2,
     }
     print(f"=== 纯网页形态验证 · /{page} ===")
     for name, ok in checks.items():

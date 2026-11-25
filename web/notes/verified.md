@@ -299,6 +299,17 @@ cd ../.. && python main.py                             # offscreen 真窗口点�
 
 跑法：`core-py/tests/run_web_tests.py`（46 条，含 4 条 asset 断言）、`docs/scripts/verify_docs.py`。
 
+## 客户端下载引导（只在网页形态出现）
+
+| 断言 | 结果 |
+| --- | --- |
+| 纯网页（无后端）：`.axon-download` 出现 | 1 条，含 2 个链接 |
+| 链接指向 `releases/latest/download/AxonDocs-{windows-x64.zip,linux-x64.tar.gz}` | ✓ |
+| 客户端（连上后端）：`.axon-download` 数量 | 0 |
+| 点「在网页看就行」后 | 记 localStorage，刷新不再出现 |
+
+跑法：`scripts/verify_offline.py`（断言出现）、`scripts/verify_docs.py`（断言不出现）。
+
 ## 文档站用的写法（VitePress 2.0.0-alpha.17 + 自建小插件）
 
 - **代码块标题**：```` ```js [app.js] ```` 会在代码块上方渲染一条文件名栏。这个版本还不支持该语法，

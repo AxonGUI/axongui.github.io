@@ -219,3 +219,60 @@ body:has(.axon-status) {
 .vp-doc table td:first-child {
   min-width: 7.5em;
 }
+
+/* —— 纯网页形态下的客户端下载引导（连上后端时整条不渲染）—— */
+.axon-download {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  z-index: 40;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  align-items: center;
+  justify-content: center;
+  width: min(1120px, calc(100vw - 2rem));
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  background: var(--vp-c-bg-soft);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+  font-size: 0.9rem;
+}
+body.has-axon-download { padding-bottom: 92px; }
+@media (max-width: 720px) {
+  .axon-download { bottom: 8px; font-size: 0.84rem; padding: 0.5rem 0.75rem; }
+  body.has-axon-download { padding-bottom: 128px; }
+}
+.axon-download .text { display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: baseline; }
+.axon-download .body { color: var(--vp-c-text-2); }
+.axon-download .actions { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+.axon-download .btn {
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0.3rem 0.75rem;
+  background: var(--vp-c-brand-1);
+  color: #fff !important;
+  text-decoration: none;
+  font-weight: 500;
+}
+.axon-download .btn:hover { background: var(--vp-c-brand-2); }
+.axon-download .btn--ghost {
+  background: transparent;
+  border-color: var(--vp-c-divider);
+  color: var(--vp-c-text-1) !important;
+}
+.axon-download .btn--ghost:hover { border-color: var(--vp-c-brand-1); color: var(--vp-c-brand-1) !important; }
+.axon-download .dismiss {
+  border: 0;
+  background: none;
+  padding: 0.3rem 0.4rem;
+  color: var(--vp-c-text-3);
+  cursor: pointer;
+  font-size: 0.82rem;
+}
+.axon-download .dismiss:hover { color: var(--vp-c-text-1); text-decoration: underline; }
+@media (max-width: 720px) {
+  .axon-download { margin: 0.5rem 1rem 0; font-size: 0.84rem; }
+}

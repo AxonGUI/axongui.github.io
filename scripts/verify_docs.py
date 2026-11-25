@@ -167,6 +167,9 @@ def main(argv: list[str] | None = None) -> int:
             failures.append(f"{page}: 页面没有连上 Python 后端（或没有示例卡片）")
             report["pages"][page] = {"error": "not-connected"}
             continue
+        bars = run_js(view, "document.querySelectorAll('.axon-download').length", timeout=5)
+        if float(bars or 0) != 0:
+            failures.append(f"{page}: 客户端里不该出现下载引导（.axon-download = {bars}）")
         run_js(view, "window.__verify = null; true", timeout=5)
         view.page().runJavaScript(CLICK_JS, 0, lambda _v: None)
         verified = None
