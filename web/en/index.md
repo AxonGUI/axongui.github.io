@@ -12,6 +12,9 @@ hero:
     - theme: alt
       text: See a real call
       link: /en/examples/call
+    - theme: alt
+      text: GitHub
+      link: https://github.com/AxonGUI/Axon
 
 features:
   - title: No new frontend framework to learn

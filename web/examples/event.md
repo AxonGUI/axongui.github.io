@@ -1,4 +1,4 @@
-# 事件
+# 事件：两个方向
 
 <span class="channel-tag">双向</span>
 

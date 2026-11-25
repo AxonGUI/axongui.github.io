@@ -1,4 +1,4 @@
-# Draw your own title bar (optional)
+# Frameless window & custom title bar
 
 By default Axon uses the native window: the title bar, minimize/maximize/close are all drawn by the operating system.
 

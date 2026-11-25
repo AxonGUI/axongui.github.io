@@ -1,4 +1,4 @@
-# Events
+# Events: both directions
 
 <span class="channel-tag">both directions</span>
 

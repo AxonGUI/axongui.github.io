@@ -1,4 +1,4 @@
-# Cross-process Store
+# Store: shared key-value
 
 <span class="channel-tag">both directions</span>
 

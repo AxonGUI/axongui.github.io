@@ -12,6 +12,9 @@ hero:
     - theme: alt
       text: 看一个真实调用
       link: /examples/call
+    - theme: alt
+      text: GitHub
+      link: https://github.com/AxonGUI/Axon
 
 features:
   - title: 前端不用学新框架

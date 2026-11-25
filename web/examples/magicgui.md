@@ -1,4 +1,4 @@
-# 魔法窗口：随时随地调用 Qt UI
+# 魔法窗口：在主线程里调 Qt
 
 <span class="channel-tag">PY → GUI · 主线程</span>
 

@@ -1,4 +1,4 @@
-# 跨端 Store
+# 跨端键值：Store
 
 <span class="channel-tag">双向</span>
 

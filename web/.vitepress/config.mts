@@ -13,19 +13,32 @@ const sidebarZh = [
       { text: "什么是 Axon", link: "/guide/what-is-axon" },
       { text: "快速开始", link: "/guide/quickstart" },
       { text: "架构与消息流", link: "/guide/architecture" },
+      { text: "无边框窗口与自绘标题栏", link: "/guide/window-chrome" },
     ],
   },
   {
     text: "可交互示例",
     items: [
-      { text: "调用 Python 方法", link: "/examples/call" },
-      { text: "读写 Python 属性", link: "/examples/property" },
-      { text: "从 Python 调 JS", link: "/examples/py-to-js" },
-      { text: "事件", link: "/examples/event" },
-      { text: "跨端 Store", link: "/examples/store" },
-      { text: "魔法窗口（调 Qt UI）", link: "/examples/magicgui" },
-      { text: "广播（发往所有窗口）", link: "/examples/broadcast" },
-      { text: "跨窗口交互", link: "/examples/multi-window" },
+      {
+        text: "基础",
+        collapsed: false,
+        items: [
+          { text: "调用 Python 方法", link: "/examples/call" },
+          { text: "读写 Python 属性", link: "/examples/property" },
+          { text: "从 Python 调 JS", link: "/examples/py-to-js" },
+          { text: "事件（两个方向）", link: "/examples/event" },
+        ],
+      },
+      {
+        text: "进阶",
+        collapsed: false,
+        items: [
+          { text: "跨端键值（Store）", link: "/examples/store" },
+          { text: "魔法窗口（调 Qt UI）", link: "/examples/magicgui" },
+          { text: "广播（发往所有窗口）", link: "/examples/broadcast" },
+          { text: "跨窗口交互", link: "/examples/multi-window" },
+        ],
+      },
     ],
   },
   {
@@ -59,6 +72,7 @@ const sidebarEn = [
       { text: "What is Axon", link: "/en/guide/what-is-axon" },
       { text: "Quickstart", link: "/en/guide/quickstart" },
       { text: "Architecture & message flow", link: "/en/guide/architecture" },
+      { text: "Frameless window & custom title bar", link: "/en/guide/window-chrome" },
     ],
   },
   {
@@ -118,6 +132,10 @@ export default defineConfig({
           { text: "指南", link: "/guide/quickstart" },
           { text: "可交互示例", link: "/examples/call" },
           { text: "API", link: "/api/javascript" },
+          { text: "GitHub", link: "https://github.com/AxonGUI/Axon" },
+        ],
+        socialLinks: [
+          { icon: "github", link: "https://github.com/AxonGUI/Axon", ariaLabel: "GitHub 仓库" },
         ],
         sidebar: sidebarZh,
         outline: { label: "本页目录", level: [2, 3] },
@@ -146,6 +164,10 @@ export default defineConfig({
           { text: "Guide", link: "/en/guide/quickstart" },
           { text: "Live examples", link: "/en/examples/call" },
           { text: "API", link: "/en/api/javascript" },
+          { text: "GitHub", link: "https://github.com/AxonGUI/Axon" },
+        ],
+        socialLinks: [
+          { icon: "github", link: "https://github.com/AxonGUI/Axon", ariaLabel: "GitHub repository" },
         ],
         sidebar: sidebarEn,
         outline: { label: "On this page", level: [2, 3] },

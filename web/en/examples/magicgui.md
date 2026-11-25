@@ -1,4 +1,4 @@
-# Magic window: run Qt UI from anywhere
+# Magic window: run code on the Qt thread
 
 <span class="channel-tag">PY → GUI · main thread</span>
 
