@@ -110,7 +110,7 @@ npm install axon-gui      # 网页侧（纯 HTML 页面可以不用 npm，见下
 
 ::: tip 版本
 `axon-gui` 已发布在 [PyPI](https://pypi.org/project/axon-gui/)，`npm install axon-gui` 拿的是网页运行时，
-两边版本号分别是 **5.3.6**（Python）和 **1.1.0**（npm），页面运行时跟框架版本解耦，各自升级即可。
+两边版本号分别是 **5.4.0**（Python）和 **1.1.2**（npm），页面运行时跟框架版本解耦，各自升级即可。
 :::
 
 装好之后，一个能跑起来的最小项目只有两个文件。

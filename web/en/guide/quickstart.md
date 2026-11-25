@@ -98,7 +98,7 @@ npm install axon-gui      # web side (a plain HTML page can skip npm, see below)
 
 ::: tip Versions
 `axon-gui` is on [PyPI](https://pypi.org/project/axon-gui/). The npm package is the web runtime and
-versions independently: **5.3.6** on PyPI, **1.1.0** on npm.
+versions independently: **5.4.0** on PyPI, **1.1.2** on npm.
 :::
 
 Once installed, the smallest working project is two files.
