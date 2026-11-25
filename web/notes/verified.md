@@ -296,3 +296,16 @@ cd ../.. && python main.py                             # offscreen 真窗口点�
 - **行高亮**：`{行号}` 或行尾 `// [!code highlight]`；`// [!code error]` / `// [!code warning]` 只用在「这行本身是错的」。
 - **容器中文标题**：`::: tip 提示` / `::: warning 警告` / `::: details 展开查看`（主题默认标签是英文，逐页写中文标题）。
 - **最后更新 / 编辑此页**：`lastUpdated: true` + `themeConfig.editLink`，CI 里 `actions/checkout` 需要 `fetch-depth: 0` 才有 git 时间。
+
+## 外链交给系统浏览器（axon-gui 5.4.1）
+
+客户端里点 GitHub 之类的站外链接时，不再把窗口导航走，而是用系统浏览器打开；
+本机地址（`127.0.0.1` / `localhost`）照常在窗口内跳转。
+
+```
+view url: http://127.0.0.1:41207/guide/quickstart      # 没被导航走
+opened:   ['https://github.com/AxonGUI/Axon']           # 交给系统浏览器
+PASS
+```
+
+覆盖三种情况：同标签外链、`target="_blank"` 外链（走 `createWindow`）、站内相对链接（正常跳转）。
