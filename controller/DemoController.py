@@ -56,7 +56,7 @@ class DemoController:
         """生成一段二进制，返回 axon:// URL（前端 fetch 取字节）。"""
         size = max(1024, min(int(size), 64 * 1024 * 1024))
         data = bytes((i * 31) % 251 for i in range(size))
-        return AxonAsset.register(data, name=f"blob-{size}.bin")
+        return AxonAsset.from_bytes(data, name=f"blob-{size}.bin")
 
     def image(self) -> str:
         """生成一张 16×16 PNG，返回 URL（<img src> 直接用）。"""
@@ -76,7 +76,7 @@ class DemoController:
             + chunk(b"IDAT", zlib.compress(raw))
             + chunk(b"IEND", b"")
         )
-        return AxonAsset.register(png, name="demo.png")
+        return AxonAsset.from_bytes(png, name="demo.png")
 
     def asset_count(self) -> int:
         return AxonAsset.count()

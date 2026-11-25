@@ -18,10 +18,10 @@ from axon import AxonAsset, AxonController
 class Report:
     def chart_url(self) -> str:
         png = build_chart_png()                      # 你自己的 bytes
-        return AxonAsset.register(png, name="chart.png")   # → axon://asset/<token>/chart.png
+        return AxonAsset.from_bytes(png, name="chart.png")  # → axon://asset/<token>/chart.png
 
     def export_url(self) -> str:
-        return AxonAsset.register_file("/tmp/report.pdf")  # 也可以直接登记本地文件
+        return AxonAsset.from_file("/tmp/report.pdf")     # 文件不进内存
 
     def drop(self, url: str) -> bool:
         return AxonAsset.release(url)                # 用完释放，不释放也能用到进程结束
@@ -31,9 +31,11 @@ class Report:
 
 | 函数 | 说明 |
 | --- | --- |
-| `AxonAsset.register(data, name="blob", mime=None)` | 登记一段 `bytes`，返回 URL；`mime` 默认按文件名猜 |
-| `AxonAsset.register_file(path, name=None)` | 登记本地文件（内容读进内存） |
-| `AxonAsset.release(url)` / `clear()` / `count()` | 释放 / 全清 / 查看当前数量 |
+| `AxonAsset.from_bytes(data, name="blob", mime=None)` | 一段 `bytes` → URL；`mime` 默认按文件名猜 |
+| `AxonAsset.from_file(path, name=None)` | 本地文件 → URL（**不读进内存**，请求时才打开） |
+| `AxonAsset.release(url)` / `clear()` / `count()` | 释放 / 全清 / 当前数量 |
+
+还有一个模块级别名：`from axon import asset_url, asset_url_from_file`，与上面两个方法等价。
 
 URL 形如 `axon://asset/<token>/<文件名>`：token 决定内容，文件名只影响 `Content-Type` 和下载时的默认名。
 
@@ -70,8 +72,14 @@ Python 生成 2 MB 二进制登记成 URL，前端 `fetch` 回来：上面这条
 
 ## 要注意的
 
-::: warning 内存
-`register()` 把字节留在 Python 进程里，直到 `release()` 或进程结束。批量生成图片（比如列表里几百张缩略图）要记得释放，否则内存只涨不落。
+::: info 什么时候释放
+不用管，默认自动回收：**空闲 10 分钟**没被取用的资产会清掉；字节总量超过 **256 MB** 时按「最久未用」淘汰
+（`from_file()` 的资产不占内存，只留一个路径）。要调：
+
+```python
+AxonAsset.configure(ttl=300, budget=64 << 20)   # 秒 / 字节；<=0 表示不限
+AxonAsset.release(url)                          # 确实想立刻腾出来
+```
 :::
 
 ::: warning 不支持 Range

@@ -18,10 +18,10 @@ from axon import AxonAsset, AxonController
 class Report:
     def chart_url(self) -> str:
         png = build_chart_png()                      # your own bytes
-        return AxonAsset.register(png, name="chart.png")   # → axon://asset/<token>/chart.png
+        return AxonAsset.from_bytes(png, name="chart.png")  # → axon://asset/<token>/chart.png
 
     def export_url(self) -> str:
-        return AxonAsset.register_file("/tmp/report.pdf")  # or register a local file
+        return AxonAsset.from_file("/tmp/report.pdf")     # file stays on disk
 
     def drop(self, url: str) -> bool:
         return AxonAsset.release(url)                # optional: free it early
@@ -29,8 +29,8 @@ class Report:
 
 | Function | Purpose |
 | --- | --- |
-| `AxonAsset.register(data, name="blob", mime=None)` | register `bytes`, get a URL; `mime` is guessed from the name |
-| `AxonAsset.register_file(path, name=None)` | register a local file (read into memory) |
+| `AxonAsset.from_bytes(data, name="blob", mime=None)` | `bytes` → URL; `mime` is guessed from the name |
+| `AxonAsset.from_file(path, name=None)` | local file → URL (**not read into memory**; opened per request) |
 | `AxonAsset.release(url)` / `clear()` / `count()` | release / clear all / how many are held |
 
 The URL looks like `axon://asset/<token>/<filename>`: the token selects the content, the filename only drives `Content-Type` and the default download name.
@@ -68,8 +68,14 @@ Python makes 2 MB of bytes, registers them as a URL, and the frontend fetches th
 
 ## Watch out for
 
-::: warning Memory
-`register()` keeps the bytes in the Python process until `release()` or exit. Releasing matters when you generate many images (hundreds of thumbnails), otherwise memory only grows.
+::: info Lifetime is automatic
+Nothing to manage by default: assets idle for **10 minutes** are dropped, and once the byte total exceeds
+**256 MB** the least-recently-used ones are evicted (`from_file()` assets hold no memory, only a path). To tune:
+
+```python
+AxonAsset.configure(ttl=300, budget=64 << 20)   # seconds / bytes; <=0 disables
+AxonAsset.release(url)                          # when you really want it gone now
+```
 :::
 
 ::: warning No Range support

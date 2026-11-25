@@ -293,7 +293,7 @@ cd ../.. && python main.py                             # offscreen 真窗口点�
 | --- | --- |
 | `<img src="axon://asset/…">` | 32×16 PNG 正确渲染 |
 | `fetch(url).arrayBuffer()` | 1,000,000 字节，3 ms |
-| `register_file()` + `fetch().text()` | 读回 `hello from disk` |
+| `from_file()` + `fetch().text()` | 读回 `hello from disk`（QFile 惰性读取） |
 | `release()` 后再取 | `count` 3→2，HTTP 404 |
 | 文档站示例页（`examples/assets`） | 2.0 MB，83 ms（客户端形态） |
 
