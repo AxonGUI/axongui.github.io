@@ -30,7 +30,7 @@ jobs:
       - name: 构建站点
         working-directory: web
         env:
-          DOCS_BASE: ${{ vars.DOCS_BASE || '/Axon/' }}
+          DOCS_BASE: ${{ vars.DOCS_BASE || '/' }}
         run: npm run docs:build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
