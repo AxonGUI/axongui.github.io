@@ -10,6 +10,7 @@ const sidebarZh = [
   {
     text: "开始",
     items: [
+      { text: "什么是 Axon", link: "/guide/what-is-axon" },
       { text: "快速开始", link: "/guide/quickstart" },
       { text: "架构与消息流", link: "/guide/architecture" },
     ],
@@ -28,6 +29,13 @@ const sidebarZh = [
     ],
   },
   {
+    text: "示例工程",
+    items: [
+      { text: "本说明书（第一个示例工程）", link: "/projects/docs-site" },
+      { text: "双模式（有后端 / 没后端）", link: "/projects/dual-mode" },
+    ],
+  },
+  {
     text: "API",
     items: [
       { text: "JavaScript 端", link: "/api/javascript" },
@@ -41,19 +49,14 @@ const sidebarZh = [
       { text: "已知坑与修复", link: "/notes/pitfalls" },
     ],
   },
-  {
-    text: "示例工程",
-    items: [
-      { text: "本说明书（第一个示例工程）", link: "/projects/docs-site" },
-      { text: "双模式（有后端 / 没后端）", link: "/projects/dual-mode" },
-    ],
-  },
+
 ];
 
 const sidebarEn = [
   {
     text: "Getting started",
     items: [
+      { text: "What is Axon", link: "/en/guide/what-is-axon" },
       { text: "Quickstart", link: "/en/guide/quickstart" },
       { text: "Architecture & message flow", link: "/en/guide/architecture" },
     ],

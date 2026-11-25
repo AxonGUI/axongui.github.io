@@ -77,6 +77,7 @@ result = Axon("MainView").DocsJS.mirror({"hello": "world"}).result(5)
 
 | 你想做的事 | 看这一页 |
 | --- | --- |
+| 先搞清楚它是什么、适不适合我 | [什么是 Axon](/guide/what-is-axon) |
 | 装好并跑起来第一个窗口 | [快速开始](/guide/quickstart) |
 | 搞清楚消息是怎么走的 | [架构与消息流](/guide/architecture) |
 | 只想当网页用，不要桌面窗口 | [本说明书](/projects/docs-site) |
