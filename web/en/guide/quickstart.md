@@ -49,6 +49,8 @@ changes needed.
 axon-gui init myapp --shell
 ```
 
+`--shell` works with all three templates (vue / react / angular) — pick any with `-t`.
+
 Templates live in [AxonGUI/templates](https://github.com/AxonGUI/templates) and evolve independently of the framework; the CLI reads its `main` branch and both repos run their own build + contract tests in CI.
 
 What you get:

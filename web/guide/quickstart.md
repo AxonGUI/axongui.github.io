@@ -63,6 +63,8 @@ axon-gui init myapp --shell
 它会额外装 `axon-shell`、把 `main.py` 换成 `AxonShellWindow`，并在模板里放一条带
 `data-axon-drag` 的顶栏和三个窗口按钮——样式随你改，Python 侧不用动。
 
+`--shell` 对三套模板（vue / react / angular）都可用，`-t` 想选哪套都行。
+
 模板在独立仓库 [AxonGUI/templates](https://github.com/AxonGUI/templates)，跟框架分开迭代；CLI 取它的 main 分支，两边各自有 CI 跑构建和契约测试。
 
 生成的结构：
