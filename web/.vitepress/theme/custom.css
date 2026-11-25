@@ -1,0 +1,221 @@
+:root {
+  --axon-border: rgba(100, 108, 255, 0.28);
+  --axon-mono: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* 顶部状态条：只在连上 Python 后端时出现 */
+/* 桌面客户端里的一条底部状态栏；纯网页访问时这个节点根本不存在 */
+.axon-status {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 1.1rem;
+  font-size: 0.78rem;
+  border-top: 1px solid var(--vp-c-divider);
+  background: color-mix(in srgb, var(--vp-c-bg) 88%, transparent);
+  backdrop-filter: blur(6px);
+  color: var(--vp-c-text-2);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 给底部状态栏让出一点位置，避免盖住最后一行内容 */
+body:has(.axon-status) {
+  padding-bottom: 2.2rem;
+}
+.axon-status .dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: #21c07a;
+  box-shadow: 0 0 0 3px rgba(33, 192, 122, 0.18);
+  flex: 0 0 auto;
+}
+.axon-status .label {
+  color: #21c07a;
+}
+.axon-status .detail {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 示例下方的「运行」条（仅连上后端时渲染） */
+.try-it {
+  margin: 1rem 0 1.6rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--axon-border);
+  border-radius: 10px;
+  background: var(--vp-c-bg-soft);
+}
+.try-it__bar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.try-it__run {
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid var(--axon-border);
+  background: var(--vp-c-brand-1);
+  color: #fff;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.try-it__run:disabled {
+  background: var(--vp-c-bg-mute);
+  color: var(--vp-c-text-3);
+  border-color: var(--vp-c-divider);
+  cursor: progress;
+}
+.try-it__run--ghost {
+  background: transparent;
+  color: var(--vp-c-brand-1);
+}
+.try-it__reset {
+  padding: 0.4rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid var(--vp-c-divider);
+  background: transparent;
+  color: var(--vp-c-text-2);
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+.try-it__hint {
+  font-size: 0.78rem;
+  color: var(--vp-c-text-3);
+}
+
+.live-demo__flow {
+  list-style: none;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.entry {
+  padding: 0.5rem 0.65rem;
+  border-radius: 8px;
+  border-left: 3px solid var(--vp-c-divider);
+  background: var(--vp-c-bg);
+}
+.entry--js2py {
+  border-left-color: #4f7cff;
+}
+.entry--py2js {
+  border-left-color: #21c07a;
+}
+.entry--event {
+  border-left-color: #d9a521;
+}
+.entry--error {
+  border-left-color: #e5484d;
+}
+.entry--info {
+  border-left-color: var(--vp-c-text-3);
+}
+.entry__head {
+  display: flex;
+  gap: 0.55rem;
+  align-items: baseline;
+  font-size: 0.82rem;
+}
+.entry__dir {
+  font-family: var(--axon-mono);
+  font-size: 0.7rem;
+  padding: 0.05rem 0.35rem;
+  border-radius: 4px;
+  background: var(--vp-c-bg-mute);
+  color: var(--vp-c-text-2);
+  white-space: nowrap;
+}
+.entry__ms {
+  margin-left: auto;
+  color: var(--vp-c-text-3);
+  font-family: var(--axon-mono);
+  font-size: 0.72rem;
+}
+.entry__json {
+  margin: 0.35rem 0 0;
+  padding: 0.4rem 0.5rem;
+  border-radius: 6px;
+  background: var(--vp-c-bg-soft);
+  font-family: var(--axon-mono);
+  font-size: 0.76rem;
+  line-height: 1.5;
+  overflow-x: auto;
+}
+.entry__json--result {
+  border-left: 2px solid #21c07a;
+}
+.entry__detail {
+  margin: 0.3rem 0 0;
+  font-size: 0.8rem;
+  color: #e5484d;
+  font-family: var(--axon-mono);
+}
+.live-demo__summary-out {
+  margin: 0.8rem 0 0;
+  font-size: 0.86rem;
+}
+.live-demo__offline {
+  margin: 0.7rem 0 0;
+  font-size: 0.84rem;
+  color: var(--vp-c-text-3);
+}
+
+/* 示例页顶部的小标签 */
+.channel-tag {
+  display: inline-block;
+  margin: 0 0 0.2rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-family: var(--axon-mono);
+  background: var(--vp-c-bg-mute);
+  color: var(--vp-c-text-2);
+}
+
+/* 代码块上方的文件名栏（自定义 markdown 插件产出 .axon-file） */
+.vp-doc .axon-file {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0 0;
+  padding: 7px 14px;
+  font-family: var(--vp-font-family-mono);
+  font-size: 12px;
+  line-height: 1;
+  color: var(--vp-c-text-2);
+  background: var(--vp-code-block-bg);
+  border: 1px solid var(--vp-c-divider);
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+}
+
+.vp-doc .axon-file::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--vp-c-brand-1);
+  opacity: 0.7;
+}
+
+.vp-doc .axon-file + div[class*="language-"] {
+  margin-top: 0;
+  border-radius: 0 0 8px 8px;
+}
+
+/* 表格首列常放短标签（「想要的效果」「成员」），VitePress 默认会把长代码列撑开后
+   把首列压成一字一行。给首列一个下限，让它至少能放下 4~5 个字。 */
+.vp-doc table th:first-child,
+.vp-doc table td:first-child {
+  min-width: 7.5em;
+}

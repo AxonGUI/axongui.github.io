@@ -1,0 +1,8 @@
+node_modules/
+web/.vitepress/dist/
+web/.vitepress/cache/
+.venv/
+build/
+__pycache__/
+*.pyc
+verify_report.json

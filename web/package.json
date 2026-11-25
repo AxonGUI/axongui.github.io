@@ -1,0 +1,20 @@
+{
+  "name": "axon-docs",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "dependencies": {
+    "axon-gui": "^1.1.0",
+    "promise-retry": "^2.0.1",
+    "qwebchannel": "^6.2.0",
+    "uuid": ">=10.0.0"
+  },
+  "devDependencies": {
+    "vitepress": "^2.0.0-alpha.17"
+  },
+  "scripts": {
+    "docs:dev": "vitepress dev --host 127.0.0.1 --port 5174",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview --host 127.0.0.1"
+  }
+}
