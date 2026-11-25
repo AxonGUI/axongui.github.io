@@ -169,3 +169,13 @@
 - 启动：PyInstaller `--onefile` 每次启动都要把 200+ MB 解压到 `%TEMP%\_MEIxxxx`，再等
   Defender 扫一遍，冷启动必然慢。修法：改成目录形态（`--onedir`，默认），exe 与依赖留在原地，
   秒开；确实需要单文件时再显式 `--onefile`。
+
+## `axon://` 为什么不能拖视频进度条
+
+- **症状**：`<video src="axon://asset/…">` 能播放，但拖动进度条没反应；大文件断点续传也不行。
+- **根因**：分段响应需要读请求头里的 `Range`，而 `QWebEngineUrlRequestJob` 只暴露
+  `requestUrl()/requestMethod()/requestHeaders()` 的外发侧，服务端拿不到请求头，无法返回 206。
+- **修法**：需要 seek 的媒体别走 `axon://`，用应用自己的 HTTP 服务（`http.server` 或后端框架）
+  提供文件；小图片、PDF、下载类附件继续用 `axon://`。
+- 附带：`fetch()` 能从本机页面读 `axon://`，是因为 scheme 声明了 `CorsEnabled` 且响应带了
+  `Access-Control-Allow-Origin: *`；少任一条就只剩 `<img>` 能用、`fetch` 报 `Failed to fetch`。

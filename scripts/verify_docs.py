@@ -28,8 +28,10 @@ PAGES = [
     "examples/store",
     "examples/magicgui",
     "examples/broadcast",
+    "examples/assets",
     # 英文站：同一套组件在 /en/ 下也要能跑（示例 id 与中文页一一对应）
     "en/examples/call",
+    "en/examples/assets",
     "en/examples/event",
 ]
 

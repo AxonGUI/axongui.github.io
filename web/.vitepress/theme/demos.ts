@@ -276,6 +276,28 @@ export const demos: Record<string, Demo> = {
     },
   },
 
+  asset: {
+    title: "二进制走 URL",
+    run: async (lib) => {
+      const url = await trace(
+        "Axon.DemoController.blob(2000000)",
+        { controller_id: "DemoController", func: "blob", args: [2000000] },
+        () => lib.Axon.DemoController.blob(2000000),
+      );
+      const t0 = performance.now();
+      const res = await fetch(url);
+      const buf = await res.arrayBuffer();
+      const ms = Math.round(performance.now() - t0);
+      pushLog({
+        kind: "info",
+        title: `fetch(axon://) → ${buf.byteLength.toLocaleString()} 字节，${ms}ms`,
+        detail: "这条 URL 由 Python 登记，数据没经过通道",
+        result: { url, mime: res.headers.get("content-type"), ms },
+      });
+      return `${(buf.byteLength / 1e6).toFixed(1)} MB 从 axon:// 取回，耗时 ${ms}ms`;
+    },
+  },
+
   broadcast: {
     title: "广播到所有窗口",
     run: async (lib) => {

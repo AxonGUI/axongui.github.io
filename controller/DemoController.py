@@ -10,7 +10,7 @@ from typing import Any
 from PySide6.QtCore import QThread
 from PySide6.QtWidgets import QApplication
 
-from axon import Axon, AxonController, AxonEvent, AxonMagicGUI, AxonStore
+from axon import Axon, AxonAsset, AxonController, AxonEvent, AxonMagicGUI, AxonStore
 
 WEB = "AxonDocs"
 
@@ -50,6 +50,36 @@ class DemoController:
 
     def fail(self, reason: str = "demo") -> None:
         raise ValueError(f"这是 Python 主动抛出的错误: {reason}")
+
+    # ---------- 大块二进制：axon:// URL ----------
+    def blob(self, size: int = 2_000_000) -> str:
+        """生成一段二进制，返回 axon:// URL（前端 fetch 取字节）。"""
+        size = max(1024, min(int(size), 64 * 1024 * 1024))
+        data = bytes((i * 31) % 251 for i in range(size))
+        return AxonAsset.register(data, name=f"blob-{size}.bin")
+
+    def image(self) -> str:
+        """生成一张 16×16 PNG，返回 URL（<img src> 直接用）。"""
+        import struct
+        import zlib
+
+        w = h = 16
+        raw = b"".join(b"\x00" + bytes((52, 81, 178)) * w for _ in range(h))
+
+        def chunk(tag: bytes, data: bytes) -> bytes:
+            body = tag + data
+            return struct.pack(">I", len(data)) + body + struct.pack(">I", zlib.crc32(body) & 0xFFFFFFFF)
+
+        png = (
+            b"\x89PNG\r\n\x1a\n"
+            + chunk(b"IHDR", struct.pack(">IIBBBBB", w, h, 8, 2, 0, 0, 0))
+            + chunk(b"IDAT", zlib.compress(raw))
+            + chunk(b"IEND", b"")
+        )
+        return AxonAsset.register(png, name="demo.png")
+
+    def asset_count(self) -> int:
+        return AxonAsset.count()
 
     # ---------- JS → Python: 属性 ----------
 

@@ -287,6 +287,18 @@ cd ../.. && python main.py                             # offscreen 真窗口点�
 早期 v5.3.3 的单文件形态在同一台机器上的表现：冷启动明显更慢（每次启动解压 200+ MB），
 窗口按 1280×840 写死导致超出屏幕。这两点都在 v5.3.4 里改掉了。
 
+## 二进制走 `axon://`（5.4.4）
+
+| 断言 | 结果 |
+| --- | --- |
+| `<img src="axon://asset/…">` | 32×16 PNG 正确渲染 |
+| `fetch(url).arrayBuffer()` | 1,000,000 字节，3 ms |
+| `register_file()` + `fetch().text()` | 读回 `hello from disk` |
+| `release()` 后再取 | `count` 3→2，HTTP 404 |
+| 文档站示例页（`examples/assets`） | 2.0 MB，83 ms（客户端形态） |
+
+跑法：`core-py/tests/run_web_tests.py`（46 条，含 4 条 asset 断言）、`docs/scripts/verify_docs.py`。
+
 ## 文档站用的写法（VitePress 2.0.0-alpha.17 + 自建小插件）
 
 - **代码块标题**：```` ```js [app.js] ```` 会在代码块上方渲染一条文件名栏。这个版本还不支持该语法，

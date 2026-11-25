@@ -37,6 +37,7 @@ const sidebarZh = [
           { text: "魔法窗口（调 Qt UI）", link: "/examples/magicgui" },
           { text: "广播（发往所有窗口）", link: "/examples/broadcast" },
           { text: "跨窗口交互", link: "/examples/multi-window" },
+          { text: "大块数据（文件 / 二进制）", link: "/examples/assets" },
         ],
       },
     ],
@@ -86,6 +87,7 @@ const sidebarEn = [
       { text: "Magic window (Qt UI)", link: "/en/examples/magicgui" },
       { text: "Broadcast (all windows)", link: "/en/examples/broadcast" },
       { text: "Cross-window interaction", link: "/en/examples/multi-window" },
+      { text: "Big data (files / binary)", link: "/en/examples/assets" },
     ],
   },
   {
