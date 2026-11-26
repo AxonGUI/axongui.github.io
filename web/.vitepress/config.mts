@@ -134,7 +134,6 @@ export default defineConfig({
           { text: "指南", link: "/guide/quickstart" },
           { text: "可交互示例", link: "/examples/call" },
           { text: "API", link: "/api/javascript" },
-          { text: "GitHub", link: "https://github.com/AxonGUI/Axon" },
         ],
         socialLinks: [
           { icon: "github", link: "https://github.com/AxonGUI/Axon", ariaLabel: "GitHub 仓库" },
@@ -166,7 +165,6 @@ export default defineConfig({
           { text: "Guide", link: "/en/guide/quickstart" },
           { text: "Live examples", link: "/en/examples/call" },
           { text: "API", link: "/en/api/javascript" },
-          { text: "GitHub", link: "https://github.com/AxonGUI/Axon" },
         ],
         socialLinks: [
           { icon: "github", link: "https://github.com/AxonGUI/Axon", ariaLabel: "GitHub repository" },
