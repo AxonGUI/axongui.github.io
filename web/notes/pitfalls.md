@@ -1,3 +1,21 @@
+## 代码块文件名栏和类型悬停一起失效（VitePress alpha.21）
+
+**症状**：升级到 `vitepress 2.0.0-alpha.21` 后，` ```ts [app.ts] ` 的文件名栏不再出现；照官方写法加 `markdown.codeTransformers` 跑 twoslash，产物里也没有任何 `twoslash-*` 标记。
+
+**根因**（两件事都出在 VitePress 的渲染顺序上）：
+1. `preWrapperPlugin` 在 `markdown.config(md)` **之后**才安装，并且它先把 `token.info` 里的 `[app.ts]` 删掉，所以挂在 `md.renderer.rules.fence` 上的钩子拿不到方括号；
+2. `markdown.codeTransformers` 确实进了 `md.options`，但这版构建链的 `highlight()` 闭包没有读到它，transformer 一次都不会执行。
+
+**修法**（`web/.vitepress/config.mts`）：不再挂 fence 规则，改成包 `md.renderAsync`——
+- 渲染前扫一遍源码：带 `[文件名]` 的块拆出文件名、写成一行 `<div class="axon-file">`；带 `twoslash` 标记且含 `// ^?` 的块用 `createHighlighter` + `transformerTwoslash({ renderer: rendererRich() })` 直接渲染成 HTML，源码里留一个 `<div data-axon-slot="N"></div>` 占位；
+- 渲染后把占位替换回 HTML。
+
+**两个附带坑**：
+- HTML block 必须以空行结束（CommonMark）。文件名栏 `div` 和后面的三反引号之间没有空行，整段代码会被当原始 HTML 塞进模板，Vue 报 `Element is missing end tag`；
+- twoslash 的 `// ^?` 必须紧贴被查询的那一行、并且列号对准 token；查询放在多行调用结束的 `});` 下面会报 `The request on line N for quickinfo via ^? is in a removal range`。
+
+**顺带**：浮层用 `rendererRich()`（内容内联进 HTML），不要用 `@shikijs/vitepress-twoslash` 的 floating-vue 版本——那条路依赖 Vue 运行时插槽，静态产物里浮层是空的。
+
 # 已知坑与修复
 
 这一页记录「写完没跑过」的那批语法糖在被真实依赖跑起来之后暴露的问题。每一条都写清

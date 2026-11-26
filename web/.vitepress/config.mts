@@ -1,5 +1,19 @@
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vitepress";
+import { createHighlighter } from "shiki";
+import { transformerTwoslash, rendererRich } from "@shikijs/twoslash";
+
+// twoslash：给带 `// ^?` 查询的代码块生成「悬停看类型」的标记。
+// VitePress 的 markdown.codeTransformers 在这条构建链上没有传进 highlight，
+// 所以这里自己起一个 highlighter，只处理被标记了 `twoslash` 的块。
+let twoslashHighlighter: Promise<any> | undefined;
+function getTwoslashHighlighter() {
+  twoslashHighlighter ??= createHighlighter({
+    themes: ["github-light", "github-dark"],
+    langs: ["ts", "typescript", "js", "javascript"],
+  });
+  return twoslashHighlighter;
+}
 
 // GitHub Pages 的项目站点挂在 /<repo>/ 下, 本地/自托管又应该在根路径。
 // 用 DOCS_BASE 环境变量切换, 免得为部署单独维护一份配置。
@@ -187,35 +201,101 @@ export default defineConfig({
     },
   },
   markdown: {
-    // VitePress 2.0.0-alpha.17 还不支持 ```` ```js [file.js] ```` 这种「代码块标题」.
-    // 自己补一个小插件: 把方括号里的内容渲染成代码块上方的一条文件名栏,
-    // 代码组(::: code-group)里不渲染——那里方括号是标签页名字。
-    config(md) {
-      const original = md.renderer.rules.fence!;
-      const inCodeGroup = (tokens: any[], idx: number) => {
-        let depth = 0;
-        for (let i = idx - 1; i >= 0; i--) {
-          const t = tokens[i];
-          if (t.type === "container_code-group_close") depth++;
-          else if (t.type === "container_code-group_open") {
-            if (depth === 0) return true;
-            depth--;
+    // 这里做两件 VitePress 2.0.0-alpha.21 下走不通的事：
+    //   1. 代码块文件名栏（```` ```ts [app.ts] ````）—— alpha.21 的 preWrapper 会先把方括号删掉，
+    //      挂在 md.renderer.rules.fence 上的钩子拿不到；改成渲染前改源码、渲染后拼回来。
+    //   2. twoslash 类型悬停（带 `twoslash` 标记 + `// ^?` 查询）—— markdown.codeTransformers
+    //      在这条链上没有生效，自己在渲染前用 shiki + twoslash 生成好 HTML 再塞回去。
+    async config(md: any) {
+      const esc = (v: string) =>
+        v.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c] as string));
+
+      const FENCE = /^(`{3,})\s*(.*)$/;
+      const SLOT = (i: number) => `<div data-axon-slot="${i}"></div>`;
+
+      async function prepare(src: string) {
+        const lines = src.split("\n");
+        const out: string[] = [];
+        const slots: string[] = [];
+        let inGroup = false;
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i]!;
+          if (/^:::\s*code-group\s*$/.test(line.trim())) inGroup = true;
+          else if (inGroup && /^:::\s*$/.test(line.trim())) inGroup = false;
+
+          const m = FENCE.exec(line);
+          if (!m) {
+            out.push(line);
+            continue;
           }
+          const fence = m[1]!;
+          const info = m[2]!.trim();
+          const body: string[] = [];
+          let j = i + 1;
+          for (; j < lines.length; j++) {
+            const l = lines[j]!;
+            if (l.trim().startsWith(fence) && l.trim().replace(/`+$/, "") === "") break;
+            body.push(l);
+          }
+          const code = body.join("\n");
+          i = j;
+
+          if (!inGroup) {
+            const bracket = /\[([^\]]+)\]\s*$/.exec(info);
+            if (bracket) {
+              // 前后留空行：CommonMark 的 HTML block 在空行处结束，
+              // 否则下一行的 ``` 会被吞进 HTML block 里（Vue 会当作真标签解析）。
+              out.push("", `<div class="axon-file">${esc(bracket[1]!)}</div>`, "");
+              out.push(fence + " " + info.replace(/\s*\[[^\]]+\]\s*$/, ""));
+              out.push(...body, fence);
+              continue;
+            }
+          }
+          if (/\btwoslash\b/.test(info) && /\/\/[^\n]*\^\?/.test(code)) {
+            const html = await renderTwoslashBlock(code);
+            slots.push(html);
+            out.push("", SLOT(slots.length - 1), "");
+            continue;
+          }
+          out.push(line, ...body, fence);
         }
-        return false;
-      };
-      md.renderer.rules.fence = (tokens, idx, options, env, self) => {
-        const token = tokens[idx];
-        const info = token.info.trim();
-        const m = info.match(/^(.*?)\s*\[([^\]]+)\]\s*$/);
-        if (!m || inCodeGroup(tokens, idx)) return original(tokens, idx, options, env, self);
-        const lang = m[1].trim();
-        const file = m[2].replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c] as string));
-        const originalInfo = token.info;
-        token.info = lang;
-        const html = original(tokens, idx, options, env, self);
-        token.info = originalInfo;
-        return `<div class="axon-file">${file}</div>${html}`;
+        return { src: out.join("\n"), slots };
+      }
+
+      async function renderTwoslashBlock(code: string) {
+        const hl = await getTwoslashHighlighter();
+        return hl.codeToHtml(code, {
+          lang: "ts",
+          themes: { light: "github-light", dark: "github-dark" },
+          defaultColor: false,
+          transformers: [
+            transformerTwoslash({
+              explicitTrigger: false,
+              throws: false,
+              // 用富文本渲染器：浮层内容直接内联进 HTML，不依赖 floating-vue 的运行时插槽
+              renderer: rendererRich(),
+            }),
+          ],
+        });
+      }
+
+      const render = md.render.bind(md);
+      const renderAsync = md.renderAsync?.bind(md);
+
+      if (renderAsync) {
+        md.renderAsync = async (src: string, env: any) => {
+          const { src: next, slots } = await prepare(src);
+          let html = await renderAsync(next, env);
+          slots.forEach((slot, idx) => {
+            html = html.replace(SLOT(idx), slot);
+          });
+          return html;
+        };
+      }
+      md.render = (src: string, env: any) => {
+        // 同步渲染（摘要、SSR 里的个别入口）不支持 twoslash，只处理文件名栏
+        const { src: next, slots } = { src, slots: [] as string[] };
+        return render(next, env);
       };
     },
   },

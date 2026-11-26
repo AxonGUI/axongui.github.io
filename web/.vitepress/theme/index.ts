@@ -3,6 +3,7 @@ import DefaultTheme from "vitepress/theme";
 import Layout from "./Layout.vue";
 import LiveDemo from "./components/LiveDemo.vue";
 import CrossInbox from "./components/CrossInbox.vue";
+import "@shikijs/twoslash/style-rich.css";
 import "./custom.css";
 
 export default {

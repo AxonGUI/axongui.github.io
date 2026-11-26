@@ -4,12 +4,15 @@
   "version": "0.1.0",
   "type": "module",
   "dependencies": {
-    "axon-gui": "^1.1.0",
+    "axon-gui": "^1.4.1",
     "promise-retry": "^2.0.1",
     "qwebchannel": "^6.2.0",
     "uuid": ">=10.0.0"
   },
   "devDependencies": {
+    "@shikijs/twoslash": "^4.6.0",
+    "twoslash": "^0.3.9",
+    "typescript": "^6.0.3",
     "vitepress": "^2.0.0-alpha.17"
   },
   "scripts": {

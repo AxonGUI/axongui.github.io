@@ -359,3 +359,15 @@ PASS
 传真的坑：把按钮 id 从 `btn-back` 改名成 `btn-call-main` 时，页面脚本里还有一处旧 id，导致
 `Cannot set properties of null (setting 'disabled')` —— 页面初始化中断、按钮全灰。这类「改名后遗漏引用」
 用 `grep -n "旧id"` 扫一遍再构建，比看截图快。
+
+## 类型悬停（twoslash，v0.3.4）
+
+| 检查 | 结果 |
+| --- | --- |
+| `api/javascript` 的 `AxonInit()` 片段 | 悬停 `status` → `const status: IAxonInitResult`；悬停 `mode` → `IAxonInitResult.mode: AxonMode` |
+| `api/javascript` 的 `AxonCall.call<T>()` 片段 | 悬停 `sum` → `const sum: number`；悬停 `.toFixed` → `Number.toFixed(fractionDigits?: number): string` |
+| `examples/store` 的 `store.get<T>()` 片段 | 悬停 `count` → `const count: number` |
+| 文件名栏 | `examples/call` 3 处、`guide/quickstart` 8 处仍在 |
+| 纯网页形态 | `scripts/verify_offline.py` 全过（下载引导、无后端字样、代码可读） |
+| 客户端形态 | `scripts/verify_docs.py` 全部示例通过 |
+

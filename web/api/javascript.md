@@ -49,6 +49,21 @@ if (status.mode === "web") {
 | `reason` | 没连上的原因（`no-qt-transport` / `retry-exhausted`） |
 | `objects` | 后端暴露的对象名 |
 
+### 悬停看类型
+
+下面这段是真代码：把鼠标放到 `status`、`mode` 上，会显示从 `axon-gui` 类型定义里查出来的类型。
+
+```ts twoslash
+import { AxonInit } from "axon-gui";
+
+async function boot() {
+  const status = await AxonInit();
+  //    ^?
+  return status.mode;
+  //            ^?
+}
+```
+
 ### `isAxonReady()`
 
 签名：`isAxonReady(): boolean`。同步查询是否「已连上且三个通道对象齐全」。适合初始化之后再用来做条件判断。
@@ -153,6 +168,20 @@ await AxonCall.crossCall({ web_name: "MainView", controller_id: "Calc", func: "a
 ```
 
 `AxonCall.init()` 负责挂上接收 Python 回调的信号，`AxonInit()` 已经调过。
+
+## 悬停看返回类型
+
+低层的 `AxonCall.call<T>()` 也是同样：类型参数决定 `await` 之后的类型。
+
+```ts twoslash
+import { AxonCall } from "axon-gui";
+
+async function call() {
+  const sum = await AxonCall.call<number>({ controller_id: "DemoController", func: "add", args: [2, 3] });
+  //    ^?
+  return sum.toFixed(1);
+}
+```
 
 ## `AxonController` —— 让 Python 能调用 JS
 

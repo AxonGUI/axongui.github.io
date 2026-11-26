@@ -49,6 +49,19 @@ const theme = store.get("theme");
 
 所以「两端保持一致」靠的是每端各自的 `set`，而不是自动双向同步：一个键的值是谁最后写的，就以谁为准。
 
+## 悬停看返回类型
+
+`store.get<T>()` 的类型参数会一路带到返回值上——把鼠标放到 `count` 上看一眼：
+
+```ts twoslash
+import { AxonStore } from "axon-gui";
+
+const store = new AxonStore("docs-store", false);
+//    ^?
+const count = store.get<number>("counter");
+//    ^?
+```
+
 ## 要点
 
 - **名字要对上**：`AxonStore("docs-store", ...)` 与 `new AxonStore("docs-store")` 是同一份；名字不同就是两份独立数据。
