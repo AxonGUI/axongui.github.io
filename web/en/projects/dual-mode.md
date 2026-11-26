@@ -75,9 +75,9 @@ notice. It is absent.
 
 The pages you are reading are the same codebase in both modes:
 
-- Open in a browser (or the [GitHub Pages build](https://axongui.github.io/Axon/)): pure documentation.
+- Open in a browser (or the [GitHub Pages build](https://axongui.github.io/)): pure documentation.
   The code samples are readable and there is no "backend required" message anywhere.
-- Open with the [AxonDocs client](https://github.com/AxonGUI/Axon/releases/latest): every sample gets a
+- Open with the [AxonDocs client](https://github.com/AxonGUI/axongui.github.io/releases/latest): every sample gets a
   "Run this example" button. Clicking it really calls Python and lists, step by step, what went over the
   wire in both directions.
 

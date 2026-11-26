@@ -19,8 +19,8 @@ How they relate: `ensureAxon()` in the theme decides "is there a Python backend"
 
 | How | What you see |
 | --- | --- |
-| Visit the [GitHub Pages version](https://axongui.github.io/Axon/en/) | Pure documentation: code, prose and navigation work, with no "backend required" hints at all |
-| Download the [AxonDocs client](https://github.com/AxonGUI/Axon/releases/latest) | Every example gains a "▶ Run this example" button; clicking really calls Python and lists what crossed the bridge |
+| Visit the [GitHub Pages version](https://axongui.github.io/en/) | Pure documentation: code, prose and navigation work, with no "backend required" hints at all |
+| Download the [AxonDocs client](https://github.com/AxonGUI/axongui.github.io/releases/latest) | Every example gains a "▶ Run this example" button; clicking really calls Python and lists what crossed the bridge |
 | Run `python scripts/main.py` locally | Same as the client, just started from your machine |
 
 The first two use **the same** `dist` — there is no second codebase.

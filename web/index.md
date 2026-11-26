@@ -88,6 +88,6 @@ result = Axon("MainView").DocsJS.mirror({"hello": "world"}).result(5)
 
 ## 这段文档本身也是示例
 
-文档站是用 Axon 打包的桌面客户端（[下载](https://github.com/AxonGUI/Axon/releases/latest)）打开的。左边这些示例页，用客户端打开时每段代码下面会多出一个「运行这段示例」按钮，点了会真的调用 Python，并把两端传了什么逐条列出来；用浏览器打开时没有任何按钮，就是一份普通文档。
+文档站是用 Axon 打包的桌面客户端（[下载](https://github.com/AxonGUI/axongui.github.io/releases/latest)）打开的。左边这些示例页，用客户端打开时每段代码下面会多出一个「运行这段示例」按钮，点了会真的调用 Python，并把两端传了什么逐条列出来；用浏览器打开时没有任何按钮，就是一份普通文档。
 
 <LiveDemo id="call" />

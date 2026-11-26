@@ -87,6 +87,6 @@ result = Axon("MainView").DocsJS.mirror({"hello": "world"}).result(5)
 
 ## This documentation is itself an example
 
-This site ships as a desktop client built with Axon ([download](https://github.com/AxonGUI/Axon/releases/latest)). Opened in that client, every example page grows a "Run this example" button that really calls Python and lists what crossed the wire in both directions. Opened in a browser, there are no buttons — just a normal document.
+This site ships as a desktop client built with Axon ([download](https://github.com/AxonGUI/axongui.github.io/releases/latest)). Opened in that client, every example page grows a "Run this example" button that really calls Python and lists what crossed the wire in both directions. Opened in a browser, there are no buttons — just a normal document.
 
 <LiveDemo id="call" />

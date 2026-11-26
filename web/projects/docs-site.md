@@ -19,8 +19,8 @@
 
 | 怎么打开 | 看到什么 |
 | --- | --- |
-| 直接访问 [GitHub Pages 版](https://axongui.github.io/Axon/) | 纯文档：代码、说明、目录都正常，没有任何「需要后端」的提示 |
-| 下载 [AxonDocs 客户端](https://github.com/AxonGUI/Axon/releases/latest) | 每段示例下面多一个「▶ 运行这段示例」，点了真的调 Python，并逐条列出两端传了什么 |
+| 直接访问 [GitHub Pages 版](https://axongui.github.io/) | 纯文档：代码、说明、目录都正常，没有任何「需要后端」的提示 |
+| 下载 [AxonDocs 客户端](https://github.com/AxonGUI/axongui.github.io/releases/latest) | 每段示例下面多一个「▶ 运行这段示例」，点了真的调 Python，并逐条列出两端传了什么 |
 | 本地 `python scripts/main.py` | 和客户端一样，只是窗口从你自己的环境起 |
 
 前两种用的是**同一份** `dist`，没有两份代码。

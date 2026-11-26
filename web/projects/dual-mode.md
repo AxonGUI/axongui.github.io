@@ -67,8 +67,8 @@ if (status.connected) {
 
 你现在看的页面（[完整说明在这里](/projects/docs-site)），就是同一套代码的两种形态：
 
-- 用浏览器打开（或访问 [GitHub Pages 版本](https://axongui.github.io/Axon/)）：纯文档，示例代码照样能读，没有任何「需要后端」的提示。
-- 用 [AxonDocs 客户端](https://github.com/AxonGUI/Axon/releases/latest)打开：每段示例下方多一个「运行这段示例」按钮，点了会真的调用 Python，并逐条显示两端传了什么。
+- 用浏览器打开（或访问 [GitHub Pages 版本](https://axongui.github.io/)）：纯文档，示例代码照样能读，没有任何「需要后端」的提示。
+- 用 [AxonDocs 客户端](https://github.com/AxonGUI/axongui.github.io/releases/latest)打开：每段示例下方多一个「运行这段示例」按钮，点了会真的调用 Python，并逐条显示两端传了什么。
 
 ## 要点
 
