@@ -48,6 +48,33 @@ const status = await AxonInit();
 
 签名：`initChannels(): Promise<IAxonChannelStatus>`。只建通道、不初始化子系统。一般不需要直接用。
 
+## 类型：动态部分给 `any`，静态部分给真实类型
+
+`Axon` 和 `AxonCross.web()` 背后的控制器名、方法名只有运行时才知道，所以这两个
+**类型上就是 `any`** —— 硬要用索引签名去描述，只会让开了
+`noPropertyAccessFromIndexSignature` / `noUncheckedIndexedAccess` 的项目报错。
+
+想要静态类型，自己写一个接口再断言即可：
+
+```ts
+interface CalcApi {
+  add(a: number, b: number): Promise<number>;
+}
+const calc = Axon.Calc as CalcApi;
+const sum: number = await calc.add(2, 3);   // 有补全、有检查
+```
+
+其余 API（`AxonStore`、`AxonEvent`、`AxonCall`、`AxonCross.call/broadcast`、`AxonInit`）
+都是真实类型，且允许指定返回值：
+
+```ts
+const sum = await AxonCall.call<number>({ controller_id: "Calc", func: "add", args: [2, 3] });
+const title = await AxonCall.getVar<string>({ controller_id: "Calc", var_name: "title" });
+```
+
+> 包本身 `strict` 全绿，并带一个「消费方类型测试」（bundler 与 node16 两种解析、
+> 开满严格选项）挡回归。
+
 ## 写法约定：一律 `await`
 
 所有调用都返回 `Promise`，样例统一用 `await` —— 它跟 `try/catch` 一起用最直接，
@@ -140,7 +167,10 @@ class DocsJS { ... }
 ## `AxonEvent` —— 事件
 
 ```js
-AxonEvent.addListener("demo:event", handler);
+// addListener 返回退订函数，存起来在卸载时调
+const off = AxonEvent.addListener("demo:event", handler);
+off();                                        // 等价于 removeListener("demo:event", handler)
+
 AxonEvent.addListener("loadFinished", handler, { once: true });
 AxonEvent.removeListener("demo:event", handler);
 AxonEvent.removeAllListeners("demo:event");
@@ -162,7 +192,9 @@ AxonEvent.dispatchPYEvent({ type: "demo:pong", args: [1, 2, 3] });
 const store = new AxonStore("docs-store");     // 同名即同一份
 
 store.set("k", 1);                             // 写，并推给 Python
-store.get("k").get();                          // 读本地缓存
+store.get("k").get();                          // 读本地缓存（同步）
+await store.get("k");                          // 也可以直接 await，拿到的就是值
+store.get<number>("k").get();                  // 静态类型：取出来是 number
 store.get("k").set(2);                         // 等价于 store.set("k", 2)
 store.prop("k").get();                         // store.get("k") 的另一种写法
 

@@ -9,6 +9,29 @@ from axon import (
 
 分发包名是 `axon-gui`，模块名是 `axon`。
 
+## 类型
+
+包内带 `py.typed`（PEP 561），所以在你的项目里 `from axon import AxonGUI` 是有类型的，
+mypy / pyright 会真的检查我们这边的注解。框架自身按 `mypy --strict` 维护，CI 会挡回归。
+
+动态部分（`Axon("web").任何控制器`）在 Python 侧是 `Any` —— 控制器名只有运行时知道：
+
+```python
+from typing import Any, cast
+
+future = Axon("MainView").Calc.add(2, 3)      # 返回 AxonFuture[Any]
+sum_: int = future.result(5)
+```
+
+需要强类型时可以自己包一层：
+
+```python
+class CalcApi:
+    def add(self, a: int, b: int) -> AxonFuture[int]: ...
+
+calc = cast(CalcApi, Axon("MainView").Calc)
+```
+
 ## `AxonGUI` —— 窗口
 
 ```python
