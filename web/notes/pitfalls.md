@@ -1,3 +1,11 @@
+## twoslash 的类型是常驻显示，不是悬停
+
+**症状**：代码块里写了 `// ^?`，页面上那个类型说明一直挂着不走，悬停反而没有浮层。
+
+**根因**：`^?` 在 twoslash 里是「查询（query）」，语义就是**常驻显示**——`style-rich.css` 里 `.twoslash-query-persisted .twoslash-popup-container { opacity: 1 }` 直接把它钉住了。悬停浮层只作用于普通的 `.twoslash-hover` 片段（`:hover` 才 `opacity: 1`）。
+
+**修法**：想要悬停效果就别写 `^?`，只给代码块加 `twoslash` 标记；这样块里每个标识符都会变成可悬停的 token。
+
 ## 代码块文件名栏和类型悬停一起失效（VitePress alpha.21）
 
 **症状**：升级到 `vitepress 2.0.0-alpha.21` 后，` ```ts [app.ts] ` 的文件名栏不再出现；照官方写法加 `markdown.codeTransformers` 跑 twoslash，产物里也没有任何 `twoslash-*` 标记。

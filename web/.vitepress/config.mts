@@ -251,7 +251,7 @@ export default defineConfig({
               continue;
             }
           }
-          if (/\btwoslash\b/.test(info) && /\/\/[^\n]*\^\?/.test(code)) {
+          if (/\btwoslash\b/.test(info)) {
             const html = await renderTwoslashBlock(code);
             slots.push(html);
             out.push("", SLOT(slots.length - 1), "");

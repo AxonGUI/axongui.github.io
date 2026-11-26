@@ -51,16 +51,14 @@ if (status.mode === "web") {
 
 ### 悬停看类型
 
-下面这段是真代码：把鼠标放到 `status`、`mode` 上，会显示从 `axon-gui` 类型定义里查出来的类型。
+下面这段是真代码：鼠标悬停到任意标识符上（`status`、`mode`、`AxonInit`……），会显示从 `axon-gui` 类型定义里查出来的类型。
 
 ```ts twoslash
 import { AxonInit } from "axon-gui";
 
 async function boot() {
   const status = await AxonInit();
-  //    ^?
   return status.mode;
-  //            ^?
 }
 ```
 
@@ -178,7 +176,6 @@ import { AxonCall } from "axon-gui";
 
 async function call() {
   const sum = await AxonCall.call<number>({ controller_id: "DemoController", func: "add", args: [2, 3] });
-  //    ^?
   return sum.toFixed(1);
 }
 ```

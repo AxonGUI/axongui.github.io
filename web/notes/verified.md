@@ -364,7 +364,7 @@ PASS
 
 | 检查 | 结果 |
 | --- | --- |
-| `api/javascript` 的 `AxonInit()` 片段 | 悬停 `status` → `const status: IAxonInitResult`；悬停 `mode` → `IAxonInitResult.mode: AxonMode` |
+| `api/javascript` 的 `AxonInit()` 片段 | 悬停 `status` → `const status: IAxonInitResult`（浮层 `opacity` 0 → 1） |
 | `api/javascript` 的 `AxonCall.call<T>()` 片段 | 悬停 `sum` → `const sum: number`；悬停 `.toFixed` → `Number.toFixed(fractionDigits?: number): string` |
 | `examples/store` 的 `store.get<T>()` 片段 | 悬停 `count` → `const count: number` |
 | 文件名栏 | `examples/call` 3 处、`guide/quickstart` 8 处仍在 |

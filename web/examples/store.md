@@ -57,9 +57,7 @@ const theme = store.get("theme");
 import { AxonStore } from "axon-gui";
 
 const store = new AxonStore("docs-store", false);
-//    ^?
 const count = store.get<number>("counter");
-//    ^?
 ```
 
 ## 要点
