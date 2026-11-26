@@ -2,6 +2,7 @@ import type { Theme } from "vitepress";
 import DefaultTheme from "vitepress/theme";
 import Layout from "./Layout.vue";
 import LiveDemo from "./components/LiveDemo.vue";
+import CrossInbox from "./components/CrossInbox.vue";
 import "./custom.css";
 
 export default {
@@ -10,5 +11,6 @@ export default {
   enhanceApp({ app }) {
     // 直接在 markdown 里用 <LiveDemo id="call" />
     app.component("LiveDemo", LiveDemo);
+    app.component("CrossInbox", CrossInbox);
   },
 } satisfies Theme;

@@ -68,12 +68,12 @@ const directionLabel = computed<Record<string, string>>(() => strings.value.dir)
     <div class="try-it__bar">
       <!-- 始终是同一个按钮: 运行中只改文案, 不要替换节点（外部脚本要能等它恢复） -->
       <button class="try-it__run" :class="{ 'try-it__run--ghost': expanded }" :disabled="running" @click="run">
-        {{ running ? strings.running : expanded ? strings.again : strings.run }}
+        {{ running ? strings.running : expanded ? strings.again : `▶ ${demo.title}` }}
       </button>
       <button v-if="expanded" class="try-it__reset" :disabled="running" @click="reset">
         {{ strings.clear }}
       </button>
-      <span class="try-it__hint">{{ strings.hint }}</span>
+      <span class="try-it__hint">{{ demo.hint || strings.hint }}</span>
     </div>
 
     <ol v-if="entries.length" class="live-demo__flow">

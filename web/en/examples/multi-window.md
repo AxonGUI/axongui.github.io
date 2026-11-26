@@ -229,7 +229,14 @@ See [cross-side store](/en/examples/store).
 
 These buttons are not an animation: the first one opens a real `charts` window on your screen —
 a **dedicated demo page** (`/demo/cross-window.html`), not a page of this manual.
-The second one sends a call through Python into that page, and both sides log a line.
+The second one sends a call through Python into that page — **each window shows its own half**.
+
+<CrossInbox />
+
+::: tip Watch both sides
+The `charts` window has its own buttons: hit "call main" there and the "calls from other windows"
+list on this page gains an entry; hit the second button here and the charts log gains a line.
+:::
 
 ```js
 // 1. open a second window named charts

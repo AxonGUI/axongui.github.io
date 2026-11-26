@@ -9,6 +9,8 @@ import { currentLang, stringsFor } from "./i18n";
  */
 export interface Demo {
   title: string;
+  /** 这个按钮点下去会发生什么（一句话） */
+  hint: string;
   run: (lib: any) => Promise<string | void>;
 }
 
@@ -49,6 +51,7 @@ async function trace<T>(
 export const demos: Record<string, Demo> = {
   call: {
     title: "调用 Python 方法",
+    hint: "调用 Python 的 add(2, 3)，把返回值 5 拿回 JS",
     run: async (lib) => {
       const result = await trace(
         "Axon.DemoController.add(2, 3)",
@@ -61,6 +64,7 @@ export const demos: Record<string, Demo> = {
 
   kwargs: {
     title: "带关键字参数调用",
+    hint: "用关键字参数调 Python（b 与 label 按名字传）",
     run: async (lib) => {
       const payload = { b: 2, label: "hi" };
       const result = await trace(
@@ -74,6 +78,7 @@ export const demos: Record<string, Demo> = {
 
   async: {
     title: "调用 async 方法",
+    hint: "调用 Python 的 async def 方法，等它真的 await 完再返回",
     run: async (lib) => {
       const result = await trace(
         "Axon.DemoController.delayed('hi', 300)",
@@ -86,6 +91,7 @@ export const demos: Record<string, Demo> = {
 
   timeout: {
     title: "超时",
+    hint: "JS 只等 300ms，Python 要跑 1500ms —— 看超时怎么报",
     run: async (lib) => {
       await trace(
         "Axon.DemoController.slow([1500], {}, 300)   ← 只等 300ms",
@@ -98,6 +104,7 @@ export const demos: Record<string, Demo> = {
 
   error: {
     title: "Python 抛异常",
+    hint: "Python 抛 ValueError，JS 侧接住成一个 reject",
     run: async (lib) => {
       await trace(
         "Axon.DemoController.fail('manual')",
@@ -110,6 +117,7 @@ export const demos: Record<string, Demo> = {
 
   property: {
     title: "读写 Python 属性",
+    hint: "读一个 Python 属性（要 await），再写一个新值，再读回来",
     run: async (lib) => {
       const before = await trace(
         "await Axon.DemoController.counter   ← 读属性",
@@ -134,6 +142,7 @@ export const demos: Record<string, Demo> = {
 
   pyToJs: {
     title: "Python 调用 JS 方法",
+    hint: "让 Python 反过来调 JS 的 DocsJS.mirror() 并拿到结果",
     run: async (lib) => {
       const result = await trace(
         "Axon.DemoController.call_js_mirror({ hello: 'from python' })",
@@ -150,6 +159,7 @@ export const demos: Record<string, Demo> = {
 
   pyToJsProperty: {
     title: "Python 读写 JS 属性",
+    hint: "让 Python 读/写 JS 侧的一个属性",
     run: async (lib) => {
       const read = await trace(
         "Axon.DemoController.read_js_value()",
@@ -173,6 +183,7 @@ export const demos: Record<string, Demo> = {
 
   eventPyToJs: {
     title: "Python 派发事件 → JS",
+    hint: "Python 发一个事件，JS 侧监听器收到",
     run: async (lib) => {
       const received: unknown[] = [];
       const listener = (text: unknown) => {
@@ -193,6 +204,7 @@ export const demos: Record<string, Demo> = {
 
   eventJsToPy: {
     title: "JS 派发事件 → Python",
+    hint: "JS 发一个事件，Python 侧监听器记下参数",
     run: async (lib) => {
       await trace(
         "AxonEvent.dispatchPYEvent({ type: 'demo:pong', args: [1, 2, 3] })",
@@ -211,6 +223,7 @@ export const demos: Record<string, Demo> = {
 
   stream: {
     title: "长任务进度推送",
+    hint: "Python 连发 4 条进度事件，JS 逐条收到",
     run: async (lib) => {
       const steps: unknown[] = [];
       const listener = (data: unknown) => {
@@ -231,6 +244,7 @@ export const demos: Record<string, Demo> = {
 
   store: {
     title: "跨端 Store",
+    hint: "JS 写一个键、Python 读，Python 再写一个键、JS 读",
     run: async (lib) => {
       const store = new lib.AxonStore("docs-store");
       const written = "from-js-" + Math.random().toString(36).slice(2, 7);
@@ -266,6 +280,7 @@ export const demos: Record<string, Demo> = {
 
   magicgui: {
     title: "回到 Qt 主线程执行",
+    hint: "把一段函数送回 Qt 主线程执行，回来的结果是 true/false",
     run: async (lib) => {
       const result = await trace(
         "Axon.DemoController.magic_gui()",
@@ -300,6 +315,7 @@ export const demos: Record<string, Demo> = {
 
   broadcast: {
     title: "广播到所有窗口",
+    hint: "一次调用打到所有窗口，逐窗口收回执",
     run: async (lib) => {
       const result = await trace(
         "Axon.DemoController.broadcast('hi from js')",
@@ -312,6 +328,7 @@ export const demos: Record<string, Demo> = {
 
   crossOpen: {
     title: "打开第二个窗口",
+    hint: "真的再开一个窗口（独立演示页 /demo/cross-window.html）",
     run: async (lib) => {
       const windows = await trace(
         "Axon.DemoController.cross_open()",
@@ -342,6 +359,7 @@ export const demos: Record<string, Demo> = {
 
   crossCall: {
     title: "点名调用另一个窗口",
+    hint: "点名调用另一个窗口里的 JS 控制器 Peer.ping()",
     run: async (lib) => {
       const text = "来自 AxonDocs 的跨窗口调用";
       const result = await trace(
@@ -361,6 +379,7 @@ export const demos: Record<string, Demo> = {
 
   crossBroadcast: {
     title: "广播到所有窗口",
+    hint: "一次打到所有窗口（含自己），逐窗口收结果",
     run: async (lib) => {
       const text = "广播：所有窗口都该收到";
       const result = await trace(
@@ -374,6 +393,7 @@ export const demos: Record<string, Demo> = {
 
   crossEmit: {
     title: "发事件给所有窗口",
+    hint: "发一个事件给所有窗口，谁监听谁处理",
     run: async (lib) => {
       const windows = await trace(
         'Axon.DemoController.cross_emit("事件：来自 AxonDocs")',
@@ -386,6 +406,7 @@ export const demos: Record<string, Demo> = {
 
   crossClose: {
     title: "关掉第二个窗口",
+    hint: "关掉那个第二个窗口",
     run: async (lib) => {
       const windows = await trace(
         "Axon.DemoController.cross_close()",

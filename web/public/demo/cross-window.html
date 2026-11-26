@@ -65,7 +65,7 @@
 </header>
 <main>
   <div class="side">
-    <button id="btn-back" class="primary" disabled>回调主窗口</button>
+    <button id="btn-call-main" class="primary" disabled>回调主窗口</button>
     <button id="btn-all" disabled>广播到所有窗口</button>
     <button id="btn-emit" disabled>发一个事件</button>
     <button id="btn-close" disabled>关掉这个窗口</button>
@@ -86,7 +86,7 @@
   const webnameEl = document.getElementById("webname");
   const logEl = document.getElementById("log");
   const emptyEl = document.getElementById("empty");
-  const buttons = ["btn-back", "btn-all", "btn-emit", "btn-close"].map((id) => document.getElementById(id));
+  const buttons = ["btn-call-main", "btn-all", "btn-emit", "btn-close"].map((id) => document.getElementById(id));
 
   function addLog(kind, text, who) {
     emptyEl.style.display = "none";
@@ -143,7 +143,7 @@
       addLog("in", String(text), "← 事件 demo:cross");
     });
 
-    document.getElementById("btn-back").onclick = async () => {
+    document.getElementById("btn-call-main").onclick = async () => {
       try {
         const r = await lib.AxonCross.web("AxonDocs").DocsJS.note("来自 charts 的回调");
         addLog("out", String(r), "→ 回调 AxonDocs.DocsJS.note()");

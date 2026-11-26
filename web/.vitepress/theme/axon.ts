@@ -23,6 +23,21 @@ export const initializing = ref(true);
 export const statusDetail = ref(stringsFor(currentLang()).probing);
 export const logs = ref<LogEntry[]>([]);
 
+/** 别的窗口调到我这里的记录（跨窗口示例用它做「两边一起显示」） */
+export interface InboundEntry {
+  at: string;
+  kind: "call" | "event";
+  text: string;
+}
+export const inbound = ref<InboundEntry[]>([]);
+
+function pushInbound(kind: "call" | "event", text: string) {
+  inbound.value = [
+    { at: new Date().toLocaleTimeString("zh-CN", { hour12: false }), kind, text },
+    ...inbound.value,
+  ].slice(0, 12);
+}
+
 let libModule: any = null;
 let initPromise: Promise<boolean> | null = null;
 let activeSink: ((entry: LogEntry) => void) | null = null;
@@ -63,6 +78,7 @@ function createDocsJsController() {
     },
     note(text: unknown) {
       const strings = stringsFor(currentLang());
+      pushInbound("call", String(text));
       pushLog({ kind: "py2js", title: strings.noteCalled, payload: text });
       return strings.noteReply(String(text));
     },
@@ -75,6 +91,7 @@ export async function getAxonLib(): Promise<any> {
     libModule.AxonController.register("DocsJS", createDocsJsController());
     // 跨窗口事件：别的窗口 AxonCross.emit("demo:cross", …) 打过来时记一条
     libModule.AxonEvent.addListener("demo:cross", (text: unknown) => {
+      pushInbound("event", String(text));
       pushLog({
         kind: "event",
         title: "收到跨窗口事件 demo:cross",

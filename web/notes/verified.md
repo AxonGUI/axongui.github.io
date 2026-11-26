@@ -346,3 +346,16 @@ PASS
 | 关闭 | `["AxonDocs"]` |
 | 纯网页打开演示页 | 「纯网页模式：没有检测到 Python 后端」，四个按钮全部 disabled |
 
+## 跨窗口「两边一起显示」（v0.3.3）
+
+| 检查 | 结果 |
+| --- | --- |
+| 每个示例按钮的文案 | 显示该示例自己的标题（`▶ 调用 Python 方法`、`▶ 点名调用另一个窗口` …），旁边一行说明「点下去会发生什么」 |
+| 主窗口收到 charts 的调用 | 页面上的「别的窗口调到我这里」实时多一条（`调用 · 来自 charts 的回调 · 时间`） |
+| charts 窗口收到主窗口的调用 | 演示页日志多一条青色「收到」记录，并回 `{"web":"charts","echo":…}` |
+| 当前窗口列表 | `CrossInbox` 每 1.5s 轮询 `AxonCross.windows()`，显示 `AxonDocs` / `charts` |
+| 纯网页形态 | 独立演示页显示「纯网页模式」且四个按钮全部不可点（`verify_offline.py` 断言） |
+
+传真的坑：把按钮 id 从 `btn-back` 改名成 `btn-call-main` 时，页面脚本里还有一处旧 id，导致
+`Cannot set properties of null (setting 'disabled')` —— 页面初始化中断、按钮全灰。这类「改名后遗漏引用」
+用 `grep -n "旧id"` 扫一遍再构建，比看截图快。
