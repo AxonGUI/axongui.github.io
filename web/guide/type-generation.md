@@ -30,7 +30,7 @@ axon-gui types
 ```bash
 axon-gui types                      # 两个都生成（默认）
 axon-gui types --check              # CI：两个都校验
-axon-gui types --skip-py            # 只要 TS
+axon-gui types --only ts            # 只要 TS
 axon-gui types --out app/types/axon.ts --py-out app/js_api.py   # 换位置
 ```
 

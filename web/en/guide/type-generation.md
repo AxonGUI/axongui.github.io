@@ -29,7 +29,7 @@ run from `web/`):
 ```bash
 axon-gui types                      # both directions (default)
 axon-gui types --check              # CI: verify both
-axon-gui types --skip-py            # TS only
+axon-gui types --only ts            # TS only
 axon-gui types --out app/types/axon.ts --py-out app/js_api.py   # custom paths
 ```
 
