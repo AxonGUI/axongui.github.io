@@ -155,15 +155,40 @@ AxonEvent.dispatchPYEvent({ type: "demo:pong", args: [1, 2, 3] });
 Built-in events (dispatched by the Qt window): `loadFinished`, `contextMenu`, `dragEnter`, `dragMove`,
 `drop`, `dragLeave`, `hide`, `show`.
 
+## Errors
+
+Everything thrown across the bridge is an `Error` subclass with a stable `code`, so you never match on message text:
+
+| Class | `code` | When |
+| --- | --- | --- |
+| `AxonTimeoutError` | `TIMEOUT` | `timeout` expired before Python answered |
+| `AxonNotConnectedError` | `NOT_CONNECTED` | a call was made before the channel was up |
+| `AxonRemoteError` | `REMOTE` | Python raised; the message is carried over |
+| `AxonError` | `AXON` | base class of the three |
+
+```js
+try {
+  await Axon.Greeter.greet("Axon", { timeout: 300 });
+} catch (e) {
+  if (e instanceof AxonTimeoutError) console.warn("too slow", e.code);
+  else if (e instanceof AxonRemoteError) console.error("Python raised:", e.message);
+  else throw e;
+}
+```
+
+All four are exported from `axon-gui`. Python has the mirror set (`AxonError / AxonTimeoutError /
+AxonNotConnectedError / JSRuntimeError` — see [Python API](/en/api/python#errors)); `AxonTimeoutError` also extends the
+builtin `TimeoutError`.
+
 ## `AxonStore` — cross-process key/value
 
 ```js
 const store = new AxonStore("docs-store");     // same name, same store
 
 store.set("k", 1);                             // write, and push to Python
-store.get("k").get();                          // read the local cache
-store.get("k").set(2);                         // same as store.set("k", 2)
-store.prop("k").get();                         // another spelling of store.get("k")
+store.get("k");                                // read the local cache (sync, already the value)
+store.prop("k").set(2);                        // same as store.set("k", 2)
+store.get<number>("k");                        // typed read
 
 store.release();                               // unregister this store
 ```
@@ -171,7 +196,8 @@ store.release();                               // unregister this store
 | Member | Meaning |
 | --- | --- |
 | `new AxonStore(id)` | same name reuses the instance; notifies Python to create its counterpart |
-| `get(name)` / `prop(name)` | get an `AxonStoreProperty` |
+| `get(name)` | read the **value** (sync, same meaning as Python's `store.get`) |
+| `prop(name)` | get the `AxonStoreProperty` object (reading and writing through it) |
 | `set(name, value)` | write and synchronise |
 | `setFromPeer(name, value)` | apply a peer write (framework internal) |
 | `AxonStore.shared` | the global shared store, created by `AxonInit()` |

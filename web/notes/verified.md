@@ -143,7 +143,7 @@ core-py/.venv/bin/python docs/verify_offline.py    # 不挂通道的 QWebEngineV
 | `js2py/call_spread` | 摊开写法 `await Axon.TestController.add(1, 2)` 等价于 `add([1, 2])` | ✅ |
 | `js2py/call_spread_kwargs` | 打包写法 `with_kwargs([1], { b: 2 })` 仍可用 | ✅ |
 | `store/js2py_shortcut` | `store.set("k4", "via-set")` 写进 Python 侧 | ✅ |
-| `store/js2py_get` | `store.get("k").get()` 读本地缓存 | ✅ |
+| `store/js2py_get` | `store.get("k")` 直接读值（与 Python 同名同义） | ✅ |
 | `py/store_get_set_shortcut` | Python 侧 `store.set("k6", …)` / `store.get("k6")` | ✅ |
 
 两端的对端写入方法统一叫 `setFromPeer`（JS `AxonStore.setFromPeer(prop, value)`、Python `store.prop("k").setFromPeer(v)`），

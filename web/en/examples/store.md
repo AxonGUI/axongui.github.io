@@ -56,7 +56,7 @@ wrote last wins for that key.
 
 - **Names must match**: `AxonStore("docs-store", ...)` and `new AxonStore("docs-store")` are the same
   store; different names mean two independent stores.
-- **Reads do not need `await`** (in JS `store.get("k").get()` is synchronous) because you read the local copy.
+- **Reads do not need `await`** (in JS `store.get("k")` is synchronous); use `store.prop("k")` when you need the property object (to write back).
 - **Do not use it as a message queue**: it gives no ordering guarantees for notifications — use
   [events](/en/examples/event) for that.
 - **Values must be JSON-serialisable**: `dict` / `list` / primitives.

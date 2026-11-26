@@ -91,7 +91,7 @@
 ### `AxonStore.shared` 加不了窗口
 
 - 症状：`AttributeError: 'dict_keys' object has no attribute 'append'`。
-- 根因：`SharedAxonStore.web_names` 是只读 property（返回 `AxonGUI.get_web_names()`），
+- 根因：`SharedAxonStore.web_names` 是只读 property（返回 `AxonGUI.windows()`），
   继承来的 `add_web` 却去 `append`。
 - 修法：内部统一改 `self._web_names`；`SharedAxonStore.web_names` 返回 `list(...)`。
 

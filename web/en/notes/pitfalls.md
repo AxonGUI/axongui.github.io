@@ -93,7 +93,7 @@ problem.
 ### `AxonStore.shared` cannot add windows
 
 - Symptom: `AttributeError: 'dict_keys' object has no attribute 'append'`.
-- Cause: `SharedAxonStore.web_names` is a read-only property (it returns `AxonGUI.get_web_names()`), but the
+- Cause: `SharedAxonStore.web_names` is a read-only property (it returns `AxonGUI.windows()`), but the
   inherited `add_web` called `append` on it.
 - Fix: use `self._web_names` internally; `SharedAxonStore.web_names` returns `list(...)`.
 

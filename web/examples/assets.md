@@ -35,7 +35,7 @@ class Report:
 | `AxonAsset.from_file(path, name=None)` | 本地文件 → URL（**不读进内存**，请求时才打开） |
 | `AxonAsset.release(url)` / `clear()` / `count()` | 释放 / 全清 / 当前数量 |
 
-还有一个模块级别名：`from axon import asset_url, asset_url_from_file`，与上面两个方法等价。
+只保留类方法：`AxonAsset.from_bytes(...)` / `AxonAsset.from_file(...)`（早期版本还有模块级别名，已删除）。
 
 URL 形如 `axon://asset/<token>/<文件名>`：token 决定内容，文件名只影响 `Content-Type` 和下载时的默认名。
 

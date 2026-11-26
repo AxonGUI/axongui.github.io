@@ -31,7 +31,7 @@ app.exec()
 | Method / attribute | Meaning |
 | --- | --- |
 | `get_web(web_name)` | get a created window (class method) |
-| `get_web_names()` | all window names |
+| `windows()` | names of all open windows |
 | `registerChannel(id, obj)` | expose an extra QObject to the page |
 | `web_name` | the window name |
 
@@ -200,3 +200,24 @@ and the call sugar):
 ```bash
 core-py/.venv/bin/python core-py/tests/run_web_tests.py
 ```
+
+## Errors
+
+| Class | `code` | When |
+| --- | --- | --- |
+| `AxonTimeoutError` | `TIMEOUT` | no reply from JS (also extends the builtin `TimeoutError`) |
+| `AxonNotConnectedError` | `NOT_CONNECTED` | the target window does not exist / was closed |
+| `JSRuntimeError` | `JS_RUNTIME` | JS raised; the message is carried over |
+| `AxonError` | `AXON` | base class of the three |
+
+```python
+from axon import Axon, AxonTimeoutError, JSRuntimeError
+
+try:
+    Axon("MainView").DocsJS.mirror({"a": 1}).result(5)
+except AxonTimeoutError:
+    print("JS did not answer in 5s")
+except JSRuntimeError as exc:
+    print("JS raised:", exc)
+```
+

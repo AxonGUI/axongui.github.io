@@ -54,7 +54,7 @@ app.exec()
 | 方法 / 属性 | 说明 |
 | --- | --- |
 | `get_web(web_name)` | 取已创建的窗口（类方法） |
-| `get_web_names()` | 所有窗口名 |
+| `windows()` | 所有还开着的窗口名 |
 | `registerChannel(id, obj)` | 额外暴露一个 QObject 给页面 |
 | `web_name` | 窗口名 |
 
@@ -204,6 +204,26 @@ result = AxonMagicGUI.run(on_main).result(5)
 ```
 
 未初始化时调用 `run()` 会抛 `RuntimeError: init AxonMagicGUI first`。
+
+## 错误
+
+| 类 | `code` | 什么时候 |
+| --- | --- | --- |
+| `AxonTimeoutError` | `TIMEOUT` | 等不到 JS 回包（同时继承内置 `TimeoutError`） |
+| `AxonNotConnectedError` | `NOT_CONNECTED` | 目标窗口不存在 / 已经关掉 |
+| `JSRuntimeError` | `JS_RUNTIME` | JS 侧抛了异常，被带回来 |
+| `AxonError` | `AXON` | 上面三个的基类 |
+
+```python
+from axon import Axon, AxonTimeoutError, JSRuntimeError
+
+try:
+    Axon("MainView").DocsJS.mirror({"a": 1}).result(5)
+except AxonTimeoutError:
+    print("JS 没在 5 秒内回")
+except JSRuntimeError as exc:
+    print("JS 里炸了：", exc)
+```
 
 ## `AxonCross` —— 跨窗口
 

@@ -45,7 +45,7 @@ Current result: **37 / 37 passed, 0 failed** (Linux, 2026-11-23; Windows 10 IoT 
 | --- | --- | --- |
 | `store/js2py` | ✅ | JS `prop().set()` is visible to Python `prop().get()` |
 | `store/js2py_shortcut` | ✅ | `store.set("k4", "via-set")` reaches Python |
-| `store/js2py_get` | ✅ | `store.get("k").get()` reads the local cache |
+| `store/js2py_get` | ✅ | `store.get("k")` returns the value (same name, same meaning on both sides) |
 | `store/py2js` | ✅ | Python writes, JS reads |
 | `event/py2js` | ✅ | `dispatch_js_event` reaches a JS `AxonEvent` listener |
 | `event/js2py` | ✅ | `dispatchPYEvent` reaches a Python listener |

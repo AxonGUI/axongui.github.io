@@ -186,17 +186,41 @@ AxonEvent.dispatchPYEvent({ type: "demo:pong", args: [1, 2, 3] });
 
 内置事件（由 Qt 窗口派发）：`loadFinished`、`contextMenu`、`dragEnter`、`dragMove`、`drop`、`dragLeave`、`hide`、`show`。
 
+## 错误
+
+两端抛出来的都是 `Error` 子类，带稳定的 `code`，不用靠匹配文案分流：
+
+| 类 | `code` | 什么时候 |
+| --- | --- | --- |
+| `AxonTimeoutError` | `TIMEOUT` | `timeout` 到期，Python 没回 |
+| `AxonNotConnectedError` | `NOT_CONNECTED` | 通道还没连上就发起调用 |
+| `AxonRemoteError` | `REMOTE` | Python 侧抛了异常，被带回来（`message` 是它的文案） |
+| `AxonError` | `AXON` | 上面三个的基类 |
+
+```js
+try {
+  await Axon.Greeter.greet("Axon", { timeout: 300 });
+} catch (e) {
+  if (e instanceof AxonTimeoutError) console.warn("太慢了", e.code);
+  else if (e instanceof AxonRemoteError) console.error("Python 里炸了：", e.message);
+  else throw e;
+}
+```
+
+全部从 `axon-gui` 导出。Python 侧有对称的 `AxonError / AxonTimeoutError / AxonNotConnectedError /
+JSRuntimeError`（见 [Python API](/api/python#错误)），`AxonTimeoutError` 同时继承内置 `TimeoutError`。
+
 ## `AxonStore` —— 跨端键值
 
 ```js
 const store = new AxonStore("docs-store");     // 同名即同一份
 
 store.set("k", 1);                             // 写，并推给 Python
-store.get("k").get();                          // 读本地缓存（同步）
-await store.get("k");                          // 也可以直接 await，拿到的就是值
-store.get<number>("k").get();                  // 静态类型：取出来是 number
-store.get("k").set(2);                         // 等价于 store.set("k", 2)
-store.prop("k").get();                         // store.get("k") 的另一种写法
+store.get("k");                                // 读本地缓存（同步，直接是值）
+store.get<number>("k");                        // 静态类型：取出来是 number
+await store.get("k");                          // await 也行（值本身不是 thenable，直接返回）
+store.prop("k").get();                         // 要属性对象时用 prop()
+store.prop("k").set(2);                        // 等价于 store.set("k", 2)
 
 store.release();                               // 注销这个 store
 ```
@@ -204,7 +228,8 @@ store.release();                               // 注销这个 store
 | 成员 | 说明 |
 | --- | --- |
 | `new AxonStore(id)` | 同名复用同一实例；会通知 Python 侧创建对应 store |
-| `get(name)` / `prop(name)` | 取一个 `AxonStoreProperty` |
+| `get(name)` | 读**值**（同步，与 Python 的 `store.get` 同义） |
+| `prop(name)` | 取 `AxonStoreProperty` 对象（通过它读写） |
 | `set(name, value)` | 写并同步 |
 | `setFromPeer(name, value)` | 接收对端写入（框架内部用） |
 | `AxonStore.shared` | 全局共享 store，`AxonInit()` 时创建 |

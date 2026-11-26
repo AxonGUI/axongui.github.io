@@ -266,7 +266,7 @@ export const demos: Record<string, Demo> = {
         () => lib.Axon.DemoController.store_write("docs:key2", "from-py"),
       );
       await sleep(250);
-      const back = store.get("docs:key2").get();
+      const back = store.get("docs:key2");
       pushLog({
         kind: "py2js",
         title: "Python 写入后，JS 侧读到",

@@ -32,10 +32,10 @@ import { AxonStore } from "axon-gui";
 const store = new AxonStore("docs-store");   // 名字要和 Python 侧一致
 
 store.set("user", "travis");                 // 写：同步给 Python  // [!code highlight]
-store.get("user").get();                     // 读：本地缓存
+store.get("user");                          // 读：本地缓存（两端同名同义，都是值）
 
 // 等 Python 写完再读，能看到它的值
-const theme = store.get("theme").get();
+const theme = store.get("theme");
 ```
 
 <LiveDemo id="store" />
@@ -52,6 +52,6 @@ const theme = store.get("theme").get();
 ## 要点
 
 - **名字要对上**：`AxonStore("docs-store", ...)` 与 `new AxonStore("docs-store")` 是同一份；名字不同就是两份独立数据。
-- **读不需要 await**（JS 里 `store.get("k").get()` 是同步的），因为读的是本地副本。
+- **读不需要 await**（JS 里 `store.get("k")` 是同步的），因为读的是本地副本；要属性对象（写回用）用 `store.prop("k")`。
 - **不要拿它当消息队列**：它不保证事件顺序语义，需要「通知」请用[事件](/examples/event)。
 - **值要能 JSON 序列化**：`dict` / `list` / 基本类型。
