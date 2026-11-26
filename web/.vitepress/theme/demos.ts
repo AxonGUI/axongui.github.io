@@ -309,4 +309,90 @@ export const demos: Record<string, Demo> = {
       return `收到回执的窗口：${JSON.stringify(result)}`;
     },
   },
+
+  crossOpen: {
+    title: "打开第二个窗口",
+    run: async (lib) => {
+      const windows = await trace(
+        "Axon.DemoController.cross_open()",
+        { controller_id: "DemoController", func: "cross_open", args: [] },
+        () => lib.Axon.DemoController.cross_open(),
+      );
+      const t0 = performance.now();
+      let now: string[] = Array.isArray(windows) ? windows : [];
+      while (performance.now() - t0 < 8000) {
+        try {
+          now = await lib.AxonCross.windows();
+        } catch {
+          /* 通道还没好，继续等 */
+        }
+        if (now.includes("charts")) break;
+        await sleep(120);
+      }
+      const ms = Math.round(performance.now() - t0);
+      pushLog({
+        kind: "info",
+        title: `AxonCross.windows() → ${JSON.stringify(now)}`,
+        detail: "第二个窗口已连上，接下来可以点名调它",
+        ms,
+      });
+      return `窗口：${now.join(" / ")}`;
+    },
+  },
+
+  crossCall: {
+    title: "点名调用另一个窗口",
+    run: async (lib) => {
+      const text = "来自 AxonDocs 的跨窗口调用";
+      const result = await trace(
+        'AxonCross.web("charts").DocsJS.note(text)',
+        { web: "charts", controller: "DocsJS", func: "note", args: [text] },
+        () => lib.AxonCross.web("charts").DocsJS.note(text),
+      );
+      pushLog({
+        kind: "info",
+        title: "charts 窗口的回执",
+        result,
+        detail: "这条日志同时出现在 charts 窗口里，它那边会显示成「Python 调用了 JS」",
+      });
+      return `charts 回：${result}`;
+    },
+  },
+
+  crossBroadcast: {
+    title: "广播到所有窗口",
+    run: async (lib) => {
+      const text = "广播：所有窗口都该收到";
+      const result = await trace(
+        'AxonCross.broadcast({ controller: "DocsJS", func: "note" })',
+        { controller: "DocsJS", func: "note", args: [text] },
+        () => lib.Axon.DemoController.cross_broadcast(text),
+      );
+      return `每个窗口的回执：${JSON.stringify(result)}`;
+    },
+  },
+
+  crossEmit: {
+    title: "发事件给所有窗口",
+    run: async (lib) => {
+      const windows = await trace(
+        'Axon.DemoController.cross_emit("事件：来自 AxonDocs")',
+        { controller_id: "DemoController", func: "cross_emit", args: ["事件：来自 AxonDocs"] },
+        () => lib.Axon.DemoController.cross_emit("事件：来自 AxonDocs"),
+      );
+      return `已发给：${JSON.stringify(windows)}（谁监听谁处理，不等回执）`;
+    },
+  },
+
+  crossClose: {
+    title: "关掉第二个窗口",
+    run: async (lib) => {
+      const windows = await trace(
+        "Axon.DemoController.cross_close()",
+        { controller_id: "DemoController", func: "cross_close", args: [] },
+        () => lib.Axon.DemoController.cross_close(),
+      );
+      return `现在只剩：${JSON.stringify(windows)}`;
+    },
+  },
 };

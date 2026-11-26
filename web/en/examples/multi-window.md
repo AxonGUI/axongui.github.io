@@ -224,3 +224,34 @@ AxonStore.shared.set("theme", "dark"); // every window's shared store updates
 ```
 
 See [cross-side store](/en/examples/store).
+
+## Try it (it really opens a second window)
+
+These buttons are not an animation: the first one opens a real `charts` window on your screen,
+the second one sends a call through Python into that window, and both sides log a line.
+
+```js
+// 1. open a second window named charts
+const windows = await Axon.DemoController.cross_open();
+// → ["AxonDocs", "charts"]
+
+// 2. call a JS controller inside it
+await AxonCross.web("charts").DocsJS.note("cross-window call from AxonDocs");
+
+// 3. broadcast to every window, collect results per window
+await AxonCross.broadcast({ controller: "DocsJS", func: "note", args: ["broadcast"] });
+
+// 4. emit an event (fire-and-forget)
+await AxonCross.emit("demo:cross", "event from AxonDocs");
+```
+
+<LiveDemo id="crossOpen" />
+
+<LiveDemo id="crossCall" />
+
+<LiveDemo id="crossBroadcast" />
+
+<LiveDemo id="crossEmit" />
+
+<LiveDemo id="crossClose" />
+

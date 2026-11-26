@@ -29,9 +29,11 @@ PAGES = [
     "examples/magicgui",
     "examples/broadcast",
     "examples/assets",
+    "examples/multi-window",
     # 英文站：同一套组件在 /en/ 下也要能跑（示例 id 与中文页一一对应）
     "en/examples/call",
     "en/examples/assets",
+    "en/examples/multi-window",
     "en/examples/event",
 ]
 
@@ -136,7 +138,13 @@ def main(argv: list[str] | None = None) -> int:
     if not args.headful:
         os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
     os.environ.setdefault(
-        "QTWEBENGINE_CHROMIUM_FLAGS", "--no-sandbox --disable-gpu --disable-dev-shm-usage"
+        "QTWEBENGINE_CHROMIUM_FLAGS",
+        # 跨窗口示例会再开一个窗口：主窗口失焦后会被 Chromium 降频（定时器 1s 一跳），
+        # 把这几项关掉，否则后续页面的断言会成片超时。
+        "--no-sandbox --disable-gpu --disable-dev-shm-usage "
+        "--disable-background-timer-throttling --disable-renderer-backgrounding "
+        "--disable-backgrounding-occluded-windows "
+        "--disable-features=IntensiveWakeUpThrottling",
     )
     sys.path.insert(0, str(BASE_DIR))
     sys.path.insert(0, str(ROOT_DIR))
@@ -173,7 +181,7 @@ def main(argv: list[str] | None = None) -> int:
         run_js(view, "window.__verify = null; true", timeout=5)
         view.page().runJavaScript(CLICK_JS, 0, lambda _v: None)
         verified = None
-        deadline = time.time() + 150
+        deadline = time.time() + (240 if "multi-window" in page else 150)
         while time.time() < deadline:
             process_events(0.3)
             # 注意: runJavaScript 的回调把 JS 对象转成 Python 对象并不可靠,
@@ -186,6 +194,12 @@ def main(argv: list[str] | None = None) -> int:
             failures.append(f"{page}: 示例没有在 150s 内跑完")
             report["pages"][page] = {"error": "timeout"}
             continue
+
+        # 跨窗口示例可能留下第二个窗口，下一页开始前收掉，免得互相干扰
+        for other, win in list(AxonGUI.instance_dict.items()):
+            if other != WEB_NAME:
+                win.close()
+        process_events(0.3)
 
         demos = []
         for demo in verified["out"]:  # type: ignore[index]

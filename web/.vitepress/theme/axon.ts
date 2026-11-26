@@ -73,6 +73,15 @@ export async function getAxonLib(): Promise<any> {
   if (!libModule) {
     libModule = await import("axon-gui");
     libModule.AxonController.register("DocsJS", createDocsJsController());
+    // 跨窗口事件：别的窗口 AxonCross.emit("demo:cross", …) 打过来时记一条
+    libModule.AxonEvent.addListener("demo:cross", (text: unknown) => {
+      pushLog({
+        kind: "event",
+        title: "收到跨窗口事件 demo:cross",
+        payload: text,
+        detail: "由另一个窗口经 Python 转发过来",
+      });
+    });
   }
   return libModule;
 }

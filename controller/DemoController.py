@@ -10,7 +10,7 @@ from typing import Any
 from PySide6.QtCore import QThread
 from PySide6.QtWidgets import QApplication
 
-from axon import Axon, AxonAsset, AxonController, AxonEvent, AxonMagicGUI, AxonStore
+from axon import Axon, AxonAsset, AxonController, AxonCross, AxonEvent, AxonGUI, AxonMagicGUI, AxonStore
 
 WEB = "AxonDocs"
 
@@ -135,6 +135,47 @@ class DemoController:
     def broadcast(self, text: str) -> list[Any]:
         futures = Axon.broadcast.DocsJS.note(text)
         return [future.result(5) for future in futures]
+
+
+    # ---------- 跨窗口 ----------
+
+    def cross_open(self) -> list[str]:
+        """开一个叫 charts 的第二个窗口（同一个页面），返回当前所有窗口名。"""
+
+        def on_main() -> list[str]:
+            if "charts" not in AxonGUI.instance_dict:
+                view = AxonGUI.instance_dict.get(WEB)
+                url = view.url().toString() if view is not None else "about:blank"
+                win = AxonGUI("charts", url)
+                win.resize(900, 620)
+            return AxonGUI.windows()
+
+        return AxonMagicGUI.run(on_main).result(10)
+
+    def cross_call(self, text: str = "来自 AxonDocs 的跨窗口调用") -> Any:
+        """只调 charts 那个窗口里的 JS 控制器。"""
+        return AxonCross.call("charts", "DocsJS", "note", text, timeout=5).result(10)
+
+    def cross_broadcast(self, text: str = "广播：所有窗口都该收到") -> dict[str, Any]:
+        """一次广播到所有窗口（含自己），逐窗口收结果。"""
+        futures = AxonCross.broadcast("DocsJS", "note", text, timeout=5)
+        return {web: future.result(10) for web, future in futures.items()}
+
+    def cross_emit(self, text: str = "事件：来自 AxonDocs") -> list[str]:
+        """发一个事件给所有窗口，谁监听谁处理（不等回执）。"""
+        AxonCross.emit("demo:cross", text)
+        return AxonGUI.windows()
+
+    def cross_close(self) -> list[str]:
+        """关掉那个第二个窗口。"""
+
+        def on_main() -> list[str]:
+            win = AxonGUI.instance_dict.get("charts")
+            if win is not None:
+                win.close()
+            return AxonGUI.windows()
+
+        return AxonMagicGUI.run(on_main).result(10)
 
     # ---------- Store ----------
 

@@ -35,6 +35,41 @@ await AxonCross.web("charts").Series.reload("600s");
 | 发事件给所有窗口 | `AxonCross.emit("theme:changed", "dark")` | `AxonCross.emit("theme:changed", "dark")` |
 | 发事件给一个窗口 | `AxonCross.emitTo("charts", "theme:changed", "dark")` | `AxonCross.emit_to("charts", "theme:changed", "dark")` |
 
+## 点一下试试（会真的再开一个窗口）
+
+下面这些按钮不是动画演示：点第一个，真的会在你屏幕上再开一个 `charts` 窗口；
+再点第二个，这条调用会穿过 Python 打到那个窗口里，两边各记一条日志。
+
+```js
+// 1. 开第二个窗口（名字就叫 charts）
+const windows = await Axon.DemoController.cross_open();
+// → ["AxonDocs", "charts"]
+
+// 2. 点名调用它里面的 JS 控制器
+await AxonCross.web("charts").DocsJS.note("来自 AxonDocs 的跨窗口调用");
+
+// 3. 一次打到所有窗口，逐窗口收结果
+await AxonCross.broadcast({ controller: "DocsJS", func: "note", args: ["广播"] });
+
+// 4. 发事件（谁监听谁处理，不等回执）
+await AxonCross.emit("demo:cross", "事件：来自 AxonDocs");
+```
+
+<LiveDemo id="crossOpen" />
+
+<LiveDemo id="crossCall" />
+
+<LiveDemo id="crossBroadcast" />
+
+<LiveDemo id="crossEmit" />
+
+<LiveDemo id="crossClose" />
+
+::: tip 看两个窗口
+点开 `charts` 窗口再点上面第二个按钮：`charts` 那边会立刻多一条日志
+（`DocsJS.note` 被调用了），本站这边显示的是回执。
+:::
+
 ## 调指定窗口
 
 假设 `main` 窗口想通知 `charts` 窗口重新拉数据。
