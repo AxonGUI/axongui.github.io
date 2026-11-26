@@ -18,6 +18,27 @@ axon-gui types
 
 第一个方向默认就生成；第二个方向要显式加 `--js`（它需要用 TypeScript 编译器解析前端源码）。
 
+## 生成到哪
+
+不带参数，一条命令两个方向都生成（相对项目根；在 `web/` 里跑也能认出来）：
+
+| 产物 | 默认路径 | 改路径 | 说明 |
+| --- | --- | --- | --- |
+| Python → TS | `web/src/axon.generated.ts` | `--out <文件>` | 目录会自动创建；提交进仓库 |
+| JS → Python | `controller/js_controllers.py` | `--py-out <文件>` | 是**能 import 的 .py**，不是 `.pyi` |
+
+```bash
+axon-gui types                      # 两个都生成（默认）
+axon-gui types --check              # CI：两个都校验
+axon-gui types --skip-py            # 只要 TS
+axon-gui types --out app/types/axon.ts --py-out app/js_api.py   # 换位置
+```
+
+两条硬性要求：
+
+- **TS 产物必须在 tsconfig 的编译范围里**（放 `src/` 下最省事）。它靠 `declare module "axon-gui"` 生效，没被 include 就等于没生成。
+- **Python 产物所在目录必须能 import**（`controller/` 有 `__init__.py` 就行），因为 `connect()` 是运行时真实代码。
+
 ## 生成的东西长什么样
 
 Python 侧这样写：
