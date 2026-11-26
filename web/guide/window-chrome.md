@@ -93,8 +93,9 @@ print(assets_dir())   # .../axon_shell/assets
 | 名字 | 说明 |
 | --- | --- |
 | `AxonShellWindow(...)` | 无边框窗口 + `Axon.Window` 控制器 + 图标 + 不超出屏幕的初始尺寸 |
-| `Axon.Window` | `minimize` `maximize` `restore` `toggleMaximize` `toggleFullScreen` `close` `setAlwaysOnTop` `setTitle` `setDragRegions` `beginSystemMove` `moveTo` `resizeTo` `moveBy` `frame` `state` `platform` `popupMenu` `closeMenu` |
-| `window:state` 事件 | 最大化 / 全屏 / 位置尺寸变化（60ms 合并） |
+| `Axon.Window` | 窗口按钮（`minimize` `maximize` `restore` `toggleMaximize` `toggleFullScreen` `close`）、显隐（`show` `hide` `activate` `isVisible` `flash`）、外观（`setTitle` `setAlwaysOnTop` `setOpacity` `setSkipTaskbar`）、尺寸（`setMinimumSize` `setMaximumSize` `setResizable` `resizeTo`）、位置（`moveTo` `moveBy` `setBounds` `center` `beginSystemMove`）、查询（`state` `frame` `isMaximized` `platform`）、屏幕（`screens` `currentScreen`）、菜单（`popupMenu` `closeMenu` `systemMenu`）、拖动区（`setDragRegions`） |
+| `window:state` 事件 | 位置 / 尺寸 / 最大化 / 全屏 / 焦点变化（60ms 合并），字段含 `visible focused alwaysOnTop resizable` |
+| `window:closerequest` 事件 | 页面注册了 `onCloseRequest()` 时，用户点关闭先发这个，等 `confirmClose()` 才真的关 |
 | `window:menu` 事件 | 原生菜单被选中：`{requestId, id}` |
 | `AxonShell.init()` | 接上 `data-axon-drag` / `data-axon-window` 与上面两个事件 |
 | `AxonShell.drag.refresh()` | 布局变了以后重新上报拖动区 |
@@ -113,6 +114,25 @@ const frame = await Axon.Window.frame();
 - **Linux / macOS**：优先 `startSystemMove()`；不支持时 `shell.js` 用指针增量 + `moveTo/resizeTo` 兜底，八向缩放靠 8 条透明热区。
 
 所以拖动区只要标出来就行，不用写 `-webkit-app-region`（Qt 也不认它）。
+
+::: tip HiDPI（125% / 150% 缩放）
+`WM_NCHITTEST` 给的是物理像素，Qt 的坐标是逻辑像素，`axon-shell 0.3.0` 已按
+`devicePixelRatioF()` 换算——在这之前高缩放下拖动区会整体偏移。
+:::
+
+::: info 关闭前拦截
+有未保存的内容时，先注册守卫，再决定关不关：
+
+```js
+const dispose = window.AxonShell.window.onCloseRequest(async () => {
+  if (await confirmDiscard()) window.AxonShell.window.confirmClose();
+});
+// 不想拦了：dispose()
+```
+
+:::
+
+还没做的：Windows 任务栏进度、Windows 11 贴靠布局浮窗、托盘图标、macOS 红绿灯。
 
 ## 最小示例
 

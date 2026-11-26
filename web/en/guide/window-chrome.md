@@ -94,6 +94,7 @@ Buttons, inputs and links inside `data-axon-drag` are automatically excluded fro
 | --- | --- |
 | `AxonShellWindow(...)` | frameless window + `Axon.Window` controller + icon + initial size that fits the screen |
 | `Axon.Window` | `minimize` `maximize` `restore` `toggleMaximize` `toggleFullScreen` `close` `setAlwaysOnTop` `setTitle` `setDragRegions` `beginSystemMove` `moveTo` `resizeTo` `moveBy` `frame` `state` `platform` `popupMenu` `closeMenu` |
+| `window:closerequest` event | Emitted before closing when `onCloseRequest()` is registered; call `confirmClose()` to proceed |
 | `window:state` event | maximized / fullscreen / geometry changed (coalesced at 60 ms) |
 | `window:menu` event | a native menu item was chosen: `{requestId, id}` |
 | `AxonShell.init()` | wire `data-axon-drag`, `data-axon-window` and the two events above |
