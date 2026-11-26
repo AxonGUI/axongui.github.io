@@ -148,6 +148,13 @@ class DemoController:
                 url = view.url().toString() if view is not None else "about:blank"
                 win = AxonGUI("charts", url)
                 win.resize(900, 620)
+                # AxonGUI 自己不 show(): 不显示的话页面照样加载、JS 照样能跑,
+                # offscreen 下测试全绿、真机上用户却什么都看不到。
+                win.show()
+                win.raise_()
+                win.activateWindow()
+                if not win.isVisible():
+                    raise RuntimeError("第二个窗口没能显示出来")
             return AxonGUI.windows()
 
         return AxonMagicGUI.run(on_main).result(10)
