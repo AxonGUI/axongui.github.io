@@ -227,16 +227,18 @@ See [cross-side store](/en/examples/store).
 
 ## Try it (it really opens a second window)
 
-These buttons are not an animation: the first one opens a real `charts` window on your screen,
-the second one sends a call through Python into that window, and both sides log a line.
+These buttons are not an animation: the first one opens a real `charts` window on your screen —
+a **dedicated demo page** (`/demo/cross-window.html`), not a page of this manual.
+The second one sends a call through Python into that page, and both sides log a line.
 
 ```js
 // 1. open a second window named charts
 const windows = await Axon.DemoController.cross_open();
 // → ["AxonDocs", "charts"]
 
-// 2. call a JS controller inside it
-await AxonCross.web("charts").DocsJS.note("cross-window call from AxonDocs");
+// 2. call a JS controller inside it (that page registers Peer and DocsJS)
+const reply = await AxonCross.web("charts").Peer.ping("cross-window call from AxonDocs");
+// → { web: "charts", echo: "cross-window call from AxonDocs", at: "…" }
 
 // 3. broadcast to every window, collect results per window
 await AxonCross.broadcast({ controller: "DocsJS", func: "note", args: ["broadcast"] });

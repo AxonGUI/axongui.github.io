@@ -15,6 +15,15 @@ from axon import Axon, AxonAsset, AxonController, AxonCross, AxonEvent, AxonGUI,
 WEB = "AxonDocs"
 
 
+def _cross_demo_url(view: Any) -> str:
+    """第二个窗口开独立的演示页（web/public/demo/cross-window.html），不是说明书里的任何一页。"""
+    if view is None:
+        return "about:blank"
+    u = view.url()
+    origin = f"{u.scheme()}://{u.host()}:{u.port()}"
+    return f"{origin}/demo/cross-window.html"
+
+
 def _store() -> AxonStore:
     """按需取 store: JS 侧 new AxonStore("docs-store") 会反向创建, 这里幂等。"""
     return AxonStore("docs-store", WEB)
@@ -145,7 +154,7 @@ class DemoController:
         def on_main() -> list[str]:
             if "charts" not in AxonGUI.instance_dict:
                 view = AxonGUI.instance_dict.get(WEB)
-                url = view.url().toString() if view is not None else "about:blank"
+                url = _cross_demo_url(view)
                 win = AxonGUI("charts", url)
                 win.resize(900, 620)
                 # AxonGUI 自己不 show(): 不显示的话页面照样加载、JS 照样能跑,

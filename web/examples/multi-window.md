@@ -37,16 +37,19 @@ await AxonCross.web("charts").Series.reload("600s");
 
 ## 点一下试试（会真的再开一个窗口）
 
-下面这些按钮不是动画演示：点第一个，真的会在你屏幕上再开一个 `charts` 窗口；
-再点第二个，这条调用会穿过 Python 打到那个窗口里，两边各记一条日志。
+下面这些按钮不是动画演示：点第一个，真的会在你屏幕上再开一个 `charts` 窗口——
+它打开的是一个**独立的演示页**（`/demo/cross-window.html`），不是说明书里的任何一页：
+左边四个按钮、右边一列日志，专门用来看跨窗口调用往哪个方向走。
+再点第二个，这条调用会穿过 Python 打到那个页面里，两边各记一条。
 
 ```js
 // 1. 开第二个窗口（名字就叫 charts）
 const windows = await Axon.DemoController.cross_open();
 // → ["AxonDocs", "charts"]
 
-// 2. 点名调用它里面的 JS 控制器
-await AxonCross.web("charts").DocsJS.note("来自 AxonDocs 的跨窗口调用");
+// 2. 点名调用它里面的 JS 控制器（那个页面注册了 Peer 与 DocsJS）
+const reply = await AxonCross.web("charts").Peer.ping("来自 AxonDocs 的跨窗口调用");
+// → { web: "charts", echo: "来自 AxonDocs 的跨窗口调用", at: "…" }
 
 // 3. 一次打到所有窗口，逐窗口收结果
 await AxonCross.broadcast({ controller: "DocsJS", func: "note", args: ["广播"] });

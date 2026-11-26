@@ -332,3 +332,17 @@ PASS
 ```
 
 覆盖三种情况：同标签外链、`target="_blank"` 外链（走 `createWindow`）、站内相对链接（正常跳转）。
+
+### 跨窗口示例（独立演示页）
+
+第二个窗口不再复用说明书页面，而是打开 `/demo/cross-window.html`（`web/public/demo/`，构建时把 `axon-gui` 的 UMD 拷到 `public/vendor/`）。
+
+| 检查 | 结果 |
+| --- | --- |
+| 主窗口点「打开第二个窗口」 | `AxonGUI.windows()` = `["AxonDocs","charts"]`，第二个窗口 `isVisible()` 为真 |
+| 点名调用（`AxonCross.web("charts").Peer.ping`） | 回执 `{web:"charts", echo:…, at:…}`，演示页日志多一条 |
+| 广播 | 两个窗口都收到，回执逐窗口列出 |
+| 事件 `demo:cross` | 两个窗口各记一条；演示页也有监听器 |
+| 关闭 | `["AxonDocs"]` |
+| 纯网页打开演示页 | 「纯网页模式：没有检测到 Python 后端」，四个按钮全部 disabled |
+

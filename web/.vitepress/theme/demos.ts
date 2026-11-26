@@ -345,17 +345,17 @@ export const demos: Record<string, Demo> = {
     run: async (lib) => {
       const text = "来自 AxonDocs 的跨窗口调用";
       const result = await trace(
-        'AxonCross.web("charts").DocsJS.note(text)',
-        { web: "charts", controller: "DocsJS", func: "note", args: [text] },
-        () => lib.AxonCross.web("charts").DocsJS.note(text),
+        'AxonCross.web("charts").Peer.ping(text)',
+        { web: "charts", controller: "Peer", func: "ping", args: [text] },
+        () => lib.AxonCross.web("charts").Peer.ping(text),
       );
       pushLog({
         kind: "info",
         title: "charts 窗口的回执",
         result,
-        detail: "这条日志同时出现在 charts 窗口里，它那边会显示成「Python 调用了 JS」",
+        detail: "charts 是独立的演示页（/demo/cross-window.html），它那边的日志列表会多出一条",
       });
-      return `charts 回：${result}`;
+      return `charts 回：${JSON.stringify(result)}`;
     },
   },
 

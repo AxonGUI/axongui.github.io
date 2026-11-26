@@ -111,7 +111,38 @@ def main(argv: list[str] | None = None) -> int:
             continue
         failures += check_page(page, result)
 
+    failures += check_cross_demo_page(view, base)
     return 0 if failures == 0 else 1
+
+
+def check_cross_demo_page(view: "QWebEngineView", base: str) -> int:
+    """第二个窗口的独立演示页：纯网页打开时应该老实说「没有后端」，并且按钮点不动。"""
+    from PySide6.QtCore import QUrl
+    js = """JSON.stringify({
+      status: (document.getElementById('status') || {}).textContent || '',
+      disabled: Array.from(document.querySelectorAll('button')).map((b) => b.disabled),
+      title: document.title,
+    })"""
+    view.setUrl(QUrl(f"{base}/demo/cross-window.html"))
+    probe: dict[str, object] = {}
+    deadline = time.time() + 30
+    while time.time() < deadline:
+        box: dict[str, object] = {}
+        view.page().runJavaScript(js, 0, lambda v: box.setdefault("v", v))
+        process_events(0.4)
+        raw = box.get("v")
+        if raw and "纯网页模式" in str(raw):
+            probe = json.loads(raw)  # type: ignore[arg-type]
+            break
+    checks = {
+        "独立演示页加载出来了": probe.get("title") == "charts · 跨窗口演示",
+        "诚实说明没有后端": "纯网页模式" in str(probe.get("status", "")),
+        "按钮全部不可点": bool(probe.get("disabled")) and all(probe.get("disabled")),  # type: ignore[union-attr]
+    }
+    print("=== 纯网页形态验证 · /demo/cross-window.html ===")
+    for name, ok in checks.items():
+        print(f"  {'✓' if ok else '✗'} {name}")
+    return 0 if all(checks.values()) else 1
 
 
 def check_page(page: str, result: dict[str, object]) -> int:

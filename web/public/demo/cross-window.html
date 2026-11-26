@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>charts · 跨窗口演示</title>
+<style>
+  :root {
+    --bg: #14161a; --panel: #1b1e24; --line: #2a2f38; --fg: #e6e9ef; --dim: #8b93a1;
+    --accent: #3451b2; --cyan: #63c6e2; --ok: #21c07a; --warn: #d9a521;
+  }
+  html[data-theme="light"] {
+    --bg: #f6f7f9; --panel: #fff; --line: #e3e6eb; --fg: #1f2329; --dim: #6b7280;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 14px/1.6 -apple-system, "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+    display: flex; flex-direction: column; height: 100vh;
+  }
+  header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 18px; border-bottom: 1px solid var(--line); background: var(--panel);
+  }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--dim); }
+  .dot.on { background: var(--ok); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 18%, transparent); }
+  h1 { font-size: 15px; margin: 0; font-weight: 600; }
+  .tag {
+    font: 12px/1 ui-monospace, "Cascadia Code", Consolas, monospace;
+    padding: 3px 7px; border-radius: 6px; background: color-mix(in srgb, var(--accent) 22%, transparent);
+    color: var(--cyan);
+  }
+  .spacer { flex: 1; }
+  #status { font-size: 12px; color: var(--dim); }
+  main { flex: 1; display: flex; min-height: 0; }
+  .side { width: 232px; border-right: 1px solid var(--line); padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+  button {
+    font: inherit; padding: 8px 10px; border-radius: 8px; cursor: pointer;
+    border: 1px solid var(--line); background: var(--panel); color: var(--fg); text-align: left;
+  }
+  button:hover:not(:disabled) { border-color: var(--accent); }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .hint { font-size: 12px; color: var(--dim); margin-top: 6px; }
+  .logwrap { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  .loghead { padding: 12px 18px 6px; font-size: 12px; color: var(--dim); }
+  ol { list-style: none; margin: 0; padding: 0 18px 18px; overflow: auto; flex: 1; }
+  li { padding: 8px 10px; margin-bottom: 8px; border: 1px solid var(--line); border-left-width: 3px; border-radius: 8px; background: var(--panel); }
+  li.in { border-left-color: var(--cyan); }
+  li.out { border-left-color: var(--ok); }
+  li.err { border-left-color: #e5484d; }
+  .row { display: flex; gap: 8px; align-items: baseline; }
+  .who { font: 11px/1 ui-monospace, monospace; color: var(--dim); }
+  .txt { word-break: break-word; }
+  .empty { color: var(--dim); font-size: 13px; padding: 8px 18px; }
+</style>
+</head>
+<body>
+<header>
+  <span class="dot" id="dot"></span>
+  <h1>charts</h1>
+  <span class="tag" id="webname">…</span>
+  <span class="spacer"></span>
+  <span id="status">正在连接 Python…</span>
+</header>
+<main>
+  <div class="side">
+    <button id="btn-back" class="primary" disabled>回调主窗口</button>
+    <button id="btn-all" disabled>广播到所有窗口</button>
+    <button id="btn-emit" disabled>发一个事件</button>
+    <button id="btn-close" disabled>关掉这个窗口</button>
+    <div class="hint">这个窗口是独立页面（<code>/demo/cross-window.html</code>），不是说明书里的任何一页。</div>
+  </div>
+  <div class="logwrap">
+    <div class="loghead">收到的调用会按方向记在这里</div>
+    <ol id="log"></ol>
+    <div class="empty" id="empty">还没有收到调用。回到主窗口点「点名调用另一个窗口」试试。</div>
+  </div>
+</main>
+<script src="/vendor/axon.umd.cjs"></script>
+<script>
+(() => {
+  const lib = window.axon;
+  const dot = document.getElementById("dot");
+  const statusEl = document.getElementById("status");
+  const webnameEl = document.getElementById("webname");
+  const logEl = document.getElementById("log");
+  const emptyEl = document.getElementById("empty");
+  const buttons = ["btn-back", "btn-all", "btn-emit", "btn-close"].map((id) => document.getElementById(id));
+
+  function addLog(kind, text, who) {
+    emptyEl.style.display = "none";
+    const li = document.createElement("li");
+    li.className = kind;
+    const row = document.createElement("div");
+    row.className = "row";
+    const w = document.createElement("span");
+    w.className = "who";
+    w.textContent = who;
+    const t = document.createElement("span");
+    t.className = "txt";
+    t.textContent = text;
+    row.append(w, t);
+    li.append(row);
+    logEl.prepend(li);
+  }
+
+  async function main() {
+    if (!lib) {
+      statusEl.textContent = "没加载到 axon 的产物";
+      return;
+    }
+    const info = await lib.AxonInit();
+    if (!info.ready) {
+      statusEl.textContent = "纯网页模式：没有检测到 Python 后端（放客户端里打开才有意义）";
+      return;
+    }
+    dot.classList.add("on");
+    statusEl.textContent = "已连上 Python";
+    const env = lib.AxonChannels && lib.AxonChannels.AxonEnv;
+    webnameEl.textContent = env && env.web_name ? env.web_name : "charts";
+    buttons.forEach((b) => (b.disabled = false));
+
+    // 主窗口点名调这两个控制器
+    lib.AxonController.register("DocsJS", {
+      note(text) {
+        addLog("in", String(text), "← Python 调用 DocsJS.note()");
+        return "charts 收到: " + text;
+      },
+    });
+    lib.AxonController.register("Peer", {
+      ping(text) {
+        addLog("in", String(text), "← 另一个窗口点名调用 Peer.ping()");
+        return { web: "charts", echo: String(text), at: new Date().toISOString() };
+      },
+      whoami() {
+        return "charts";
+      },
+    });
+
+    // 事件：别的窗口/ Python emit 过来
+    lib.AxonEvent.addListener("demo:cross", (text) => {
+      addLog("in", String(text), "← 事件 demo:cross");
+    });
+
+    document.getElementById("btn-back").onclick = async () => {
+      try {
+        const r = await lib.AxonCross.web("AxonDocs").DocsJS.note("来自 charts 的回调");
+        addLog("out", String(r), "→ 回调 AxonDocs.DocsJS.note()");
+      } catch (e) {
+        addLog("err", String(e && e.message ? e.message : e), "→ 回调失败");
+      }
+    };
+    document.getElementById("btn-all").onclick = async () => {
+      try {
+        const r = await lib.AxonCross.broadcast({ controller: "DocsJS", func: "note", args: ["来自 charts 的广播"] });
+        addLog("out", JSON.stringify(r), "→ 广播");
+      } catch (e) {
+        addLog("err", String(e && e.message ? e.message : e), "→ 广播失败");
+      }
+    };
+    document.getElementById("btn-emit").onclick = async () => {
+      try {
+        await lib.AxonCross.emit("demo:cross", "来自 charts 的事件");
+        addLog("out", "事件已发出（不等回执）", "→ emit demo:cross");
+      } catch (e) {
+        addLog("err", String(e && e.message ? e.message : e), "→ 发事件失败");
+      }
+    };
+    document.getElementById("btn-close").onclick = async () => {
+      try {
+        await lib.Axon.DemoController.cross_close();
+      } catch (e) {
+        window.close();
+      }
+    };
+  }
+
+  main().catch((e) => {
+    statusEl.textContent = "初始化失败：" + (e && e.message ? e.message : e);
+  });
+})();
+</script>
+</body>
+</html>
