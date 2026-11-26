@@ -210,6 +210,20 @@ AxonEvent.addListener("series:reloaded", (range) => loadSeries(range));
 反过来（JS → Python）用 `AxonEvent.dispatchPYEvent({ type, args })`，两边不要混着写。
 :::
 
+## 悬停看类型
+
+`AxonCross.call()` 是「点名调用」，`windows()` 拿当前窗口列表，`broadcast()` 返回每个窗口一份结果。
+
+```ts twoslash
+import { AxonCross } from "axon-gui";
+
+async function pingCharts() {
+  const reply = await AxonCross.call({ web: "charts", controller: "Peer", func: "ping", args: ["hi"] });
+  const open = await AxonCross.windows();
+  return { reply, open };
+}
+```
+
 ## 窗口表与生命周期
 
 `AxonCross.windows()`（JS / Python 都一样）返回**现在还开着**的窗口名。

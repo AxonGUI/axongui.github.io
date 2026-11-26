@@ -119,6 +119,20 @@ AxonEvent.addListener("loadFinished", () => console.log("page loaded"));
 `loadFinished` fires only after the page's JS has reported in, so it can never arrive before your
 listener is registered — see [architecture](/en/guide/architecture#startup-order).
 
+## Hover to see the types
+
+`addListener()` returns an unsubscribe function; the callback receives what `dispatchPYEvent` sent.
+
+```ts twoslash
+import { AxonEvent } from "axon-gui";
+
+const off: () => void = AxonEvent.addListener("demo:event", (text: string) => {
+  console.log(text.toUpperCase());
+});
+
+off();
+```
+
 ## Takeaways
 
 - **Two directions, two APIs**: `dispatchPYEvent` is JS → Python, `dispatch_js_event` /

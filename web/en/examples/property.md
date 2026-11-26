@@ -59,6 +59,19 @@ const now = await Axon.DemoController.get_counter();   // always 42
 If you need proof the write succeeded (say Python might reject it), call an explicit method and treat its
 return value as the receipt.
 
+## Hover to see the types
+
+`getVar<T>()` returns `T` directly (reading a property is still a round trip).
+
+```ts twoslash
+import { AxonCall } from "axon-gui";
+
+async function bump() {
+  const n = await AxonCall.getVar<number>({ controller_id: "DemoController", var_name: "counter" });
+  return n + 1;
+}
+```
+
 ## Key points
 
 - **The attribute must exist**: reading a name that Python does not have fails.

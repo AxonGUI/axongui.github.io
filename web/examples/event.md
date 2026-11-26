@@ -113,6 +113,20 @@ AxonEvent.addListener("loadFinished", () => console.log("页面加载完成"));
 
 其中 `loadFinished` 是「等页面里的 JS 报到之后」才发的，不会比你的监听器更早，见[架构与消息流](/guide/architecture#启动顺序)。
 
+## 悬停看类型
+
+`addListener()` 返回退订函数，回调参数就是 `dispatchPYEvent` 带过来的值。
+
+```ts twoslash
+import { AxonEvent } from "axon-gui";
+
+const off: () => void = AxonEvent.addListener("demo:event", (text: string) => {
+  console.log(text.toUpperCase());
+});
+
+off();
+```
+
 ## 要点
 
 - **两个方向两套 API**：`dispatchPYEvent` 是 JS 发，`dispatch_js_event` / `AxonCross.emit` 是 Python 发；

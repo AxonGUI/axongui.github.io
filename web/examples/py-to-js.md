@@ -59,6 +59,23 @@ Axon("MainView").DocsJS.value = 99               # 写
 
 <LiveDemo id="pyToJsProperty" />
 
+## 悬停看类型
+
+`AxonController.register()` 传进去的对象就是你暴露给 Python 的 API，方法签名会被保留。
+
+```ts twoslash
+import { AxonController } from "axon-gui";
+
+const DocsJS = {
+  value: 7,
+  mirror(payload: { hello: string }, label = "docs") {
+    return { mirrored: true, payload, label, at: Date.now() };
+  },
+};
+
+AxonController.register("DocsJS", DocsJS);
+```
+
 ## 要点
 
 - **`.result(timeout)` 或 `await`**：不取结果的话，JS 侧的返回会被丢掉，你还看不到错误。

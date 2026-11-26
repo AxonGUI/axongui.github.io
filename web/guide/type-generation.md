@@ -89,6 +89,27 @@ await Axon.Greeter.grete("Axon");    // ✗ 类型错误：不存在的方法
 异步那一层也照顾到了：Python 的 `def` 和 `async def` 到 JS 都是 `Promise`，所以生成物里统一是 `Promise<返回类型>`，
 `await` 之后就是返回值本身。
 
+## 悬停看生成后的类型
+
+下面的 `declare module` 就是生成文件的形状；悬停 `Axon`、`add`、`sum` 看类型怎么一路传下去。
+
+```ts twoslash
+import { Axon } from "axon-gui";
+
+declare module "axon-gui" {
+  interface AxonControllers {
+    DemoController: {
+      add(a: number, b: number): Promise<number>;
+    };
+  }
+}
+
+async function demo() {
+  const sum = await Axon.DemoController.add(1, 2);
+  return sum.toFixed(1);
+}
+```
+
 ## 什么时候要重跑
 
 只要**控制器的签名变了**就要重跑：

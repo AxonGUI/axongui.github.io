@@ -104,6 +104,19 @@ try {
 
 <LiveDemo id="error" />
 
+## 悬停看类型
+
+`AxonCall.call<T>()` 的 `T` 决定 `await` 之后的类型；载荷里的 `controller_id` / `func` / `args` 也都有类型。
+
+```ts twoslash
+import { AxonCall } from "axon-gui";
+
+async function addTwo() {
+  const sum = await AxonCall.call<number>({ controller_id: "DemoController", func: "add", args: [2, 3] });
+  return sum.toFixed(1);
+}
+```
+
 ## 要点
 
 - **一定要 `await`**：不 await 拿到的是 Promise，不是返回值。

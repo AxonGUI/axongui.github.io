@@ -55,6 +55,19 @@ const now = await Axon.DemoController.get_counter();   // 一定是 42
 
 如果要确认写入成功（比如怕 Python 侧拒绝），就显式调用一个方法，用它的返回值当回执。
 
+## 悬停看类型
+
+`getVar<T>()` 的返回值直接就是 `T`（读属性本质是一次往返调用）。
+
+```ts twoslash
+import { AxonCall } from "axon-gui";
+
+async function bump() {
+  const n = await AxonCall.getVar<number>({ controller_id: "DemoController", var_name: "counter" });
+  return n + 1;
+}
+```
+
 ## 要点
 
 - **属性名必须存在**：Python 里没有这个名字，读取会失败。

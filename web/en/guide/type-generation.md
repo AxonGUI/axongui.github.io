@@ -86,6 +86,27 @@ await Axon.Greeter.grete("Axon"); // ✗ no such method
 The async layer is handled too: both `def` and `async def` become `Promise` in JS, so the generated signature is always
 `Promise<ReturnType>` and `await` gives you the value.
 
+## Hover to see the generated types
+
+That `declare module` block is exactly what the generator writes; hover `Axon`, `add` and `sum` to watch the type travel.
+
+```ts twoslash
+import { Axon } from "axon-gui";
+
+declare module "axon-gui" {
+  interface AxonControllers {
+    DemoController: {
+      add(a: number, b: number): Promise<number>;
+    };
+  }
+}
+
+async function demo() {
+  const sum = await Axon.DemoController.add(1, 2);
+  return sum.toFixed(1);
+}
+```
+
 ## When to regenerate
 
 Whenever controller signatures change: new/removed methods, renamed or retyped parameters (defaults become optional),

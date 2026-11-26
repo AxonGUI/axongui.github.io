@@ -114,6 +114,19 @@ try {
 
 <LiveDemo id="error" />
 
+## Hover to see the types
+
+`AxonCall.call<T>()` — `T` decides what `await` gives you; the payload fields are typed too.
+
+```ts twoslash
+import { AxonCall } from "axon-gui";
+
+async function addTwo() {
+  const sum = await AxonCall.call<number>({ controller_id: "DemoController", func: "add", args: [2, 3] });
+  return sum.toFixed(1);
+}
+```
+
 ## Key points
 
 - **Always `await`**: without it you get a Promise, not the return value.

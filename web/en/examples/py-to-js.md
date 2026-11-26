@@ -60,6 +60,23 @@ Axon("MainView").DocsJS.value = 99               # write
 
 <LiveDemo id="pyToJsProperty" />
 
+## Hover to see the types
+
+Whatever object you pass to `AxonController.register()` becomes Python's API — method signatures included.
+
+```ts twoslash
+import { AxonController } from "axon-gui";
+
+const DocsJS = {
+  value: 7,
+  mirror(payload: { hello: string }, label = "docs") {
+    return { mirrored: true, payload, label, at: Date.now() };
+  },
+};
+
+AxonController.register("DocsJS", DocsJS);
+```
+
 ## Key points
 
 - **`.result(timeout)` or `await`**: without collecting the result the JS return value is dropped and you

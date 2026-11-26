@@ -371,3 +371,18 @@ PASS
 | 纯网页形态 | `scripts/verify_offline.py` 全过（下载引导、无后端字样、代码可读） |
 | 客户端形态 | `scripts/verify_docs.py` 全部示例通过 |
 
+### 类型悬停的覆盖（脚手架构建产物里 `twoslash-hover` 计数）
+
+| 页面 | 可悬停 token |
+| --- | --- |
+| `api/javascript` | 16 |
+| `examples/call` / `en` | 6 / 6 |
+| `examples/property` / `en` | 6 / 6 |
+| `examples/py-to-js` / `en` | 9 / 9 |
+| `examples/event` / `en` | 6 / 6 |
+| `examples/multi-window` / `en` | 7 / 7 |
+| `examples/store` | 3 |
+| `guide/type-generation` / `en` | 8 / 8 |
+
+悬停实测（playwright，本地 + 线上各一次）：悬停前 `opacity: 0`、悬停后 `opacity: 1`；`api/javascript` 悬停 `status` → `const status: IAxonInitResult`，`guide/type-generation` 悬停 `Axon` → `{ DemoController: { add(a: number, b: number): Promise<number> } }`。全站 `twoslash-query-persisted` 为 0（没有常驻浮层）。
+

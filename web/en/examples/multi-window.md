@@ -173,6 +173,20 @@ The other way (JS → Python) uses `AxonEvent.dispatchPYEvent({ type, args })`.
 Do not mix them in one block.
 :::
 
+## Hover to see the types
+
+`AxonCross.call()` targets one window, `windows()` lists the open ones, `broadcast()` returns one result per window.
+
+```ts twoslash
+import { AxonCross } from "axon-gui";
+
+async function pingCharts() {
+  const reply = await AxonCross.call({ web: "charts", controller: "Peer", func: "ping", args: ["hi"] });
+  const open = await AxonCross.windows();
+  return { reply, open };
+}
+```
+
 ## The window table and lifetime
 
 `AxonCross.windows()` returns the windows that are **currently open**.
