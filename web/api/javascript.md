@@ -31,10 +31,23 @@ import {
 
 ```js
 const status = await AxonInit();
-// { connected, ready, reason?, objects, error? }
+// { mode, connected, ready, reason?, objects, error? }
+
+// 双形态判断就一行：
+if (status.mode === "web") {
+  // 纯网页：后端相关的东西别渲染
+}
 ```
 
-没有 Python 后端时不抛错，返回 `{connected: false, ready: false, reason: "no-qt-transport"}`。
+没有 Python 后端时不抛错，返回 `{mode: "web", connected: false, ready: false, reason: "no-qt-transport"}`。
+
+| 字段 | 含义 |
+| --- | --- |
+| `mode` | `"app"` 或 `"web"`。就是 `ready ? "app" : "web"`，要中间态看 `connected`/`reason` |
+| `connected` | 通道是否连通 |
+| `ready` | 三个通道对象齐备 + 握手完成 |
+| `reason` | 没连上的原因（`no-qt-transport` / `retry-exhausted`） |
+| `objects` | 后端暴露的对象名 |
 
 ### `isAxonReady()`
 
@@ -268,6 +281,7 @@ await AxonCross.emitTo("charts", "theme:changed", "dark");  // 事件：一个�
 
 ```ts
 interface IAxonInitResult {
+  mode: "app" | "web";
   connected: boolean;
   ready: boolean;
   reason?: "no-qt-transport" | "retry-exhausted";

@@ -16,7 +16,7 @@ import { Axon, AxonInit, isAxonReady } from "axon-gui";
 
 const status = await AxonInit();
 
-if (status.connected) {
+if (status.mode === "app") {
   // 桌面形态：可以调 Python
   const data = await Axon.Backend.load();
   render(data);
@@ -52,7 +52,7 @@ if (status.connected) {
   const status = await AxonInit();
   const button = document.getElementById("run");
 
-  if (status.connected) {
+  if (status.mode === "app") {
     button.hidden = false;                     // 只在桌面形态出现
     button.addEventListener("click", async () => {
       document.getElementById("out").textContent = await Axon.Backend.ping();

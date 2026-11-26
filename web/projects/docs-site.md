@@ -40,7 +40,7 @@ export function ensureAxon(): Promise<void> {
   booted = (async () => {
     const lib = await import("axon-gui");        // 动态 import，静态托管时也只是多一个 js 文件
     const status = await lib.AxonInit();
-    connected.value = status.ready;
+    connected.value = status.mode === "app";
     statusDetail.value = status.ready
       ? `通道对象：${status.objects.join(", ")}`
       : "纯文档模式：没有检测到 Python 后端";

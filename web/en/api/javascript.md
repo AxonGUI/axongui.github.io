@@ -26,7 +26,7 @@ same connection.
 
 ```js
 const status = await AxonInit();
-// { connected, ready, reason?, objects, error? }
+// { mode, connected, ready, reason?, objects, error? }
 ```
 
 With no Python backend it does not throw; it returns `{connected: false, ready: false, reason:
@@ -208,6 +208,7 @@ store.release();                               // unregister this store
 
 ```ts
 interface IAxonInitResult {
+  mode: "app" | "web";
   connected: boolean;
   ready: boolean;
   reason?: "no-qt-transport" | "retry-exhausted";

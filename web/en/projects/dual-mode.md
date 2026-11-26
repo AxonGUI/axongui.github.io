@@ -19,7 +19,7 @@ import { Axon, AxonInit, isAxonReady } from "axon-gui";
 
 const status = await AxonInit();
 
-if (status.connected) {
+if (status.mode === "app") {
   // desktop mode: Python is reachable
   const data = await Axon.Backend.load();
   render(data);
@@ -57,7 +57,7 @@ the backend belongs behind `connected`**:
   const status = await AxonInit();
   const button = document.getElementById("run");
 
-  if (status.connected) {
+  if (status.mode === "app") {
     button.hidden = false;                     // only exists in desktop mode
     button.addEventListener("click", async () => {
       document.getElementById("out").textContent = await Axon.Backend.ping();

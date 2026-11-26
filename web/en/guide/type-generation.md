@@ -23,14 +23,14 @@ run from `web/`):
 
 | Artifact | Default path | Override | Notes |
 | --- | --- | --- | --- |
-| Python → TS | `web/src/axon.generated.ts` | `--out <file>` | Parent dirs are created; commit it |
+| Python → TS | `web/src/axon.generated.ts` | `--ts-out <file>` | Parent dirs are created; commit it |
 | JS → Python | `controller/js_controllers.py` | `--py-out <file>` | A **runnable .py**, not a `.pyi` |
 
 ```bash
 axon-gui types                      # both directions (default)
 axon-gui types --check              # CI: verify both
 axon-gui types --only ts            # TS only
-axon-gui types --out app/types/axon.ts --py-out app/js_api.py   # custom paths
+axon-gui types --ts-out app/types/axon.ts --py-out app/js_api.py   # custom paths (--out is an alias)
 ```
 
 Two hard requirements:

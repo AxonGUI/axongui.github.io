@@ -24,14 +24,14 @@ axon-gui types
 
 | 产物 | 默认路径 | 改路径 | 说明 |
 | --- | --- | --- | --- |
-| Python → TS | `web/src/axon.generated.ts` | `--out <文件>` | 目录会自动创建；提交进仓库 |
+| Python → TS | `web/src/axon.generated.ts` | `--ts-out <文件>` | 目录会自动创建；提交进仓库 |
 | JS → Python | `controller/js_controllers.py` | `--py-out <文件>` | 是**能 import 的 .py**，不是 `.pyi` |
 
 ```bash
 axon-gui types                      # 两个都生成（默认）
 axon-gui types --check              # CI：两个都校验
 axon-gui types --only ts            # 只要 TS
-axon-gui types --out app/types/axon.ts --py-out app/js_api.py   # 换位置
+axon-gui types --ts-out app/types/axon.ts --py-out app/js_api.py   # 换位置（--out 是 --ts-out 的别名）
 ```
 
 两条硬性要求：

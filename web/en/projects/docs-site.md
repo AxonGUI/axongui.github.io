@@ -40,7 +40,7 @@ export function ensureAxon(): Promise<void> {
   booted = (async () => {
     const lib = await import("axon-gui");        // dynamic import: on a static host this is just one more js file
     const status = await lib.AxonInit();
-    connected.value = status.ready;
+    connected.value = status.mode === "app";
     statusDetail.value = status.ready
       ? `channel objects: ${status.objects.join(", ")}`
       : "docs mode: no Python backend detected";

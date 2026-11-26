@@ -110,9 +110,12 @@ export function ensureAxon(): Promise<boolean> {
     try {
       const lib = await getAxonLib();
       const status = await lib.AxonInit();
-      connected.value = !!status.ready;
+      // 本站消费的是 npm 上已发布的 axon-gui：1.4.1 起才有 mode，
+      // 所以部署窗口期里要能容忍旧包（退回 ready 判断）。
+      const mode = status.mode ?? (status.ready ? "app" : "web");
+      connected.value = mode === "app";
       const strings = stringsFor(currentLang());
-      if (status.ready) {
+      if (mode === "app") {
         const join = currentLang() === "en" ? ", " : "、";
         statusDetail.value = strings.objects((status.objects ?? []).join(join));
       } else if (status.reason === "no-qt-transport") {
