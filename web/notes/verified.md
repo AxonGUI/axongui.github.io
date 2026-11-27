@@ -402,3 +402,13 @@ TS/JS 用 twoslash 编译真实类型；Python 没有等价的构建期工具链
 验证：`docs:build` 后 `examples/assets` 里 `AxonAsset` 悬停显示 `module axon.AxonAsset`、`from_bytes` 显示
 `from_bytes(data: bytes | bytearray | memoryview, name: str = 'blob', mime: str | None = None) -> str`；
 浏览器实测 `opacity` 0 → 1，深色主题同样可读。
+
+## 类型悬停：颜色与 Markdown（v0.3.7）
+
+| 检查项 | 结果 |
+| --- | --- |
+| Python 悬停框里的签名着色 | `class` `rgb(215,58,73)`、`AxonGUI` `rgb(111,66,193)`、TypeWriter 参数按主题着色 |
+| JS 悬停框的 JSDoc Markdown | `<strong>` / `<code>` 渲染，正文无字面 `**` 或反引号 |
+| 继承来的 docstring | 已过滤（`class AxonGUI(...)` 只剩一行，不再拖 `QWebEngineView` 的签名） |
+| 浮层位置 | 视口内，`scrollWidth == clientWidth`（不撑横向滚动条） |
+| 深色主题 | token 色切换为 dark 变量，浮层底色 `#1b1b1f` |

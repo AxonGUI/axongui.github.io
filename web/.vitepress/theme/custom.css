@@ -378,6 +378,30 @@ body.has-axon-download { padding-bottom: 92px; }
   display: block;
 }
 
+/* 说明文字是 Markdown 渲染出来的块级内容，收紧间距免得浮层过高。 */
+.axon-hover-popup .twoslash-popup-docs p,
+.axon-hover-popup .twoslash-popup-docs ul,
+.axon-hover-popup .twoslash-popup-docs ol {
+  margin: 0.3em 0;
+  padding-left: 1.1em;
+}
+
+.axon-hover-popup .twoslash-popup-docs > :first-child { margin-top: 0; }
+.axon-hover-popup .twoslash-popup-docs > :last-child { margin-bottom: 0; }
+
+.axon-hover-popup .twoslash-popup-docs pre {
+  margin: 0.4em 0;
+  padding: 6px 8px;
+  background: var(--vp-code-block-bg);
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+.axon-hover-popup .twoslash-popup-docs a {
+  color: var(--vp-c-brand-1);
+  text-decoration: underline;
+}
+
 .axon-hover-popup code {
   font-family: var(--vp-font-family-mono);
   font-size: 0.78rem;

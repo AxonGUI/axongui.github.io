@@ -126,11 +126,22 @@ def _public_methods(obj) -> list[str]:
     return names
 
 
+def _own_doc(obj) -> str:
+    """只取「自己写的」docstring：类的 __doc__ 会沿 MRO 继承（AxonGUI 会拿到
+    QWebEngineView 的文档），继承来的对使用者没有意义，还会把悬浮框撑成两行。"""
+    owner = obj if inspect.isclass(obj) else type(obj)
+    raw = getattr(owner, "__dict__", {}).get("__doc__")
+    if not isinstance(raw, str):
+        return ""
+    first = inspect.cleandoc(raw).strip().split("\n")[0].strip()
+    return first if len(first) <= 120 else first[:119] + "…"
+
+
 def describe(name: str, obj) -> str:
     """给「从 axon 里 import 出来的东西」写一句悬停文本。"""
     if inspect.ismodule(obj):
         return f"module {obj.__name__}"
-    doc = (inspect.getdoc(obj) or "").strip().split("\n")[0]
+    doc = _own_doc(obj)
 
     if inspect.isclass(obj):
         params = _params_of(obj)
@@ -341,7 +352,21 @@ def blocks(md: pathlib.Path):
         i = j + 1
 
 
+def _require_axon() -> None:
+    """没有装 axon-gui 的解释器跑出来的是「残缺但看起来正常」的产物（277 条掉到 57 条），
+    所以这里直接拒绝，而不是静默降级。"""
+    try:
+        import axon  # noqa: F401
+    except ImportError:
+        raise SystemExit(
+            "[pyhover] 当前解释器没有安装 axon-gui，生成的悬停信息会残缺。\n"
+            "          用装了它的解释器跑，例如：\n"
+            "            AXON_PYTHON=/path/to/.venv/bin/python npm run pyhover"
+        )
+
+
 def main() -> int:
+    _require_axon()
     files = sorted(f for f in ROOT.glob("**/*.md") if not {"node_modules", ".vitepress"} & set(f.parts))
     result: dict[str, list] = {}
     count = 0

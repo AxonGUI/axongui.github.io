@@ -232,3 +232,21 @@ twoslash / Python 悬停这两条路径是「自己用 shiki 渲染好 HTML 再�
 ```
 
 背景来自 `.vp-doc div[class*=language-]`，文件名栏的圆角来自 `.axon-file + div[class*="language-"]` —— 少了这层容器，两条样式都落空。
+
+## 悬停框里的签名没有颜色 / JSDoc 的 Markdown 原样显示
+
+两个症状，两个不同的原因，都是「内容有了、但没走渲染」：
+
+1. **Python 悬停框的签名是纯文字。** `pythonHoverTransformer` 只把分析出来的签名当文本塞进
+   `code.twoslash-popup-code`，从来没让 shiki 渲染它，所以没有语法颜色。
+   修法：构建时先对每条悬停文本单独跑一次 `codeToHast({ structure: "inline" })`，把 token 节点塞进浮层；
+   注意 `structure: "inline"` 时 `hast.children` 直接就是 token 列表（不是 `<pre><code>`），
+   取 `children[0].children` 会拿到空。
+2. **JS 悬停框里的 JSDoc 是 Markdown，但显示成 `**星号**` 和反引号。**
+   `rendererRich()` 的 `renderMarkdown` 默认是「原样输出」的 pass-through，
+   必须自己传一个把 Markdown 转 hast 的函数（我们用 `md.render` / `md.renderInline` + 一个小的 HTML→hast 转换）。
+3. 顺带一个内容问题：类的 `__doc__` 会沿 MRO 继承，`AxonGUI` 因此拿到 `QWebEngineView` 的文档，
+   悬停框里多出一行不相干的签名。只取 `cls.__dict__["__doc__"]`（自己写的）即可。
+
+另外 `npm run pyhover` 要用**装了 axon-gui 的解释器**跑（`AXON_PYTHON=...`）。
+用系统 python3 跑不会报错，只是解析不到从 `axon` 导入的符号，277 条会静默掉成 57 条——脚本现在会直接拒绝并提示。

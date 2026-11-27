@@ -4,7 +4,7 @@
    "line": 1,
    "start": 4,
    "end": 11,
-   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)"
   },
   {
    "line": 1,
@@ -40,7 +40,7 @@
    "line": 2,
    "start": 26,
    "end": 38,
-   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
+   "text": "class AxonMagicGUI"
   }
  ],
  "3ed79dff4707450c98a95a27b3790cba162c986e": [
@@ -82,25 +82,25 @@
    "line": 0,
    "start": 30,
    "end": 42,
-   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+   "text": "class QApplication"
   },
   {
    "line": 1,
    "start": 17,
    "end": 24,
-   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)"
   },
   {
    "line": 3,
    "start": 6,
    "end": 18,
-   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+   "text": "class QApplication"
   },
   {
    "line": 4,
    "start": 7,
    "end": 14,
-   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)"
   }
  ],
  "cbd580b0a618e5b58456985bb39820502bf73bff": [
@@ -258,25 +258,25 @@
    "line": 0,
    "start": 30,
    "end": 42,
-   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+   "text": "class QApplication"
   },
   {
    "line": 1,
    "start": 17,
    "end": 29,
-   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
+   "text": "class AxonMagicGUI"
   },
   {
    "line": 3,
    "start": 6,
    "end": 18,
-   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+   "text": "class QApplication"
   },
   {
    "line": 4,
    "start": 0,
    "end": 12,
-   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
+   "text": "class AxonMagicGUI"
   },
   {
    "line": 6,
@@ -288,7 +288,7 @@
    "line": 9,
    "start": 9,
    "end": 21,
-   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
+   "text": "class AxonMagicGUI"
   },
   {
    "line": 9,
@@ -420,25 +420,25 @@
    "line": 0,
    "start": 30,
    "end": 42,
-   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+   "text": "class QApplication"
   },
   {
    "line": 1,
    "start": 17,
    "end": 24,
-   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)"
   },
   {
    "line": 3,
    "start": 6,
    "end": 18,
-   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+   "text": "class QApplication"
   },
   {
    "line": 4,
    "start": 7,
    "end": 14,
-   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)"
   }
  ],
  "88236f776547162dafbe94ef71468759182ce5c3": [
@@ -596,25 +596,25 @@
    "line": 0,
    "start": 30,
    "end": 42,
-   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+   "text": "class QApplication"
   },
   {
    "line": 1,
    "start": 17,
    "end": 29,
-   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
+   "text": "class AxonMagicGUI"
   },
   {
    "line": 3,
    "start": 6,
    "end": 18,
-   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+   "text": "class QApplication"
   },
   {
    "line": 4,
    "start": 0,
    "end": 12,
-   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
+   "text": "class AxonMagicGUI"
   },
   {
    "line": 6,
@@ -626,7 +626,7 @@
    "line": 9,
    "start": 9,
    "end": 21,
-   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
+   "text": "class AxonMagicGUI"
   },
   {
    "line": 9,
@@ -782,19 +782,19 @@
    "line": 0,
    "start": 27,
    "end": 34,
-   "text": "class QThread\nQThread(self, /, parent: PySide6.QtCore.QObject | None = None) -> None"
+   "text": "class QThread"
   },
   {
    "line": 1,
    "start": 30,
    "end": 42,
-   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+   "text": "class QApplication"
   },
   {
    "line": 1,
    "start": 44,
    "end": 55,
-   "text": "class QMessageBox\nQMessageBox(self, icon: PySide6.QtWidgets.QMessageBox.Icon, title: str, text: str, /, buttons: PySide6.QtWidgets.QMessageBox.StandardButton = Instance(QMessageBox.StandardButton.NoButton), parent: PySide6.QtWidgets.QWidget"
+   "text": "class QMessageBox"
   },
   {
    "line": 3,
@@ -806,7 +806,7 @@
    "line": 3,
    "start": 33,
    "end": 45,
-   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
+   "text": "class AxonMagicGUI"
   },
   {
    "line": 5,
@@ -824,25 +824,25 @@
    "line": 10,
    "start": 18,
    "end": 30,
-   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+   "text": "class QApplication"
   },
   {
    "line": 11,
    "start": 29,
    "end": 36,
-   "text": "class QThread\nQThread(self, /, parent: PySide6.QtCore.QObject | None = None) -> None"
+   "text": "class QThread"
   },
   {
    "line": 12,
    "start": 12,
    "end": 23,
-   "text": "class QMessageBox\nQMessageBox(self, icon: PySide6.QtWidgets.QMessageBox.Icon, title: str, text: str, /, buttons: PySide6.QtWidgets.QMessageBox.StandardButton = Instance(QMessageBox.StandardButton.NoButton), parent: PySide6.QtWidgets.QWidget"
+   "text": "class QMessageBox"
   },
   {
    "line": 16,
    "start": 15,
    "end": 27,
-   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
+   "text": "class AxonMagicGUI"
   }
  ],
  "68a85fa944df7c64cb364db7c2bd56a2b3acb83f": [
@@ -850,31 +850,31 @@
    "line": 0,
    "start": 17,
    "end": 24,
-   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)"
   },
   {
    "line": 0,
    "start": 26,
    "end": 38,
-   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
+   "text": "class AxonMagicGUI"
   },
   {
    "line": 3,
    "start": 0,
    "end": 12,
-   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
+   "text": "class AxonMagicGUI"
   },
   {
    "line": 4,
    "start": 7,
    "end": 14,
-   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)"
   },
   {
    "line": 5,
    "start": 9,
    "end": 16,
-   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)"
   }
  ],
  "25c7090ad4c55b8f73f2c221e89ee061fa417658": [
@@ -1044,7 +1044,7 @@
    "line": 3,
    "start": 30,
    "end": 42,
-   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+   "text": "class QApplication"
   },
   {
    "line": 5,
@@ -1056,7 +1056,7 @@
    "line": 5,
    "start": 33,
    "end": 40,
-   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)"
   },
   {
    "line": 7,
@@ -1086,13 +1086,13 @@
    "line": 15,
    "start": 10,
    "end": 22,
-   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+   "text": "class QApplication"
   },
   {
    "line": 16,
    "start": 11,
    "end": 18,
-   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)"
   },
   {
    "line": 22,
@@ -1152,7 +1152,7 @@
    "line": 2,
    "start": 30,
    "end": 42,
-   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+   "text": "class QApplication"
   },
   {
    "line": 4,
@@ -1164,7 +1164,7 @@
    "line": 4,
    "start": 33,
    "end": 45,
-   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
+   "text": "class AxonMagicGUI"
   },
   {
    "line": 10,
@@ -1188,13 +1188,13 @@
    "line": 17,
    "start": 10,
    "end": 22,
-   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+   "text": "class QApplication"
   },
   {
    "line": 18,
    "start": 4,
    "end": 16,
-   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
+   "text": "class AxonMagicGUI"
   },
   {
    "line": 24,
@@ -1370,19 +1370,19 @@
    "line": 0,
    "start": 27,
    "end": 34,
-   "text": "class QThread\nQThread(self, /, parent: PySide6.QtCore.QObject | None = None) -> None"
+   "text": "class QThread"
   },
   {
    "line": 1,
    "start": 30,
    "end": 42,
-   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+   "text": "class QApplication"
   },
   {
    "line": 1,
    "start": 44,
    "end": 55,
-   "text": "class QMessageBox\nQMessageBox(self, icon: PySide6.QtWidgets.QMessageBox.Icon, title: str, text: str, /, buttons: PySide6.QtWidgets.QMessageBox.StandardButton = Instance(QMessageBox.StandardButton.NoButton), parent: PySide6.QtWidgets.QWidget"
+   "text": "class QMessageBox"
   },
   {
    "line": 3,
@@ -1394,7 +1394,7 @@
    "line": 3,
    "start": 33,
    "end": 45,
-   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
+   "text": "class AxonMagicGUI"
   },
   {
    "line": 5,
@@ -1412,25 +1412,25 @@
    "line": 10,
    "start": 18,
    "end": 30,
-   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+   "text": "class QApplication"
   },
   {
    "line": 11,
    "start": 29,
    "end": 36,
-   "text": "class QThread\nQThread(self, /, parent: PySide6.QtCore.QObject | None = None) -> None"
+   "text": "class QThread"
   },
   {
    "line": 12,
    "start": 12,
    "end": 23,
-   "text": "class QMessageBox\nQMessageBox(self, icon: PySide6.QtWidgets.QMessageBox.Icon, title: str, text: str, /, buttons: PySide6.QtWidgets.QMessageBox.StandardButton = Instance(QMessageBox.StandardButton.NoButton), parent: PySide6.QtWidgets.QWidget"
+   "text": "class QMessageBox"
   },
   {
    "line": 16,
    "start": 15,
    "end": 27,
-   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
+   "text": "class AxonMagicGUI"
   }
  ],
  "1c528b698ccb232cced95834c1b49a496042c17b": [
@@ -1546,7 +1546,7 @@
    "line": 3,
    "start": 36,
    "end": 43,
-   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)"
   },
   {
    "line": 5,
@@ -1564,7 +1564,7 @@
    "line": 7,
    "start": 17,
    "end": 24,
-   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)"
   }
  ],
  "e43a878adc218d5cc5de768b846cc2f3ffde822b": [
@@ -1638,7 +1638,7 @@
    "line": 3,
    "start": 30,
    "end": 42,
-   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+   "text": "class QApplication"
   },
   {
    "line": 5,
@@ -1650,7 +1650,7 @@
    "line": 5,
    "start": 33,
    "end": 40,
-   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)"
   },
   {
    "line": 7,
@@ -1680,13 +1680,13 @@
    "line": 15,
    "start": 10,
    "end": 22,
-   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+   "text": "class QApplication"
   },
   {
    "line": 16,
    "start": 11,
    "end": 18,
-   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)"
   },
   {
    "line": 22,
@@ -1720,7 +1720,7 @@
    "line": 2,
    "start": 30,
    "end": 42,
-   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+   "text": "class QApplication"
   },
   {
    "line": 4,
@@ -1732,7 +1732,7 @@
    "line": 4,
    "start": 33,
    "end": 45,
-   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
+   "text": "class AxonMagicGUI"
   },
   {
    "line": 10,
@@ -1756,13 +1756,13 @@
    "line": 17,
    "start": 10,
    "end": 22,
-   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+   "text": "class QApplication"
   },
   {
    "line": 18,
    "start": 4,
    "end": 16,
-   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
+   "text": "class AxonMagicGUI"
   },
   {
    "line": 24,

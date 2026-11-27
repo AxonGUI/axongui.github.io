@@ -37,7 +37,30 @@ function sha1(text: string) {
  * 把 Python 高亮结果里的 token 包成 twoslash 风格的悬停节点。
  * shiki 的 token 钩子按「行 + 字符偏移」回调，这里用累计长度还原列号。
  */
-function pythonHoverTransformer(hovers: PyHover[]) {
+
+/** 把悬停框里的签名按 python 高亮，返回 hast 子节点。 */
+async function highlightPopupCode(hl: any, text: string): Promise<any[]> {
+  const lines = text.split("\n");
+  const out: any[] = [];
+  for (const [i, line] of lines.entries()) {
+    if (i > 0) out.push({ type: "element", tagName: "br", properties: {}, children: [] });
+    if (!line) continue;
+    const hast = hl.codeToHast(line, {
+      lang: "python",
+      themes: { light: "github-light", dark: "github-dark" },
+      defaultColor: false,
+      structure: "inline",
+    });
+    // structure:"inline" 时 hast.children 直接就是 token 的 span 列表；
+    // classic 时才是 <pre><code>…</code></pre>。
+    const nodes: any[] = hast?.children ?? [];
+    const wrapper = nodes.find((n: any) => n.tagName === "code") ?? nodes[0]?.children?.find?.((n: any) => n.tagName === "code");
+    out.push(...(wrapper?.children ?? nodes ?? [{ type: "text", value: line }]));
+  }
+  return out;
+}
+
+function pythonHoverTransformer(hovers: PyHover[], popupChildren: Map<string, any[]>) {
   const byLine = new Map<number, PyHover[]>();
   for (const h of hovers) {
     const list = byLine.get(h.line) ?? [];
@@ -45,7 +68,7 @@ function pythonHoverTransformer(hovers: PyHover[]) {
     byLine.set(h.line, list);
   }
 
-  const popup = (text: string) => ({
+  const popup = (text: string, key: string) => ({
     type: "element",
     tagName: "span",
     properties: { class: "twoslash-popup-container" },
@@ -54,11 +77,7 @@ function pythonHoverTransformer(hovers: PyHover[]) {
         type: "element",
         tagName: "code",
         properties: { class: "twoslash-popup-code" },
-        children: text.split("\n").flatMap((line, i) =>
-          i === 0
-            ? [{ type: "text", value: line }]
-            : [{ type: "element", tagName: "br", properties: {}, children: [] }, { type: "text", value: line }],
-        ),
+        children: popupChildren.get(key) ?? [{ type: "text", value: text }],
       },
     ],
   });
@@ -85,7 +104,7 @@ function pythonHoverTransformer(hovers: PyHover[]) {
             type: "element",
             tagName: "span",
             properties: { class: "twoslash-hover" },
-            children: [popup(r.text), { type: "text", value: node.value.slice(r.start - start, r.end - start) }],
+            children: [popup(r.text, `${r.line}:${r.start}:${r.end}`), { type: "text", value: node.value.slice(r.start - start, r.end - start) }],
           });
           cursor = r.end;
         }
@@ -389,13 +408,63 @@ export default defineConfig({
 
       async function renderPythonHoverBlock(code: string, hovers: PyHover[]) {
         const hl = await getTwoslashHighlighter();
+        // 悬停框里的那行签名也要像代码一样着色，否则纯白文字。
+        const popupChildren = new Map<string, any[]>();
+        for (const h of hovers) {
+          const key = `${h.line}:${h.start}:${h.end}`;
+          if (popupChildren.has(key)) continue;
+          popupChildren.set(key, await highlightPopupCode(hl, h.text));
+        }
         return hl.codeToHtml(code, {
           lang: "python",
           themes: { light: "github-light", dark: "github-dark" },
           defaultColor: false,
-          transformers: [pythonHoverTransformer(hovers)],
+          transformers: [pythonHoverTransformer(hovers, popupChildren)],
         });
       }
+
+
+/** JSDoc 里的说明文字是 Markdown（`**粗体**`、反引号、链接），转成 hast 才能在浮层里渲染。 */
+const VOID_TAGS = new Set(["br", "hr", "img", "input", "wbr"]);
+function decodeEntities(text: string): string {
+  return text
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, "&");
+}
+
+function inlineHtmlToHast(html: string): any[] {
+  const root: any[] = [];
+  const stack: any[][] = [root];
+  const tagRe = /<(\/?)([a-zA-Z][\w-]*)([^>]*?)(\/?)>/g;
+  let last = 0;
+  let match: RegExpExecArray | null;
+  const pushText = (value: string) => {
+    if (value) stack[stack.length - 1].push({ type: "text", value: decodeEntities(value) });
+  };
+  while ((match = tagRe.exec(html))) {
+    pushText(html.slice(last, match.index));
+    const [, closing, tag, rawAttrs, selfClosing] = match;
+    last = tagRe.lastIndex;
+    const name = tag.toLowerCase();
+    if (closing) {
+      if (stack.length > 1) stack.pop();
+      continue;
+    }
+    const properties: Record<string, any> = {};
+    for (const attr of rawAttrs.matchAll(/([\w-]+)="([^"]*)"/g)) {
+      properties[attr[1]] = decodeEntities(attr[2]);
+    }
+    const node: any = { type: "element", tagName: name, properties, children: [] };
+    stack[stack.length - 1].push(node);
+    if (selfClosing || VOID_TAGS.has(name)) continue;
+    stack.push(node.children);
+  }
+  pushText(html.slice(last));
+  return root;
+}
 
       async function renderTwoslashBlock(code: string) {
         const hl = await getTwoslashHighlighter();
@@ -408,7 +477,12 @@ export default defineConfig({
               explicitTrigger: false,
               throws: false,
               // 用富文本渲染器：浮层内容直接内联进 HTML，不依赖 floating-vue 的运行时插槽
-              renderer: rendererRich(),
+              renderer: rendererRich({
+                // 说明文字按 Markdown 渲染（默认是原样输出，`**x**` 会显示成星号）
+                // 说明文字是 Markdown：有序/无序列表、代码围栏都要支持，用块级渲染
+                renderMarkdown: (text: string) => inlineHtmlToHast(md.render(text)),
+                renderMarkdownInline: (text: string) => inlineHtmlToHast(md.renderInline(text)),
+              }),
             }),
           ],
         });
