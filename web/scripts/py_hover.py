@@ -83,25 +83,78 @@ def ann_text(ann) -> str:
     return str(ann).replace("typing.", "").replace("<class '", "").replace("'>", "")
 
 
+def _params_of(func) -> list[str]:
+    try:
+        hints = typing.get_type_hints(func)
+    except Exception:
+        hints = {}
+    try:
+        sig = inspect.signature(func)
+    except Exception:
+        return []
+    out = []
+    for pname, p in sig.parameters.items():
+        if pname in ("self", "cls"):
+            continue
+        if p.kind is inspect.Parameter.VAR_POSITIONAL:
+            out.append(f"*{pname}")
+            continue
+        if p.kind is inspect.Parameter.VAR_KEYWORD:
+            out.append(f"**{pname}")
+            continue
+        text = pname
+        if pname in hints:
+            text += ": " + ann_text(hints[pname])
+        elif p.annotation is not inspect.Parameter.empty:
+            text += ": " + ann_text(p.annotation)
+        if p.default is not inspect.Parameter.empty:
+            text += " = " + repr(p.default)
+        out.append(text)
+    return out
+
+
+def _public_methods(obj) -> list[str]:
+    names = []
+    for attr in dir(obj):
+        if attr.startswith("_"):
+            continue
+        try:
+            if callable(getattr(obj, attr)):
+                names.append(attr)
+        except Exception:
+            continue
+    return names
+
+
 def describe(name: str, obj) -> str:
     """给「从 axon 里 import 出来的东西」写一句悬停文本。"""
     if inspect.ismodule(obj):
         return f"module {obj.__name__}"
+    doc = (inspect.getdoc(obj) or "").strip().split("\n")[0]
+
     if inspect.isclass(obj):
-        try:
-            params = [
-                f"{p}" for p in list(inspect.signature(obj).parameters.values())
-                if p.name not in ("self", "cls")
-            ]
-        except Exception:
-            params = []
-        return f"class {name}" + (f"({', '.join(params)})" if params else "")
-    sig = real_signature(obj)
-    if sig:
-        return sig
-    if callable(obj):
-        return f"{name}(...)"
-    return f"{name}: {type(obj).__name__}"
+        params = _params_of(obj)
+        text = f"class {name}" + (f"({', '.join(params)})" if params else "")
+        return text + (f"\n{doc}" if doc else "")
+
+    if inspect.isfunction(obj) or inspect.ismethod(obj):
+        sig = real_signature(obj)
+        return sig or f"{name}(...)"
+
+    # 非类、非函数的对象：装饰器/命名空间/单例
+    call = getattr(type(obj), "__call__", None)
+    if call is not None and call is not object.__call__:
+        params = _params_of(call)
+        if any(not p.startswith("*") for p in params):
+            text = f"{name}({', '.join(params)})" if params else f"{name}()"
+            return text + (f"\n{doc}" if doc else "")
+
+    methods = _public_methods(obj)
+    type_name = type(obj).__name__.lstrip("_")
+    head = name if type_name == name else f"{name}: {type_name}"
+    if methods:
+        head += "  ·  " + " / ".join(methods[:6]) + (" …" if len(methods) > 6 else "")
+    return head
 
 
 def real_signature(obj) -> str | None:
@@ -192,15 +245,22 @@ class BlockIndex:
                 src = node.module or ""
                 for alias in node.names:
                     real = alias.asname or alias.name
-                    # 从我们自己的包里 import 出来的子模块（axon.AxonAsset）单独记
-                    sub = self._module(f"{src}.{alias.name}") if src else None
-                    if inspect.ismodule(sub):
-                        self.modules[real] = sub
-                        self.text[real] = f"module {sub.__name__}"
+                    obj = None
+                    pkg = self._module(src) if src else None
+                    if pkg is not None:
+                        obj = getattr(pkg, alias.name, None)
+                    if obj is None and src:
+                        sub = self._module(f"{src}.{alias.name}")
+                        if inspect.ismodule(sub):
+                            obj = sub
+                    if obj is None:
                         continue
-                    sig = self._resolve_module_symbol(alias.name)
-                    if sig:
-                        self.text[real] = f"from {src}: {sig}"
+                    if inspect.ismodule(obj):
+                        # 从包里导出的子模块（axon.AxonAsset）单独记，便于解析 AxonAsset.from_bytes
+                        self.modules[real] = obj
+                        self.text[real] = f"module {obj.__name__}"
+                    else:
+                        self.text[real] = describe(real, obj)
             elif isinstance(node, ast.Import):
                 for alias in node.names:
                     if alias.name in MODULES:

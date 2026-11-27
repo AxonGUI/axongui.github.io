@@ -4,46 +4,58 @@
    "line": 1,
    "start": 4,
    "end": 11,
-   "text": "module axon.AxonGUI"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
   },
   {
    "line": 1,
    "start": 13,
    "end": 27,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 1,
    "start": 29,
    "end": 33,
-   "text": "module axon.Axon"
+   "text": "class Axon(web_name: str)"
   },
   {
    "line": 1,
    "start": 35,
    "end": 43,
-   "text": "from axon: AxonCall: _AxonCallNamespace"
+   "text": "AxonCall: AxonCallNamespace  ·  broadcast / call / getVar / setVar"
   },
   {
    "line": 2,
    "start": 4,
    "end": 13,
-   "text": "module axon.AxonEvent"
+   "text": "AxonEvent  ·  add_listener / dispatch_event / dispatch_js_event / dispatch_js_event_batch / off / on …"
   },
   {
    "line": 2,
    "start": 15,
    "end": 24,
-   "text": "module axon.AxonStore"
+   "text": "class AxonStore(id: str, *web_names, auto_create: bool = True)"
   },
   {
    "line": 2,
    "start": 26,
    "end": 38,
-   "text": "module axon.AxonMagicGUI"
+   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
   }
  ],
  "3ed79dff4707450c98a95a27b3790cba162c986e": [
+  {
+   "line": 0,
+   "start": 19,
+   "end": 22,
+   "text": "class Any(*args, **kwargs)\nSpecial type indicating an unconstrained type."
+  },
+  {
+   "line": 0,
+   "start": 24,
+   "end": 28,
+   "text": "cast(typ, val)"
+  },
   {
    "line": 3,
    "start": 0,
@@ -67,16 +79,28 @@
  ],
  "0e4d8f0b27fc379116023698b5cda8672f702e42": [
   {
+   "line": 0,
+   "start": 30,
+   "end": 42,
+   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+  },
+  {
    "line": 1,
    "start": 17,
    "end": 24,
-   "text": "module axon.AxonGUI"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
+  },
+  {
+   "line": 3,
+   "start": 6,
+   "end": 18,
+   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
   },
   {
    "line": 4,
    "start": 7,
    "end": 14,
-   "text": "module axon.AxonGUI"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
   }
  ],
  "cbd580b0a618e5b58456985bb39820502bf73bff": [
@@ -84,13 +108,13 @@
    "line": 0,
    "start": 17,
    "end": 31,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 2,
    "start": 1,
    "end": 15,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 3,
@@ -102,7 +126,7 @@
    "line": 7,
    "start": 1,
    "end": 15,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 8,
@@ -116,13 +140,13 @@
    "line": 0,
    "start": 17,
    "end": 21,
-   "text": "module axon.Axon"
+   "text": "class Axon(web_name: str)"
   },
   {
    "line": 2,
    "start": 5,
    "end": 9,
-   "text": "module axon.Axon"
+   "text": "class Axon(web_name: str)"
   }
  ],
  "51529b9b5d6471935ab3158e90fb6067b6149eea": [
@@ -138,31 +162,31 @@
    "line": 0,
    "start": 17,
    "end": 25,
-   "text": "from axon: AxonCall: _AxonCallNamespace"
+   "text": "AxonCall: AxonCallNamespace  ·  broadcast / call / getVar / setVar"
   },
   {
    "line": 2,
    "start": 0,
    "end": 8,
-   "text": "from axon: AxonCall: _AxonCallNamespace"
+   "text": "AxonCall: AxonCallNamespace  ·  broadcast / call / getVar / setVar"
   },
   {
    "line": 3,
    "start": 0,
    "end": 8,
-   "text": "from axon: AxonCall: _AxonCallNamespace"
+   "text": "AxonCall: AxonCallNamespace  ·  broadcast / call / getVar / setVar"
   },
   {
    "line": 4,
    "start": 0,
    "end": 8,
-   "text": "from axon: AxonCall: _AxonCallNamespace"
+   "text": "AxonCall: AxonCallNamespace  ·  broadcast / call / getVar / setVar"
   },
   {
    "line": 5,
    "start": 0,
    "end": 8,
-   "text": "from axon: AxonCall: _AxonCallNamespace"
+   "text": "AxonCall: AxonCallNamespace  ·  broadcast / call / getVar / setVar"
   }
  ],
  "d28553caaba1fc21e491fea02b05f9ceffbd1687": [
@@ -170,49 +194,49 @@
    "line": 0,
    "start": 17,
    "end": 26,
-   "text": "module axon.AxonEvent"
+   "text": "AxonEvent  ·  add_listener / dispatch_event / dispatch_js_event / dispatch_js_event_batch / off / on …"
   },
   {
    "line": 2,
    "start": 0,
    "end": 9,
-   "text": "module axon.AxonEvent"
+   "text": "AxonEvent  ·  add_listener / dispatch_event / dispatch_js_event / dispatch_js_event_batch / off / on …"
   },
   {
    "line": 3,
    "start": 0,
    "end": 9,
-   "text": "module axon.AxonEvent"
+   "text": "AxonEvent  ·  add_listener / dispatch_event / dispatch_js_event / dispatch_js_event_batch / off / on …"
   },
   {
    "line": 4,
    "start": 0,
    "end": 9,
-   "text": "module axon.AxonEvent"
+   "text": "AxonEvent  ·  add_listener / dispatch_event / dispatch_js_event / dispatch_js_event_batch / off / on …"
   },
   {
    "line": 5,
    "start": 0,
    "end": 9,
-   "text": "module axon.AxonEvent"
+   "text": "AxonEvent  ·  add_listener / dispatch_event / dispatch_js_event / dispatch_js_event_batch / off / on …"
   },
   {
    "line": 7,
    "start": 0,
    "end": 9,
-   "text": "module axon.AxonEvent"
+   "text": "AxonEvent  ·  add_listener / dispatch_event / dispatch_js_event / dispatch_js_event_batch / off / on …"
   },
   {
    "line": 8,
    "start": 0,
    "end": 9,
-   "text": "module axon.AxonEvent"
+   "text": "AxonEvent  ·  add_listener / dispatch_event / dispatch_js_event / dispatch_js_event_batch / off / on …"
   },
   {
    "line": 9,
    "start": 0,
    "end": 9,
-   "text": "module axon.AxonEvent"
+   "text": "AxonEvent  ·  add_listener / dispatch_event / dispatch_js_event / dispatch_js_event_batch / off / on …"
   }
  ],
  "80231a48db54d22e0e47becb2675a1dc2f18b84a": [
@@ -220,27 +244,39 @@
    "line": 0,
    "start": 17,
    "end": 26,
-   "text": "module axon.AxonStore"
+   "text": "class AxonStore(id: str, *web_names, auto_create: bool = True)"
   },
   {
    "line": 2,
    "start": 8,
    "end": 17,
-   "text": "module axon.AxonStore"
+   "text": "class AxonStore(id: str, *web_names, auto_create: bool = True)"
   }
  ],
  "3e35a2080d0213dca8f4acfd52ea37f64d62540c": [
   {
+   "line": 0,
+   "start": 30,
+   "end": 42,
+   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+  },
+  {
    "line": 1,
    "start": 17,
    "end": 29,
-   "text": "module axon.AxonMagicGUI"
+   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
+  },
+  {
+   "line": 3,
+   "start": 6,
+   "end": 18,
+   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
   },
   {
    "line": 4,
    "start": 0,
    "end": 12,
-   "text": "module axon.AxonMagicGUI"
+   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
   },
   {
    "line": 6,
@@ -252,7 +288,7 @@
    "line": 9,
    "start": 9,
    "end": 21,
-   "text": "module axon.AxonMagicGUI"
+   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
   },
   {
    "line": 9,
@@ -266,37 +302,37 @@
    "line": 0,
    "start": 17,
    "end": 21,
-   "text": "module axon.Axon"
+   "text": "class Axon(web_name: str)"
   },
   {
    "line": 0,
    "start": 23,
    "end": 39,
-   "text": "from axon: class AxonTimeoutError"
+   "text": "class AxonTimeoutError\n等不到对端回包。"
   },
   {
    "line": 0,
    "start": 41,
    "end": 55,
-   "text": "from axon: class JSRuntimeError"
+   "text": "class JSRuntimeError\nJS 侧抛出、被转成 Python 异常。"
   },
   {
    "line": 3,
    "start": 4,
    "end": 8,
-   "text": "module axon.Axon"
+   "text": "class Axon(web_name: str)"
   },
   {
    "line": 4,
    "start": 7,
    "end": 23,
-   "text": "from axon: class AxonTimeoutError"
+   "text": "class AxonTimeoutError\n等不到对端回包。"
   },
   {
    "line": 6,
    "start": 7,
    "end": 21,
-   "text": "from axon: class JSRuntimeError"
+   "text": "class JSRuntimeError\nJS 侧抛出、被转成 Python 异常。"
   }
  ],
  "a4e5a9bf9cbf801e5060cdcfa13a21c0441e00cd": [
@@ -381,16 +417,28 @@
  ],
  "fbc80d7ef681215c31176ecd85fae2c775c6aa32": [
   {
+   "line": 0,
+   "start": 30,
+   "end": 42,
+   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+  },
+  {
    "line": 1,
    "start": 17,
    "end": 24,
-   "text": "module axon.AxonGUI"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
+  },
+  {
+   "line": 3,
+   "start": 6,
+   "end": 18,
+   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
   },
   {
    "line": 4,
    "start": 7,
    "end": 14,
-   "text": "module axon.AxonGUI"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
   }
  ],
  "88236f776547162dafbe94ef71468759182ce5c3": [
@@ -398,13 +446,13 @@
    "line": 0,
    "start": 17,
    "end": 31,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 2,
    "start": 1,
    "end": 15,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 3,
@@ -416,7 +464,7 @@
    "line": 7,
    "start": 1,
    "end": 15,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 8,
@@ -430,13 +478,13 @@
    "line": 0,
    "start": 17,
    "end": 21,
-   "text": "module axon.Axon"
+   "text": "class Axon(web_name: str)"
   },
   {
    "line": 2,
    "start": 5,
    "end": 9,
-   "text": "module axon.Axon"
+   "text": "class Axon(web_name: str)"
   }
  ],
  "cc1c9bedd16d4d11bd958dbee12bbb9ed8f96dcc": [
@@ -452,31 +500,31 @@
    "line": 0,
    "start": 17,
    "end": 25,
-   "text": "from axon: AxonCall: _AxonCallNamespace"
+   "text": "AxonCall: AxonCallNamespace  ·  broadcast / call / getVar / setVar"
   },
   {
    "line": 2,
    "start": 0,
    "end": 8,
-   "text": "from axon: AxonCall: _AxonCallNamespace"
+   "text": "AxonCall: AxonCallNamespace  ·  broadcast / call / getVar / setVar"
   },
   {
    "line": 3,
    "start": 0,
    "end": 8,
-   "text": "from axon: AxonCall: _AxonCallNamespace"
+   "text": "AxonCall: AxonCallNamespace  ·  broadcast / call / getVar / setVar"
   },
   {
    "line": 4,
    "start": 0,
    "end": 8,
-   "text": "from axon: AxonCall: _AxonCallNamespace"
+   "text": "AxonCall: AxonCallNamespace  ·  broadcast / call / getVar / setVar"
   },
   {
    "line": 5,
    "start": 0,
    "end": 8,
-   "text": "from axon: AxonCall: _AxonCallNamespace"
+   "text": "AxonCall: AxonCallNamespace  ·  broadcast / call / getVar / setVar"
   }
  ],
  "8c7268f0a2b58859d1698b64dd29b92af2112dc7": [
@@ -484,49 +532,49 @@
    "line": 0,
    "start": 17,
    "end": 26,
-   "text": "module axon.AxonEvent"
+   "text": "AxonEvent  ·  add_listener / dispatch_event / dispatch_js_event / dispatch_js_event_batch / off / on …"
   },
   {
    "line": 2,
    "start": 0,
    "end": 9,
-   "text": "module axon.AxonEvent"
+   "text": "AxonEvent  ·  add_listener / dispatch_event / dispatch_js_event / dispatch_js_event_batch / off / on …"
   },
   {
    "line": 3,
    "start": 0,
    "end": 9,
-   "text": "module axon.AxonEvent"
+   "text": "AxonEvent  ·  add_listener / dispatch_event / dispatch_js_event / dispatch_js_event_batch / off / on …"
   },
   {
    "line": 4,
    "start": 0,
    "end": 9,
-   "text": "module axon.AxonEvent"
+   "text": "AxonEvent  ·  add_listener / dispatch_event / dispatch_js_event / dispatch_js_event_batch / off / on …"
   },
   {
    "line": 5,
    "start": 0,
    "end": 9,
-   "text": "module axon.AxonEvent"
+   "text": "AxonEvent  ·  add_listener / dispatch_event / dispatch_js_event / dispatch_js_event_batch / off / on …"
   },
   {
    "line": 7,
    "start": 0,
    "end": 9,
-   "text": "module axon.AxonEvent"
+   "text": "AxonEvent  ·  add_listener / dispatch_event / dispatch_js_event / dispatch_js_event_batch / off / on …"
   },
   {
    "line": 8,
    "start": 0,
    "end": 9,
-   "text": "module axon.AxonEvent"
+   "text": "AxonEvent  ·  add_listener / dispatch_event / dispatch_js_event / dispatch_js_event_batch / off / on …"
   },
   {
    "line": 9,
    "start": 0,
    "end": 9,
-   "text": "module axon.AxonEvent"
+   "text": "AxonEvent  ·  add_listener / dispatch_event / dispatch_js_event / dispatch_js_event_batch / off / on …"
   }
  ],
  "0ad8d4e17a0c4599f26189e3abcc080cc1667265": [
@@ -534,27 +582,39 @@
    "line": 0,
    "start": 17,
    "end": 26,
-   "text": "module axon.AxonStore"
+   "text": "class AxonStore(id: str, *web_names, auto_create: bool = True)"
   },
   {
    "line": 2,
    "start": 8,
    "end": 17,
-   "text": "module axon.AxonStore"
+   "text": "class AxonStore(id: str, *web_names, auto_create: bool = True)"
   }
  ],
  "28ec0dd6c9513d82334f2824bb05df7cd20039e3": [
   {
+   "line": 0,
+   "start": 30,
+   "end": 42,
+   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+  },
+  {
    "line": 1,
    "start": 17,
    "end": 29,
-   "text": "module axon.AxonMagicGUI"
+   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
+  },
+  {
+   "line": 3,
+   "start": 6,
+   "end": 18,
+   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
   },
   {
    "line": 4,
    "start": 0,
    "end": 12,
-   "text": "module axon.AxonMagicGUI"
+   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
   },
   {
    "line": 6,
@@ -566,7 +626,7 @@
    "line": 9,
    "start": 9,
    "end": 21,
-   "text": "module axon.AxonMagicGUI"
+   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
   },
   {
    "line": 9,
@@ -580,37 +640,37 @@
    "line": 0,
    "start": 17,
    "end": 21,
-   "text": "module axon.Axon"
+   "text": "class Axon(web_name: str)"
   },
   {
    "line": 0,
    "start": 23,
    "end": 39,
-   "text": "from axon: class AxonTimeoutError"
+   "text": "class AxonTimeoutError\n等不到对端回包。"
   },
   {
    "line": 0,
    "start": 41,
    "end": 55,
-   "text": "from axon: class JSRuntimeError"
+   "text": "class JSRuntimeError\nJS 侧抛出、被转成 Python 异常。"
   },
   {
    "line": 3,
    "start": 4,
    "end": 8,
-   "text": "module axon.Axon"
+   "text": "class Axon(web_name: str)"
   },
   {
    "line": 4,
    "start": 7,
    "end": 23,
-   "text": "from axon: class AxonTimeoutError"
+   "text": "class AxonTimeoutError\n等不到对端回包。"
   },
   {
    "line": 6,
    "start": 7,
    "end": 21,
-   "text": "from axon: class JSRuntimeError"
+   "text": "class JSRuntimeError\nJS 侧抛出、被转成 Python 异常。"
   }
  ],
  "ac63eab88df6525ff289eed892b5e740b803382a": [
@@ -624,13 +684,13 @@
    "line": 0,
    "start": 28,
    "end": 42,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 2,
    "start": 1,
    "end": 15,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 3,
@@ -680,13 +740,13 @@
    "line": 0,
    "start": 17,
    "end": 21,
-   "text": "module axon.Axon"
+   "text": "class Axon(web_name: str)"
   },
   {
    "line": 3,
    "start": 10,
    "end": 14,
-   "text": "module axon.Axon"
+   "text": "class Axon(web_name: str)"
   }
  ],
  "1b2460bfce27caa7c3d0ca964fc799b5546dacf9": [
@@ -694,13 +754,13 @@
    "line": 0,
    "start": 17,
    "end": 31,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 2,
    "start": 1,
    "end": 15,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 3,
@@ -719,22 +779,40 @@
  ],
  "4001a3233f93a9ab5882c10e0ce3cee895236281": [
   {
+   "line": 0,
+   "start": 27,
+   "end": 34,
+   "text": "class QThread\nQThread(self, /, parent: PySide6.QtCore.QObject | None = None) -> None"
+  },
+  {
+   "line": 1,
+   "start": 30,
+   "end": 42,
+   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+  },
+  {
+   "line": 1,
+   "start": 44,
+   "end": 55,
+   "text": "class QMessageBox\nQMessageBox(self, icon: PySide6.QtWidgets.QMessageBox.Icon, title: str, text: str, /, buttons: PySide6.QtWidgets.QMessageBox.StandardButton = Instance(QMessageBox.StandardButton.NoButton), parent: PySide6.QtWidgets.QWidget"
+  },
+  {
    "line": 3,
    "start": 17,
    "end": 31,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 3,
    "start": 33,
    "end": 45,
-   "text": "module axon.AxonMagicGUI"
+   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
   },
   {
    "line": 5,
    "start": 1,
    "end": 15,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 6,
@@ -743,10 +821,28 @@
    "text": "class DemoController"
   },
   {
+   "line": 10,
+   "start": 18,
+   "end": 30,
+   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+  },
+  {
+   "line": 11,
+   "start": 29,
+   "end": 36,
+   "text": "class QThread\nQThread(self, /, parent: PySide6.QtCore.QObject | None = None) -> None"
+  },
+  {
+   "line": 12,
+   "start": 12,
+   "end": 23,
+   "text": "class QMessageBox\nQMessageBox(self, icon: PySide6.QtWidgets.QMessageBox.Icon, title: str, text: str, /, buttons: PySide6.QtWidgets.QMessageBox.StandardButton = Instance(QMessageBox.StandardButton.NoButton), parent: PySide6.QtWidgets.QWidget"
+  },
+  {
    "line": 16,
    "start": 15,
    "end": 27,
-   "text": "module axon.AxonMagicGUI"
+   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
   }
  ],
  "68a85fa944df7c64cb364db7c2bd56a2b3acb83f": [
@@ -754,31 +850,31 @@
    "line": 0,
    "start": 17,
    "end": 24,
-   "text": "module axon.AxonGUI"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
   },
   {
    "line": 0,
    "start": 26,
    "end": 38,
-   "text": "module axon.AxonMagicGUI"
+   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
   },
   {
    "line": 3,
    "start": 0,
    "end": 12,
-   "text": "module axon.AxonMagicGUI"
+   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
   },
   {
    "line": 4,
    "start": 7,
    "end": 14,
-   "text": "module axon.AxonGUI"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
   },
   {
    "line": 5,
    "start": 9,
    "end": 16,
-   "text": "module axon.AxonGUI"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
   }
  ],
  "25c7090ad4c55b8f73f2c221e89ee061fa417658": [
@@ -818,19 +914,19 @@
    "line": 0,
    "start": 17,
    "end": 31,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 0,
    "start": 33,
    "end": 42,
-   "text": "module axon.AxonEvent"
+   "text": "AxonEvent  ·  add_listener / dispatch_event / dispatch_js_event / dispatch_js_event_batch / off / on …"
   },
   {
    "line": 2,
    "start": 1,
    "end": 15,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 3,
@@ -842,7 +938,7 @@
    "line": 6,
    "start": 8,
    "end": 17,
-   "text": "module axon.AxonEvent"
+   "text": "AxonEvent  ·  add_listener / dispatch_event / dispatch_js_event / dispatch_js_event_batch / off / on …"
   }
  ],
  "e3b65e4cfddeefe632574fff9dfb12c7479d23cf": [
@@ -882,13 +978,13 @@
    "line": 1,
    "start": 17,
    "end": 31,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 3,
    "start": 1,
    "end": 15,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 4,
@@ -914,13 +1010,13 @@
    "line": 0,
    "start": 17,
    "end": 21,
-   "text": "module axon.Axon"
+   "text": "class Axon(web_name: str)"
   },
   {
    "line": 3,
    "start": 5,
    "end": 9,
-   "text": "module axon.Axon"
+   "text": "class Axon(web_name: str)"
   }
  ],
  "dbaa0be57aedb86fb38aa37712ead295cf69439d": [
@@ -928,33 +1024,51 @@
    "line": 0,
    "start": 17,
    "end": 26,
-   "text": "module axon.AxonStore"
+   "text": "class AxonStore(id: str, *web_names, auto_create: bool = True)"
   },
   {
    "line": 5,
    "start": 8,
    "end": 17,
-   "text": "module axon.AxonStore"
+   "text": "class AxonStore(id: str, *web_names, auto_create: bool = True)"
   }
  ],
  "27b1e5a86b3828bf7c1b405c98ff12678eb2c94d": [
   {
+   "line": 1,
+   "start": 20,
+   "end": 24,
+   "text": "class Path(*args, **kwargs)\nPurePath subclass that can make system calls."
+  },
+  {
+   "line": 3,
+   "start": 30,
+   "end": 42,
+   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+  },
+  {
    "line": 5,
    "start": 17,
    "end": 31,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 5,
    "start": 33,
    "end": 40,
-   "text": "module axon.AxonGUI"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
+  },
+  {
+   "line": 7,
+   "start": 7,
+   "end": 11,
+   "text": "class Path(*args, **kwargs)\nPurePath subclass that can make system calls."
   },
   {
    "line": 9,
    "start": 1,
    "end": 15,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 10,
@@ -969,10 +1083,16 @@
    "text": "def main() -> int"
   },
   {
+   "line": 15,
+   "start": 10,
+   "end": 22,
+   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+  },
+  {
    "line": 16,
    "start": 11,
    "end": 18,
-   "text": "module axon.AxonGUI"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
   },
   {
    "line": 22,
@@ -986,13 +1106,13 @@
    "line": 0,
    "start": 17,
    "end": 31,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 2,
    "start": 1,
    "end": 15,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 3,
@@ -1029,22 +1149,28 @@
  ],
  "847e240b6f44420bd6fba1ea983d950bdaaa3a16": [
   {
+   "line": 2,
+   "start": 30,
+   "end": 42,
+   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+  },
+  {
    "line": 4,
    "start": 17,
    "end": 31,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 4,
    "start": 33,
    "end": 45,
-   "text": "module axon.AxonMagicGUI"
+   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
   },
   {
    "line": 10,
    "start": 1,
    "end": 15,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 11,
@@ -1059,10 +1185,16 @@
    "text": "def main() -> int"
   },
   {
+   "line": 17,
+   "start": 10,
+   "end": 22,
+   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+  },
+  {
    "line": 18,
    "start": 4,
    "end": 16,
-   "text": "module axon.AxonMagicGUI"
+   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
   },
   {
    "line": 24,
@@ -1076,13 +1208,13 @@
    "line": 0,
    "start": 17,
    "end": 31,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 2,
    "start": 1,
    "end": 15,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 3,
@@ -1096,13 +1228,13 @@
    "line": 0,
    "start": 17,
    "end": 21,
-   "text": "module axon.Axon"
+   "text": "class Axon(web_name: str)"
   },
   {
    "line": 2,
    "start": 9,
    "end": 13,
-   "text": "module axon.Axon"
+   "text": "class Axon(web_name: str)"
   }
  ],
  "5e3e352b5d98c0b0ac47eb105c0e91bb0a05468e": [
@@ -1116,13 +1248,13 @@
    "line": 0,
    "start": 28,
    "end": 42,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 2,
    "start": 1,
    "end": 15,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 3,
@@ -1172,13 +1304,13 @@
    "line": 0,
    "start": 17,
    "end": 21,
-   "text": "module axon.Axon"
+   "text": "class Axon(web_name: str)"
   },
   {
    "line": 3,
    "start": 10,
    "end": 14,
-   "text": "module axon.Axon"
+   "text": "class Axon(web_name: str)"
   }
  ],
  "116aa6a1e25c9f38928dce52106e657e74f5b210": [
@@ -1186,13 +1318,13 @@
    "line": 0,
    "start": 17,
    "end": 31,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 2,
    "start": 1,
    "end": 15,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 3,
@@ -1206,19 +1338,19 @@
    "line": 2,
    "start": 17,
    "end": 31,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 2,
    "start": 33,
    "end": 42,
-   "text": "module axon.AxonEvent"
+   "text": "AxonEvent  ·  add_listener / dispatch_event / dispatch_js_event / dispatch_js_event_batch / off / on …"
   },
   {
    "line": 4,
    "start": 1,
    "end": 15,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 5,
@@ -1230,27 +1362,45 @@
    "line": 11,
    "start": 8,
    "end": 17,
-   "text": "module axon.AxonEvent"
+   "text": "AxonEvent  ·  add_listener / dispatch_event / dispatch_js_event / dispatch_js_event_batch / off / on …"
   }
  ],
  "ede94e7af576ec5dbdc9c7e0341ee4587c2aa52c": [
   {
+   "line": 0,
+   "start": 27,
+   "end": 34,
+   "text": "class QThread\nQThread(self, /, parent: PySide6.QtCore.QObject | None = None) -> None"
+  },
+  {
+   "line": 1,
+   "start": 30,
+   "end": 42,
+   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+  },
+  {
+   "line": 1,
+   "start": 44,
+   "end": 55,
+   "text": "class QMessageBox\nQMessageBox(self, icon: PySide6.QtWidgets.QMessageBox.Icon, title: str, text: str, /, buttons: PySide6.QtWidgets.QMessageBox.StandardButton = Instance(QMessageBox.StandardButton.NoButton), parent: PySide6.QtWidgets.QWidget"
+  },
+  {
    "line": 3,
    "start": 17,
    "end": 31,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 3,
    "start": 33,
    "end": 45,
-   "text": "module axon.AxonMagicGUI"
+   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
   },
   {
    "line": 5,
    "start": 1,
    "end": 15,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 6,
@@ -1259,10 +1409,28 @@
    "text": "class DemoController"
   },
   {
+   "line": 10,
+   "start": 18,
+   "end": 30,
+   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+  },
+  {
+   "line": 11,
+   "start": 29,
+   "end": 36,
+   "text": "class QThread\nQThread(self, /, parent: PySide6.QtCore.QObject | None = None) -> None"
+  },
+  {
+   "line": 12,
+   "start": 12,
+   "end": 23,
+   "text": "class QMessageBox\nQMessageBox(self, icon: PySide6.QtWidgets.QMessageBox.Icon, title: str, text: str, /, buttons: PySide6.QtWidgets.QMessageBox.StandardButton = Instance(QMessageBox.StandardButton.NoButton), parent: PySide6.QtWidgets.QWidget"
+  },
+  {
    "line": 16,
    "start": 15,
    "end": 27,
-   "text": "module axon.AxonMagicGUI"
+   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
   }
  ],
  "1c528b698ccb232cced95834c1b49a496042c17b": [
@@ -1302,19 +1470,19 @@
    "line": 0,
    "start": 17,
    "end": 31,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 0,
    "start": 33,
    "end": 42,
-   "text": "module axon.AxonEvent"
+   "text": "AxonEvent  ·  add_listener / dispatch_event / dispatch_js_event / dispatch_js_event_batch / off / on …"
   },
   {
    "line": 2,
    "start": 1,
    "end": 15,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 3,
@@ -1326,7 +1494,7 @@
    "line": 6,
    "start": 8,
    "end": 17,
-   "text": "module axon.AxonEvent"
+   "text": "AxonEvent  ·  add_listener / dispatch_event / dispatch_js_event / dispatch_js_event_batch / off / on …"
   }
  ],
  "46dfa65c1bb5219d6188b676f9791302d76ea57d": [
@@ -1378,7 +1546,7 @@
    "line": 3,
    "start": 36,
    "end": 43,
-   "text": "module axon.AxonGUI"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
   },
   {
    "line": 5,
@@ -1396,7 +1564,7 @@
    "line": 7,
    "start": 17,
    "end": 24,
-   "text": "module axon.AxonGUI"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
   }
  ],
  "e43a878adc218d5cc5de768b846cc2f3ffde822b": [
@@ -1404,13 +1572,13 @@
    "line": 1,
    "start": 17,
    "end": 31,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 3,
    "start": 1,
    "end": 15,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 4,
@@ -1436,13 +1604,13 @@
    "line": 0,
    "start": 17,
    "end": 21,
-   "text": "module axon.Axon"
+   "text": "class Axon(web_name: str)"
   },
   {
    "line": 3,
    "start": 5,
    "end": 9,
-   "text": "module axon.Axon"
+   "text": "class Axon(web_name: str)"
   }
  ],
  "2c82776d1e524dcaba4f967415eb4ab18b1b2f5f": [
@@ -1450,33 +1618,51 @@
    "line": 0,
    "start": 17,
    "end": 26,
-   "text": "module axon.AxonStore"
+   "text": "class AxonStore(id: str, *web_names, auto_create: bool = True)"
   },
   {
    "line": 5,
    "start": 8,
    "end": 17,
-   "text": "module axon.AxonStore"
+   "text": "class AxonStore(id: str, *web_names, auto_create: bool = True)"
   }
  ],
  "ff882fc8bd57f33d6084fc4d562a0687b68505c1": [
   {
+   "line": 1,
+   "start": 20,
+   "end": 24,
+   "text": "class Path(*args, **kwargs)\nPurePath subclass that can make system calls."
+  },
+  {
+   "line": 3,
+   "start": 30,
+   "end": 42,
+   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+  },
+  {
    "line": 5,
    "start": 17,
    "end": 31,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 5,
    "start": 33,
    "end": 40,
-   "text": "module axon.AxonGUI"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
+  },
+  {
+   "line": 7,
+   "start": 7,
+   "end": 11,
+   "text": "class Path(*args, **kwargs)\nPurePath subclass that can make system calls."
   },
   {
    "line": 9,
    "start": 1,
    "end": 15,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 10,
@@ -1491,10 +1677,16 @@
    "text": "def main() -> int"
   },
   {
+   "line": 15,
+   "start": 10,
+   "end": 22,
+   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+  },
+  {
    "line": 16,
    "start": 11,
    "end": 18,
-   "text": "module axon.AxonGUI"
+   "text": "class AxonGUI(web_name: WebName, url: str, options: Optional[AxonGUIOptions] = None)\nQWebEngineView(self, page: PySide6.QtWebEngineCore.QWebEnginePage, /, parent: PySide6.QtWidgets.QWidget | None = None, *, title: str | None = None, url: Py"
   },
   {
    "line": 22,
@@ -1525,22 +1717,28 @@
  ],
  "37986ce7594c03eb00f1005fbc16b0c0714c5b21": [
   {
+   "line": 2,
+   "start": 30,
+   "end": 42,
+   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+  },
+  {
    "line": 4,
    "start": 17,
    "end": 31,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 4,
    "start": 33,
    "end": 45,
-   "text": "module axon.AxonMagicGUI"
+   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
   },
   {
    "line": 10,
    "start": 1,
    "end": 15,
-   "text": "from axon: AxonController(...)"
+   "text": "AxonController(web_name: str | list[str] = '*', id: Optional[str] = None, shared: bool = False)\n``AxonController`` 的命名空间对象：既能当装饰器用，也挂注册表操作。"
   },
   {
    "line": 11,
@@ -1555,10 +1753,16 @@
    "text": "def main() -> int"
   },
   {
+   "line": 17,
+   "start": 10,
+   "end": 22,
+   "text": "class QApplication\nQApplication(self, arguments: collections.abc.Sequence[str], /, *, cursorFlashTime: int | None = None, doubleClickInterval: int | None = None, keyboardInputInterval: int | None = None, wheelScrollLines: int | None = None,"
+  },
+  {
    "line": 18,
    "start": 4,
    "end": 16,
-   "text": "module axon.AxonMagicGUI"
+   "text": "class AxonMagicGUI\nQObject(self, /, parent: PySide6.QtCore.QObject | None = None, *, objectName: str | None = None) -> None"
   },
   {
    "line": 24,
