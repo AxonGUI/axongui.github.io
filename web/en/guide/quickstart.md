@@ -14,7 +14,7 @@ route two if you want to wire it yourself or only need a plain HTML page.
 
 | Need | Notes |
 | --- | --- |
-| Python 3.12+ | check with `python --version` |
+| Python 3.12 / 3.13 / 3.14 | check with `python --version` (all three are covered by the real-WebEngine verification) |
 | Node.js 20+ | only needed to build the web side (Vue/TypeScript); a plain HTML page does not need it |
 | Extra Linux dependency | `sudo apt-get install -y libxkbfile1` (required by Qt WebEngine — without it `import axon` fails immediately) |
 
