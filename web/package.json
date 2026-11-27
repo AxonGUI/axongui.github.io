@@ -4,10 +4,10 @@
   "version": "0.1.0",
   "type": "module",
   "dependencies": {
-    "axon-gui": "^1.4.1",
+    "axon-gui": "^1.4.2",
     "promise-retry": "^2.0.1",
     "qwebchannel": "^6.2.0",
-    "uuid": ">=10.0.0"
+    "uuid": ">=14.0.0"
   },
   "devDependencies": {
     "@shikijs/twoslash": "^4.6.0",
