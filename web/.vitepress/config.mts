@@ -436,7 +436,11 @@ function decodeEntities(text: string): string {
 }
 
 function inlineHtmlToHast(html: string): any[] {
+  // VitePress 2 的 markdown-it-async 会在渲染结果里插入
+  // `<!--remark-markdown-it-async:<hash>-->` 占位注释（供异步插件回填）。我们这里是
+  // 一次性构建、不会再回填，注释若留下就会被当成正文文本显示出来，所以先剥掉。
   const root: any[] = [];
+  html = html.replace(/<!--[\s\S]*?-->/g, "");
   const stack: any[][] = [root];
   const tagRe = /<(\/?)([a-zA-Z][\w-]*)([^>]*?)(\/?)>/g;
   let last = 0;

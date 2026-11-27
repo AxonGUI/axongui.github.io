@@ -389,6 +389,13 @@ body.has-axon-download { padding-bottom: 92px; }
 .axon-hover-popup .twoslash-popup-docs > :first-child { margin-top: 0; }
 .axon-hover-popup .twoslash-popup-docs > :last-child { margin-bottom: 0; }
 
+/* 说明文字里的代码围栏走的是 VitePress 的 fence 规则，会带上语言标签与复制按钮；
+   浮层里这两样既没用又占一行，隐藏掉。 */
+.axon-hover-popup .lang,
+.axon-hover-popup button.copy {
+  display: none;
+}
+
 .axon-hover-popup .twoslash-popup-docs pre {
   margin: 0.4em 0;
   padding: 6px 8px;

@@ -250,3 +250,15 @@ twoslash / Python 悬停这两条路径是「自己用 shiki 渲染好 HTML 再�
 
 另外 `npm run pyhover` 要用**装了 axon-gui 的解释器**跑（`AXON_PYTHON=...`）。
 用系统 python3 跑不会报错，只是解析不到从 `axon` 导入的符号，277 条会静默掉成 57 条——脚本现在会直接拒绝并提示。
+
+## 悬停框里冒出一行 `<!--remark-markdown-it-async:…-->`
+
+VitePress 2 用 `markdown-it-async` 让 markdown 插件可以异步：渲染时会先写一个
+`<!--remark-markdown-it-async:<hash>-->` 占位注释，等异步结果回来再回填。
+
+我们的悬停说明文字是在构建期用 VitePress 的 `md.render()` 渲染、再塞进浮层的——
+那次渲染同样会产生占位注释，但后面**没有人回填**。我的 HTML→hast 转换器不识别注释，
+于是它被当成正文文本显示在浮层里。
+
+修法：转换前先剥掉注释 `html.replace(/<!--[\s\S]*?-->/g, "")`。
+顺带把说明里代码围栏带来的 `.lang` 标签与 `button.copy` 也隐藏掉（浮层里没用又占一行）。
