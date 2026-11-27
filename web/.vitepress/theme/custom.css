@@ -337,3 +337,34 @@ body.has-axon-download { padding-bottom: 92px; }
 }
 .cross-inbox__text { flex: 1; word-break: break-word; }
 .cross-inbox__at { font-size: 11px; color: var(--vp-c-text-3); }
+
+/* ── 代码块里的类型悬停：浮层搬到 body 上渲染（见 theme/hover-popup.ts） ── */
+/* 服务端产物里那份就地浮层只作为内容来源，不参与布局，否则会撑出横向滚动条、还会被容器裁掉 */
+.twoslash .twoslash-popup-container {
+  display: none !important;
+}
+.axon-hover-popup {
+  position: fixed;
+  z-index: 60;
+  max-width: min(72ch, calc(100vw - 2rem));
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  background: var(--vp-c-bg);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+  color: var(--vp-c-text-1);
+  font-size: 0.8rem;
+  line-height: 1.55;
+  pointer-events: none;
+  overflow-wrap: anywhere;
+}
+.axon-hover-popup code {
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.78rem;
+  white-space: pre-wrap;
+  color: var(--vp-c-text-1);
+}
+.twoslash .twoslash-hover {
+  border-bottom: 1px dashed var(--vp-c-brand-1);
+  cursor: help;
+}
