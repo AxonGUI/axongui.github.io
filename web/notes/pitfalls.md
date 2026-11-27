@@ -297,3 +297,57 @@ twoslashOptions: { extraFiles: { "axon.generated.d.ts": axonGeneratedDts } }
 悬停 `Axon.DemoController.add` 就会显示 `function add(a: number, b: number): Promise<number>`。
 注意只有**文档站真实控制器**里的名字才有类型（`DemoController`）；代码示例里虚构的
 `Axon.Users`、`Axon.Calc` 仍然是 `any` —— 它们在真实应用里不存在，硬写一份签名表反而是假精确。
+
+## PyPI 拒绝上传：`Framework :: PySide6` 不是合法 classifier
+
+**症状**：tag 打好、artifact 也 build 成功，`pypa/gh-action-pypi-publish` 报
+`400 Bad Request … 'Framework :: PySide6' is not a valid classifier.`，PyPI 上还是旧版本。
+
+**根因**：classifier 是 PyPI 那边**白名单**里的字符串，拼错/自创一个就直接 400。PyPI 的 trove 列表里根本没有 PySide6 这一项（只有历史的 `Framework :: PySide` / `:: PySide2`）。
+
+**修法**：从 `classifiers` 里删掉该项。以后加任何 classifier 前先查
+`https://pypi.org/classifiers/`；`Typing :: Typed`、`Programming Language :: Python :: 3.13` 都是合法项。
+
+## TypeScript 7 没有 JS Compiler API，打包插件起不来
+
+**症状**：`npm run build` 在 `vite build` 阶段直接失败：
+`The installed "typescript" package does not provide the JavaScript Compiler API (this happens with TypeScript 7+)`。
+
+**根因**：TS 7 是原生（Go）重写版，只保留 `tsc` 命令行，不再导出供工具链调用的 JS API；`vite-plugin-dts`（底层 unplugin-dts）要靠这个 API 读 tsconfig / 生成声明。
+
+**修法**：按报错提示装一份旧的 API 包当 tooling fallback——
+`npm i -D @typescript/typescript6`。之后 `tsc` 仍走 TS 7，插件走 TS 6 的 API，两边都正常。
+
+## Vite 8 换 rolldown 后不再带 esbuild
+
+**症状**：验证台 `run_web_tests.py` 直接 `SystemExit`：`缺少 esbuild: 先执行 npm ci`——但 `npm ci` 刚跑过、依赖装得好好的。
+
+**根因**：验证台脚本要 `core-js/node_modules/.bin/esbuild` 把前端打成浏览器包。以前这个二进制是 vite 5 的**传递依赖**；vite 8 改用 rolldown，不再安装 esbuild。
+
+**修法**：把 `esbuild` 写成 `devDependencies` 里的显式依赖。教训是通用的——**验证台依赖的二进制，不能靠别的工具的传递依赖**，否则上游换个打包器就静默缺件。
+
+## `astral-sh/setup-uv` 没有浮动的主版本标签
+
+**症状**：把 workflow 升到 `astral-sh/setup-uv@v10`，job 在 "Set up job" 阶段就 failure，看不出原因。
+
+**根因**：该仓库只对早期版本打了 `v5`/`v7` 这类浮动主标签；`v10` 这个 ref 不存在（REST 查 `git/ref/tags/v10` 返回 404），必须写完整版本 `v10.4.0`。
+
+**修法**：钉完整版本号。升级 Actions 前先用 `GET /repos/{owner}/{repo}/git/ref/tags/{tag}` 确认该 ref 真的存在，别照抄 major 写法。
+
+## 刚发布的版本，uv 会从缓存里说「没有这个版本」
+
+**症状**：PyPI 上 `axon-gui 5.7.2` 已经能查到，`uv pip install "axon-gui==5.7.2"` 却报
+`Because there is no version of axon-gui==5.7.2 … unsatisfiable`。
+
+**根因**：uv 的索引缓存（以及本机配的镜像）还没刷新；解析时看到的是旧快照。
+
+**修法**：加 `--refresh`（或 `--no-cache`）重试。验证"刚发的包能不能装"要用干净环境 + `--refresh`，否则会把缓存问题误判成发布失败。
+
+## Angular 不能一次跨两个大版本升级
+
+**症状**：`npx @angular/cli@22 update @angular/core@22 …` 报
+`Updating multiple major versions of '@angular/core' at once is not supported`。
+
+**根因**：Angular 的迁移脚本只按「相邻大版本」设计。
+
+**修法**：一版一版升：先 `update @angular/core@21 @angular/cli@21 …`，跑通构建，再升 22。每步都要重新 `npm install` 让 peer 依赖（如 TypeScript 版本）跟着变。
