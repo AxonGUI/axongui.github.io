@@ -412,3 +412,13 @@ TS/JS 用 twoslash 编译真实类型；Python 没有等价的构建期工具链
 | 继承来的 docstring | 已过滤（`class AxonGUI(...)` 只剩一行，不再拖 `QWebEngineView` 的签名） |
 | 浮层位置 | 视口内，`scrollWidth == clientWidth`（不撑横向滚动条） |
 | 深色主题 | token 色切换为 dark 变量，浮层底色 `#1b1b1f` |
+
+## 类型悬停：`Axon` 的静态类型（v0.4.1）
+
+| 检查项 | 结果 |
+| --- | --- |
+| 真实控制器的调用签名 | 悬停 `Axon.DemoController.add` → `function add(a: number, b: number): Promise<number>` |
+| `Axon` 本身 | 显示由生成物推导的 facade（`Axon.DemoController.counter: number` 等），不再是 `any` |
+| 结果推断 | `const sum = await Axon.DemoController.add(2, 3)` → `const sum: number` |
+| 虚构控制器名 | 仍为 `any`（不在文档站控制器里，属预期） |
+| 回退路径 | 没有 `web/axon.generated.d.ts` 时构建不报错，退回 `any`（与旧行为一致） |

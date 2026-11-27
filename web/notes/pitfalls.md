@@ -275,3 +275,25 @@ VitePress 2 用内置的 `markdown-it-async` 让 markdown 插件可以异步：�
 于是 0.8 × 0.8rem ≈ 10.2px —— 两重缩小，比官方还小。
 
 修法：浮层里用绝对字号（代码行 13px、说明 13.5px/1.7、内边距 8px 12px），不再依赖 `em` 链。
+
+## 悬停 `Axon` 显示 `any`
+
+`Axon` 是运行时 Proxy：控制器名、方法名只有跑起来才知道，所以包里 `AxonFacade` 的定义是
+「有生成物就按签名表来，没有就是 `any`」（`axon-gui/dist/Axon.d.ts` 里 `AxonControllers`
+是空接口）。静态 `any` 是设计，不是漏了类型。
+
+想让文档里的悬停有真实签名，就用类型生成器补上那张表：
+
+```bash
+cd web && AXON_GUI=axon-gui npm run types   # 等价于 axon-gui types --only ts --ts-out web/axon.generated.d.ts
+```
+
+再在 twoslash 里把它塞进虚拟文件系统（`config.mts`）：
+
+```ts
+twoslashOptions: { extraFiles: { "axon.generated.d.ts": axonGeneratedDts } }
+```
+
+悬停 `Axon.DemoController.add` 就会显示 `function add(a: number, b: number): Promise<number>`。
+注意只有**文档站真实控制器**里的名字才有类型（`DemoController`）；代码示例里虚构的
+`Axon.Users`、`Axon.Calc` 仍然是 `any` —— 它们在真实应用里不存在，硬写一份签名表反而是假精确。

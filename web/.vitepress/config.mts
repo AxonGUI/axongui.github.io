@@ -18,6 +18,18 @@ function getTwoslashHighlighter() {
   return twoslashHighlighter;
 }
 
+// 文档示例里直接写 `Axon.DemoController.add(...)`。`Axon` 是运行时 Proxy，没有生成物时
+// 它的静态类型就是 any（见 axon-gui 的 Axon.d.ts：AxonFacade = any）。这里把
+// `axon-gui types` 从文档站真实控制器生成出来的签名表喂给 twoslash 的虚拟文件系统，
+// 悬停就能看到真实签名（`add(a: number, b: number): Promise<number>`）。
+// 生成命令见 package.json 的 `types` 脚本；文件不含代码，只有类型。
+let axonGeneratedDts = "";
+try {
+  axonGeneratedDts = readFileSync(fileURLToPath(new URL("../axon.generated.d.ts", import.meta.url)), "utf8");
+} catch {
+  axonGeneratedDts = "";
+}
+
 // Python 代码块的悬停类型：由 web/scripts/py_hover.py 生成 web/.pyhover.json
 // （纯静态分析 + 反射真实安装的 axon 包）。文件不存在时静默跳过，
 // 这样没装 Node 端 Python 依赖的机器也能构建。
@@ -449,6 +461,9 @@ function htmlToHast(html: string): any[] {
             transformerTwoslash({
               explicitTrigger: false,
               throws: false,
+              twoslashOptions: axonGeneratedDts
+                ? { extraFiles: { "axon.generated.d.ts": axonGeneratedDts } }
+                : undefined,
               // 用富文本渲染器：浮层内容直接内联进 HTML，不依赖 floating-vue 的运行时插槽
               renderer: rendererRich({
                 // 说明文字按 Markdown 渲染（默认是原样输出，`**x**` 会显示成星号）
