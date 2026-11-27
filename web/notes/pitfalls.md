@@ -251,14 +251,17 @@ twoslash / Python 悬停这两条路径是「自己用 shiki 渲染好 HTML 再�
 另外 `npm run pyhover` 要用**装了 axon-gui 的解释器**跑（`AXON_PYTHON=...`）。
 用系统 python3 跑不会报错，只是解析不到从 `axon` 导入的符号，277 条会静默掉成 57 条——脚本现在会直接拒绝并提示。
 
-## 悬停框里冒出一行 `<!--remark-markdown-it-async:…-->`
+## 悬停框里冒出一行 `<!--::markdown-it-async::…-->`
 
-VitePress 2 用 `markdown-it-async` 让 markdown 插件可以异步：渲染时会先写一个
-`<!--remark-markdown-it-async:<hash>-->` 占位注释，等异步结果回来再回填。
+VitePress 2 用内置的 `markdown-it-async` 让 markdown 插件可以异步：异步高亮还没回来时先写
+`<!--::markdown-it-async::<id>::-->` 占位注释，`renderAsync()` 末尾再逐个替换成高亮结果。
+官方页面渲染永远走 `renderAsync`，所以正常不会看见它。
 
-我们的悬停说明文字是在构建期用 VitePress 的 `md.render()` 渲染、再塞进浮层的——
-那次渲染同样会产生占位注释，但后面**没有人回填**。我的 HTML→hast 转换器不识别注释，
-于是它被当成正文文本显示在浮层里。
+我们的悬停说明是在 **twoslash 的同步钩子**里渲染的（`rendererRich` 的 `renderMarkdown`
+必须是同步函数，返回节点数组），只能调同步的 `md.render()` —— 拿到的就是带占位注释的
+中间结果（库会打印 `Please use md.renderAsync instead`）。
 
-修法：转换前先剥掉注释 `html.replace(/<!--[\s\S]*?-->/g, "")`。
-顺带把说明里代码围栏带来的 `.lang` 标签与 `button.copy` 也隐藏掉（浮层里没用又占一行）。
+修法不是"字符串替换注释"，而是让 HTML→hast 走官方解析器：`hast-util-from-html` 会把注释
+解析成独立的 `comment` 节点，过滤掉 `type === "comment"` 即可，代码正文本来就在 `<code>`
+里不受影响。附带的 `.lang` 语言标签与 `button.copy` 是 VitePress fence 包装自带，浮层里
+`display:none`。

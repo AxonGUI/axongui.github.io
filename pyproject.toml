@@ -1,6 +1,6 @@
 [project]
 name = "axon-docs"
-version = "0.3.8"
+version = "0.3.9"
 description = "Axon 说明书（VitePress 站点 + 可交互示例宿主）"
 requires-python = ">=3.12"
 dependencies = ["axon-gui>=5.7.1"]

@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@shikijs/twoslash": "^4.6.0",
+    "hast-util-from-html": "^2.1.0",
     "twoslash": "^0.3.9",
     "typescript": "^6.0.3",
     "vitepress": "^2.0.0-alpha.17"

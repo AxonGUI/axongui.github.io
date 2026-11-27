@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { createHighlighter } from "shiki";
 import { transformerTwoslash, rendererRich } from "@shikijs/twoslash";
+import { fromHtml } from "hast-util-from-html";
 
 // twoslash：给带 `// ^?` 查询的代码块生成「悬停看类型」的标记。
 // VitePress 的 markdown.codeTransformers 在这条构建链上没有传进 highlight，
@@ -424,50 +425,18 @@ export default defineConfig({
       }
 
 
-/** JSDoc 里的说明文字是 Markdown（`**粗体**`、反引号、链接），转成 hast 才能在浮层里渲染。 */
-const VOID_TAGS = new Set(["br", "hr", "img", "input", "wbr"]);
-function decodeEntities(text: string): string {
-  return text
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&amp;/g, "&");
-}
-
-function inlineHtmlToHast(html: string): any[] {
-  // VitePress 2 的 markdown-it-async 会在渲染结果里插入
-  // `<!--remark-markdown-it-async:<hash>-->` 占位注释（供异步插件回填）。我们这里是
-  // 一次性构建、不会再回填，注释若留下就会被当成正文文本显示出来，所以先剥掉。
-  const root: any[] = [];
-  html = html.replace(/<!--[\s\S]*?-->/g, "");
-  const stack: any[][] = [root];
-  const tagRe = /<(\/?)([a-zA-Z][\w-]*)([^>]*?)(\/?)>/g;
-  let last = 0;
-  let match: RegExpExecArray | null;
-  const pushText = (value: string) => {
-    if (value) stack[stack.length - 1].push({ type: "text", value: decodeEntities(value) });
-  };
-  while ((match = tagRe.exec(html))) {
-    pushText(html.slice(last, match.index));
-    const [, closing, tag, rawAttrs, selfClosing] = match;
-    last = tagRe.lastIndex;
-    const name = tag.toLowerCase();
-    if (closing) {
-      if (stack.length > 1) stack.pop();
-      continue;
-    }
-    const properties: Record<string, any> = {};
-    for (const attr of rawAttrs.matchAll(/([\w-]+)="([^"]*)"/g)) {
-      properties[attr[1]] = decodeEntities(attr[2]);
-    }
-    const node: any = { type: "element", tagName: name, properties, children: [] };
-    stack[stack.length - 1].push(node);
-    if (selfClosing || VOID_TAGS.has(name)) continue;
-    stack.push(node.children);
-  }
-  pushText(html.slice(last));
-  return root;
+// JSDoc 里的说明文字是 Markdown（`**粗体**`、反引号、链接），转成 hast 才能在浮层里渲染。
+// Markdown → HTML 用 VitePress 自己的 markdown-it（官方管线）；HTML → hast 用
+// hast-util-from-html（unified 生态的标准解析器，shiki/twoslash 自己也在用）。
+//
+// 这里只做一件额外的事：丢掉注释节点。VitePress 2 的 markdown-it-async 渲染链
+// 会为异步高亮插入 `<!--::markdown-it-async::<id>::-->` 占位注释——页面渲染时由
+// renderAsync 回填，而我们的悬停说明是在 twoslash 的同步钩子里渲染的（渲染器钩子
+// 是同步签名），拿到的就是带占位的中间结果。注释在 hast 里是独立的 comment 节点，
+// 不渲染成可见文本；过滤掉即可，代码正文本来就在 <code> 里，不受影响。
+function htmlToHast(html: string): any[] {
+  const root: any = fromHtml(html, { fragment: true });
+  return (root.children as any[]).filter((node) => node.type !== "comment");
 }
 
       async function renderTwoslashBlock(code: string) {
@@ -484,8 +453,8 @@ function inlineHtmlToHast(html: string): any[] {
               renderer: rendererRich({
                 // 说明文字按 Markdown 渲染（默认是原样输出，`**x**` 会显示成星号）
                 // 说明文字是 Markdown：有序/无序列表、代码围栏都要支持，用块级渲染
-                renderMarkdown: (text: string) => inlineHtmlToHast(md.render(text)),
-                renderMarkdownInline: (text: string) => inlineHtmlToHast(md.renderInline(text)),
+                renderMarkdown: (text: string) => htmlToHast(md.render(text)),
+                renderMarkdownInline: (text: string) => htmlToHast(md.renderInline(text)),
               }),
             }),
           ],
