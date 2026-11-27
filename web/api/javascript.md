@@ -225,6 +225,10 @@ AxonEvent.dispatchPYEvent({ type: "demo:pong", args: [1, 2, 3] });
 
 内置事件（由 Qt 窗口派发）：`loadFinished`、`contextMenu`、`dragEnter`、`dragMove`、`drop`、`dragLeave`、`hide`、`show`。
 
+通道**中途**断开（窗口关闭、页面导航走）时，还在等 Python 回包的 Promise 会 reject 成
+`AxonChannelLostError`（`CHANNEL_LOST`），`AxonChannelStatus.reason` 变成 `"page-unloaded"`。
+以前这些 Promise 永远悬着：`await` 它既不 resolve 也不进 `catch`。
+
 ## 错误
 
 两端抛出来的都是 `Error` 子类，带稳定的 `code`，不用靠匹配文案分流：
@@ -233,8 +237,9 @@ AxonEvent.dispatchPYEvent({ type: "demo:pong", args: [1, 2, 3] });
 | --- | --- | --- |
 | `AxonTimeoutError` | `TIMEOUT` | `timeout` 到期，Python 没回 |
 | `AxonNotConnectedError` | `NOT_CONNECTED` | 通道还没连上就发起调用 |
+| `AxonChannelLostError` | `CHANNEL_LOST` | 通道中途断开（页面卸载 / 渲染进程退出），已发出的调用不会再回 |
 | `AxonRemoteError` | `REMOTE` | Python 侧抛了异常，被带回来（`message` 是它的文案） |
-| `AxonError` | `AXON` | 上面三个的基类 |
+| `AxonError` | `AXON` | 上面四个的基类 |
 
 ```js
 try {
@@ -247,7 +252,7 @@ try {
 ```
 
 全部从 `axon-gui` 导出。Python 侧有对称的 `AxonError / AxonTimeoutError / AxonNotConnectedError /
-JSRuntimeError`（见 [Python API](/api/python#错误)），`AxonTimeoutError` 同时继承内置 `TimeoutError`。
+AxonChannelLostError / JSRuntimeError`（见 [Python API](/api/python#错误)），`AxonTimeoutError` 同时继承内置 `TimeoutError`。
 
 ## `AxonStore` —— 跨端键值
 

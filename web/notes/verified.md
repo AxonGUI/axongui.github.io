@@ -461,3 +461,39 @@ Python GC；回收如果落在工作线程（控制器线程池、asyncio 线程
 
 现在关窗口时会 `deleteLater()`，并把包装对象寄存到 `_retired_windows`，等 Qt 在主线程发出
 `destroyed` 再放开引用 —— 三版本复跑 68 项全过。
+
+## 崩溃恢复与断线语义（5.8.0）
+
+这一节不是「正常路径」的读数，是**故障路径**：验证台真的 `SIGKILL` 渲染进程、真的派发
+`pagehide`、真的关窗口，每一条都在 3.12.15 与 3.14.10 上各跑一遍。
+
+| 场景 | 期望 | 3.12 | 3.14 |
+| --- | --- | --- | --- |
+| kill 渲染进程 + `crash_recovery="none"` | 事件 `willReload:false`、在飞调用抛 `AxonChannelLostError`、2 秒内不重载 | 通过 | 通过 |
+| kill 渲染进程 + `crash_recovery="reload"` | `willReload:true`、30 秒内 `_js_ready` 与 `_page_loaded` 恢复、重载后往返仍通 | 通过 | 通过 |
+| `pagehide` | JS 在飞 Promise → `{ok:false, code:"CHANNEL_LOST"}`；通道状态 `page-unloaded` | 通过 | 通过 |
+| 关窗口 | 在飞调用 → `AxonNotConnectedError`；窗口从 `AxonGUI.windows()` 摘除 | 通过 | 通过 |
+
+共 20 条断言，两版本都是 20 / 20；既有 49 / 49 与 18 / 18 不回归。
+
+```bash
+QT_QPA_PLATFORM=offscreen core-py/.venv/bin/python core-py/tests/run_resilience_tests.py
+```
+
+CI 的 `interface` 任务已经加上这一步，3.12 / 3.13 / 3.14 矩阵都跑。
+
+### 顺带记一条测试台陷阱
+
+验证脚本**不能**在主线程上 `future.result(timeout)` 等回包：回包要经 Qt 主线程派发，
+主线程阻塞着等就是死锁。正确写法是转事件循环 + 轮询 `done()`：
+
+```python
+def wait_future(future, timeout=10.0):
+    deadline = time.time() + timeout
+    while time.time() < deadline and not future.done():
+        app.processEvents()
+        time.sleep(0.01)
+```
+
+另外 `processEvents()` **不处理 `DeferredDelete`**，所以「关窗口了结在飞调用」不能挂在
+`destroyed` 上等，要在 `_forget_window()` 里直接做。

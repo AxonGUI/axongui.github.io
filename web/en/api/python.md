@@ -26,7 +26,7 @@ app.exec()
 | --- | --- |
 | `web_name` | window name, unique in the process; controllers and `Axon("...")` use it to find the window |
 | `url` | page URL, `http://` or `file://` |
-| `options` | `{"disable_native_context_menu": True}` turns off the native Qt context menu so the page can draw its own |
+| `options` | `{"disable_native_context_menu": True}` turns off the native Qt context menu so the page can draw its own; `crash_recovery` / `crash_reload_limit` control what happens after a crash (see "After a crash") |
 
 | Method / attribute | Meaning |
 | --- | --- |
@@ -36,6 +36,37 @@ app.exec()
 | `web_name` | the window name |
 
 Once the page has loaded and the JS channel is ready, the `loadFinished` event is dispatched to the page.
+
+### After a crash
+
+When the renderer process dies (the window is still there, the page process is gone), Axon does three things
+instead of leaving you with a blank window:
+
+1. every call to that window that is still waiting for a reply fails **immediately** with
+   `AxonChannelLostError` (`CHANNEL_LOST`) — previously they hung forever unless you passed `timeout`;
+2. the `renderProcessCrashed` event is dispatched on the Python side;
+3. by default the page is reloaded, the channel re-handshakes, and calls work again.
+   Current state lives on `view.render_crashed` / `view.last_crash`.
+
+```python
+from axon import AxonEvent
+
+AxonEvent.add_listener(
+    "renderProcessCrashed",
+    lambda info: print(f"{info['webName']} crashed: {info['status']}, {info['failedCalls']} calls dropped"),
+)
+```
+
+Event payload: `webName`, `status` (e.g. `KilledTerminationStatus`), `exitCode`, `failedCalls`, `willReload`.
+
+Reloads are capped (3 in a row by default) and the counter only clears after the page has been stable for
+5 seconds, so a crash-reload-crash loop stops itself. To take over the policy:
+
+```python
+view = AxonGUI("MainView", url, options={"crash_recovery": "none"})
+```
+
+With `"none"` Axon only records the state and dispatches the event, and does not reload.
 
 ## `AxonController` — letting JS call Python
 
@@ -207,6 +238,7 @@ core-py/.venv/bin/python core-py/tests/run_web_tests.py
 | --- | --- | --- |
 | `AxonTimeoutError` | `TIMEOUT` | no reply from JS (also extends the builtin `TimeoutError`) |
 | `AxonNotConnectedError` | `NOT_CONNECTED` | the target window does not exist / was closed |
+| `AxonChannelLostError` | `CHANNEL_LOST` | the channel dropped mid-flight (page unloaded / renderer crashed) |
 | `JSRuntimeError` | `JS_RUNTIME` | JS raised; the message is carried over |
 | `AxonError` | `AXON` | base class of the three |
 
