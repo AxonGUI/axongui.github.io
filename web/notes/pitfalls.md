@@ -218,3 +218,17 @@
 所以改成「静态分析 + 反射」：自己解析块里的 `ast`，再对 import 进来的符号反射真实安装的包。
 好处是确定、快（200ms 出全站）、不依赖语言服务；代价是只能解析「块里定义的 + 从 axon 导入的」符号，
 局部变量和复杂泛型不展开——这也正好符合「类型提示是为了展示」的目的。
+
+## 自己渲染的代码块要补回 VitePress 的容器
+
+twoslash / Python 悬停这两条路径是「自己用 shiki 渲染好 HTML 再塞回去」，绕过了 VitePress 的 `preWrapper`。
+后果是代码块没有 `div.language-xx` 容器：没有背景色、没有圆角、没有语言标签和复制按钮，
+看起来像「代码直接摊在页面正文里」。
+
+修法：塞回去之前自己套一层，与 `preWrapper` 的输出保持一致：
+
+```html
+<div class="language-js" dir="ltr"><button title="Copy code" data-copied="Copied" class="copy"></button><span class="lang">js</span><pre class="shiki … twoslash">…</pre></div>
+```
+
+背景来自 `.vp-doc div[class*=language-]`，文件名栏的圆角来自 `.axon-file + div[class*="language-"]` —— 少了这层容器，两条样式都落空。

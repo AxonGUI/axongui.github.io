@@ -319,6 +319,10 @@ export default defineConfig({
       const FENCE = /^(`{3,})\s*(.*)$/;
       const SLOT = (i: number) => `<div data-axon-slot="${i}"></div>`;
 
+      // 自己渲染的块要补回 VitePress 的代码块容器（背景、圆角、语言标签、复制按钮都挂在它上面）
+      const wrapBlock = (lang: string, html: string) =>
+        `<div class="language-${lang}" dir="ltr"><button title="Copy code" data-copied="Copied" class="copy"></button><span class="lang">${lang}</span>${html}</div>`;
+
       async function prepare(src: string) {
         const lines = src.split("\n");
         const out: string[] = [];
@@ -353,12 +357,13 @@ export default defineConfig({
             out.push("", `<div class="axon-file">${esc(bracket[1]!)}</div>`, "");
           }
           const twoslash = /\btwoslash\b/.test(info);
+          const lang = (/^([a-zA-Z0-9+#-]+)/.exec(info)?.[1] ?? "text").toLowerCase();
           if (/^(python|py)\b/.test(info)) {
             const hovers = pyHovers.get(sha1(code.replace(/\s+$/, "")));
             if (hovers?.length) {
               try {
                 const html = await renderPythonHoverBlock(code, hovers);
-                slots.push(html);
+                slots.push(wrapBlock(lang === "py" ? "python" : lang, html));
                 out.push("", SLOT(slots.length - 1), "");
                 continue;
               } catch (err) {
@@ -373,7 +378,7 @@ export default defineConfig({
           }
           if (twoslash || /\btwoslash\b/.test(info)) {
             const html = await renderTwoslashBlock(code);
-            slots.push(html);
+            slots.push(wrapBlock(lang, html));
             out.push("", SLOT(slots.length - 1), "");
             continue;
           }
