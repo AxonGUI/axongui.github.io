@@ -23,7 +23,12 @@ for future in futures:          # 想等结果就取，不关心就跳过
 
 JS 侧不需要特别写什么 —— 只要那个窗口里注册了同名控制器（这里是 `DocsJS`），就会收到调用：
 
-```js [docs-js.js]
+```js twoslash [docs-js.js]
+// @noErrors
+import { Axon, AxonCall, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 import { AxonController } from "axon-gui";
 
 AxonController.register("DocsJS", {

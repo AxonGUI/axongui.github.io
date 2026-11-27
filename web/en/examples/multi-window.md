@@ -178,81 +178,11 @@ Do not mix them in one block.
 `AxonCross.call()` targets one window, `windows()` lists the open ones, `broadcast()` returns one result per window.
 
 ```ts twoslash
-import { AxonCross } from "axon-gui";
-
-async function pingCharts() {
-  const reply = await AxonCross.call({ web: "charts", controller: "Peer", func: "ping", args: ["hi"] });
-  const open = await AxonCross.windows();
-  return { reply, open };
-}
-```
-
-## The window table and lifetime
-
-`AxonCross.windows()` returns the windows that are **currently open**.
-
-Closing a window removes it from the table; calls to a closed window fail fast instead
-of hanging forever:
-
-```
-RuntimeError: web `charts` not found
-```
-
-To open a window from JS, let Python do it:
-
-```python [controller.py]
-@AxonController("main")
-class Shell:
-    def open_window(self, web_name: str, url: str) -> bool:
-        from axon import AxonCross, AxonGUI
-
-        if AxonCross.has(web_name):
-            return False
-        window = AxonGUI(web_name, url)
-        window.show()
-        return True
-```
-
-## Timeouts and errors
-
-- JS `timeout` is in **milliseconds** (same as `Axon`); Python `timeout` is in **seconds**
-  (same as `.result(5)`).
-- An exception in the target window comes back to the caller: a rejected Promise on the
-  JS side (with the Python traceback in the message), a failed Future on the Python side.
-- In a broadcast, a timeout/error is reported per window (`{web, ok:false, error}`).
-
-::: warning Do not build a loop
-A → B → A works fine (no deadlock), but do not write recursion without an exit: every
-cross-window call is a real round trip.
-:::
-
-## Shared state across windows
-
-If what you need is "both windows see the same data", do not fake it with calls — use
-the shared store:
-
-```javascript [main.html]
-import { AxonStore } from "axon-gui";
-
-AxonStore.shared.set("theme", "dark"); // every window's shared store updates
-```
-
-See [cross-side store](/en/examples/store).
-
-## Try it (it really opens a second window)
-
-These buttons are not an animation: the first one opens a real `charts` window on your screen —
-a **dedicated demo page** (`/demo/cross-window.html`), not a page of this manual.
-The second one sends a call through Python into that page — **each window shows its own half**.
-
-<CrossInbox />
-
-::: tip Watch both sides
-The `charts` window has its own buttons: hit "call main" there and the "calls from other windows"
-list on this page gains an entry; hit the second button here and the charts log gains a line.
-:::
-
-```js
+// @noErrors
+import { Axon, AxonCall, AxonController, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 // 1. open a second window named charts
 const windows = await Axon.DemoController.cross_open();
 // → ["AxonDocs", "charts"]

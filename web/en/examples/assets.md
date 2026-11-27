@@ -41,18 +41,33 @@ Once you have the URL it is plain web code — no Axon API involved:
 
 ::: code-group
 
-```js [Image]
+```js twoslash [Image]
+// @noErrors
+import { Axon, AxonCall, AxonController, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 const url = await Axon.Report.chart_url();
 document.querySelector("#chart").src = url;          // <img src="axon://asset/…">
 ```
 
-```js [Read bytes]
+```js twoslash [Read bytes]
+// @noErrors
+import { Axon, AxonCall, AxonController, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 const url = await Axon.Report.export_url();
 const buf = await (await fetch(url)).arrayBuffer();   // 1 MB in a few ms
 console.log(buf.byteLength);
 ```
 
-```js [Download]
+```js twoslash [Download]
+// @noErrors
+import { Axon, AxonCall, AxonController, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 const url = await Axon.Report.export_url();
 const a = document.createElement("a");
 a.href = url;

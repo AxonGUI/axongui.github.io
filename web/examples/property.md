@@ -20,7 +20,11 @@ class DemoController:
 
 ## JS 侧：读要 await，写直接赋值
 
-```js [app.js]
+```js twoslash [app.js]
+// @noErrors
+import { AxonCall, AxonController, AxonCross, AxonEvent, AxonStore } from "axon-gui";
+const WEB = "MainView";
+// ---cut---
 import { Axon, AxonInit } from "axon-gui";
 
 await AxonInit();
@@ -48,7 +52,12 @@ const after = await Axon.DemoController.get_counter();   // 42   // [!code highl
 
 写属性是「发出即返回」。它之后到 Python 的到达顺序和后续调用一致，所以常见写法是：
 
-```js [app.js]
+```js twoslash [app.js]
+// @noErrors
+import { Axon, AxonCall, AxonController, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 Axon.DemoController.counter = 42;
 const now = await Axon.DemoController.get_counter();   // 一定是 42
 ```

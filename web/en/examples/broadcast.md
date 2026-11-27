@@ -26,7 +26,12 @@ for future in futures:          # collect the results if you care, otherwise ski
 Nothing special is needed on the JS side — any window that registered a controller with that name (here
 `DocsJS`) receives the call:
 
-```js [docs-js.js]
+```js twoslash [docs-js.js]
+// @noErrors
+import { Axon, AxonCall, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 import { AxonController } from "axon-gui";
 
 AxonController.register("DocsJS", {

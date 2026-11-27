@@ -386,3 +386,19 @@ PASS
 
 悬停实测（playwright，本地 + 线上各一次）：悬停前 `opacity: 0`、悬停后 `opacity: 1`；`api/javascript` 悬停 `status` → `const status: IAxonInitResult`，`guide/type-generation` 悬停 `Axon` → `{ DemoController: { add(a: number, b: number): Promise<number> } }`。全站 `twoslash-query-persisted` 为 0（没有常驻浮层）。
 
+
+## Python 代码块的悬停类型
+
+TS/JS 用 twoslash 编译真实类型；Python 没有等价的构建期工具链，所以走「静态分析 + 反射真实安装的包」：
+
+- 生成器：`web/scripts/py_hover.py`（纯 stdlib，`npm run pyhover`）
+  - 块内自定义的类/函数/带注解变量：从 `ast` 取注解与签名
+  - `from axon import X`：`importlib` 反射当前安装的 `axon-gui`，用 `signature` + `get_type_hints` 出真实签名
+  - 子模块（`from axon import AxonAsset` 拿到的是 module）：再解析 `AxonAsset.from_bytes` 这类属性
+  - 产物：`web/.pyhover.json`，键是代码块的 sha1（改代码块要重跑 `npm run pyhover`）
+- 渲染：`config.mts` 的 `pythonHoverTransformer()` 在 highlighter 的 `pre` 钩子里按「行 + 列号」把命中 token 包成 twoslash 的悬停节点，复用 `@shikijs/twoslash/style-rich.css`，所以外观与 TS 一致
+- 覆盖：55 个 Python 代码块 / 243 条悬停（`api/python` 13 块 59 条、`examples/assets` 10 条、`examples/event` 6 条……）；剩下 21 个块是配置片段或只有内置函数，没有可解析的符号
+
+验证：`docs:build` 后 `examples/assets` 里 `AxonAsset` 悬停显示 `module axon.AxonAsset`、`from_bytes` 显示
+`from_bytes(data: bytes | bytearray | memoryview, name: str = 'blob', mime: str | None = None) -> str`；
+浏览器实测 `opacity` 0 → 1，深色主题同样可读。

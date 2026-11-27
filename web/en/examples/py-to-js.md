@@ -7,7 +7,12 @@ The other direction is just as simple: register a plain object in the page, then
 
 ## JS side: register an object
 
-```js [docs-js.js]
+```js twoslash [docs-js.js]
+// @noErrors
+import { Axon, AxonCall, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 // docs-js.js
 import { AxonController } from "axon-gui";
 

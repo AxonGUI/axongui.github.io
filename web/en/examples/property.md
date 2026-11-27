@@ -21,7 +21,11 @@ class DemoController:
 
 ## JS side: await the read, assign the write
 
-```js [app.js]
+```js twoslash [app.js]
+// @noErrors
+import { AxonCall, AxonController, AxonCross, AxonEvent, AxonStore } from "axon-gui";
+const WEB = "MainView";
+// ---cut---
 import { Axon, AxonInit } from "axon-gui";
 
 await AxonInit();
@@ -51,7 +55,12 @@ send the request to Python and wait for the current value.
 A write returns as soon as it is sent. It reaches Python in the same order as any later calls, so the
 usual pattern is:
 
-```js [app.js]
+```js twoslash [app.js]
+// @noErrors
+import { Axon, AxonCall, AxonController, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 Axon.DemoController.counter = 42;
 const now = await Axon.DemoController.get_counter();   // always 42
 ```

@@ -45,18 +45,33 @@ URL 形如 `axon://asset/<token>/<文件名>`：token 决定内容，文件名�
 
 ::: code-group
 
-```js [图片]
+```js twoslash [图片]
+// @noErrors
+import { Axon, AxonCall, AxonController, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 const url = await Axon.Report.chart_url();
 document.querySelector("#chart").src = url;          // <img src="axon://asset/…">
 ```
 
-```js [按字节读]
+```js twoslash [按字节读]
+// @noErrors
+import { Axon, AxonCall, AxonController, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 const url = await Axon.Report.export_url();
 const buf = await (await fetch(url)).arrayBuffer();   // 1 MB → 几毫秒
 console.log(buf.byteLength);
 ```
 
-```js [下载]
+```js twoslash [下载]
+// @noErrors
+import { Axon, AxonCall, AxonController, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 const url = await Axon.Report.export_url();
 const a = document.createElement("a");
 a.href = url;

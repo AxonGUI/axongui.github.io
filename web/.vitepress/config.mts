@@ -1,5 +1,7 @@
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vitepress";
+import { readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { createHighlighter } from "shiki";
 import { transformerTwoslash, rendererRich } from "@shikijs/twoslash";
 
@@ -10,9 +12,113 @@ let twoslashHighlighter: Promise<any> | undefined;
 function getTwoslashHighlighter() {
   twoslashHighlighter ??= createHighlighter({
     themes: ["github-light", "github-dark"],
-    langs: ["ts", "typescript", "js", "javascript"],
+    langs: ["ts", "typescript", "js", "javascript", "python"],
   });
   return twoslashHighlighter;
+}
+
+// Python 代码块的悬停类型：由 web/scripts/py_hover.py 生成 web/.pyhover.json
+// （纯静态分析 + 反射真实安装的 axon 包）。文件不存在时静默跳过，
+// 这样没装 Node 端 Python 依赖的机器也能构建。
+type PyHover = { line: number; start: number; end: number; text: string };
+let pyHovers: Map<string, PyHover[]> = new Map();
+try {
+  const raw = readFileSync(fileURLToPath(new URL("../.pyhover.json", import.meta.url)), "utf8");
+  pyHovers = new Map(Object.entries(JSON.parse(raw) as Record<string, PyHover[]>));
+} catch {
+  pyHovers = new Map();
+}
+
+function sha1(text: string) {
+  return createHash("sha1").update(text).digest("hex");
+}
+
+/**
+ * 把 Python 高亮结果里的 token 包成 twoslash 风格的悬停节点。
+ * shiki 的 token 钩子按「行 + 字符偏移」回调，这里用累计长度还原列号。
+ */
+function pythonHoverTransformer(hovers: PyHover[]) {
+  const byLine = new Map<number, PyHover[]>();
+  for (const h of hovers) {
+    const list = byLine.get(h.line) ?? [];
+    list.push(h);
+    byLine.set(h.line, list);
+  }
+
+  const popup = (text: string) => ({
+    type: "element",
+    tagName: "span",
+    properties: { class: "twoslash-popup-container" },
+    children: [
+      {
+        type: "element",
+        tagName: "code",
+        properties: { class: "twoslash-popup-code" },
+        children: text.split("\n").flatMap((line, i) =>
+          i === 0
+            ? [{ type: "text", value: line }]
+            : [{ type: "element", tagName: "br", properties: {}, children: [] }, { type: "text", value: line }],
+        ),
+      },
+    ],
+  });
+
+  // 按绝对列号切分一行的子节点：命中的片段包成 twoslash-hover
+  function rewrite(nodes: any[], ranges: PyHover[], state: { col: number }): any[] {
+    const out: any[] = [];
+    for (const node of nodes) {
+      if (node.type === "text") {
+        const start = state.col;
+        const end = start + node.value.length;
+        state.col = end;
+        let cursor = start;
+        const parts = ranges
+          .filter((r) => r.start >= cursor && r.end <= end)
+          .sort((a, b) => a.start - b.start);
+        if (!parts.length) {
+          out.push(node);
+          continue;
+        }
+        for (const r of parts) {
+          if (r.start > cursor) out.push({ type: "text", value: node.value.slice(cursor - start, r.start - start) });
+          out.push({
+            type: "element",
+            tagName: "span",
+            properties: { class: "twoslash-hover" },
+            children: [popup(r.text), { type: "text", value: node.value.slice(r.start - start, r.end - start) }],
+          });
+          cursor = r.end;
+        }
+        if (cursor < end) out.push({ type: "text", value: node.value.slice(cursor - start) });
+        continue;
+      }
+      if (Array.isArray(node.children)) {
+        node.children = rewrite(node.children, ranges, state);
+      }
+      if (node.type === "element" && /^(br)$/.test(node.tagName ?? "")) state.col += 0;
+      out.push(node);
+    }
+    return out;
+  }
+
+  return {
+    name: "axon-python-hover",
+    pre(node: any) {
+      const cls = (node.properties.class as string | undefined) ?? "";
+      node.properties.class = cls ? `${cls} twoslash` : "twoslash";
+      const code = node.children?.find((c: any) => c?.tagName === "code");
+      if (!code) return;
+      let line = -1;
+      for (const child of code.children ?? []) {
+        if (child?.type === "element" && String(child.properties?.class ?? "").includes("line")) {
+          line += 1;
+          const ranges = byLine.get(line);
+          if (!ranges?.length) continue;
+          child.children = rewrite(child.children ?? [], ranges, { col: 0 });
+        }
+      }
+    },
+  };
 }
 
 // GitHub Pages 的项目站点挂在 /<repo>/ 下, 本地/自托管又应该在根路径。
@@ -240,18 +346,32 @@ export default defineConfig({
           const code = body.join("\n");
           i = j;
 
-          if (!inGroup) {
-            const bracket = /\[([^\]]+)\]\s*$/.exec(info);
-            if (bracket) {
-              // 前后留空行：CommonMark 的 HTML block 在空行处结束，
-              // 否则下一行的 ``` 会被吞进 HTML block 里（Vue 会当作真标签解析）。
-              out.push("", `<div class="axon-file">${esc(bracket[1]!)}</div>`, "");
-              out.push(fence + " " + info.replace(/\s*\[[^\]]+\]\s*$/, ""));
-              out.push(...body, fence);
-              continue;
+          const bracket = inGroup ? null : /\[([^\]]+)\]\s*$/.exec(info);
+          if (bracket) {
+            // 前后留空行：CommonMark 的 HTML block 在空行处结束，
+            // 否则下一行的 ``` 会被吞进 HTML block 里（Vue 会当作真标签解析）。
+            out.push("", `<div class="axon-file">${esc(bracket[1]!)}</div>`, "");
+          }
+          const twoslash = /\btwoslash\b/.test(info);
+          if (/^(python|py)\b/.test(info)) {
+            const hovers = pyHovers.get(sha1(code.replace(/\s+$/, "")));
+            if (hovers?.length) {
+              try {
+                const html = await renderPythonHoverBlock(code, hovers);
+                slots.push(html);
+                out.push("", SLOT(slots.length - 1), "");
+                continue;
+              } catch (err) {
+                console.warn("[pyhover] 渲染失败，回退普通代码块:", (err as Error).message);
+              }
             }
           }
-          if (/\btwoslash\b/.test(info)) {
+          if (!twoslash) {
+            out.push(fence + " " + info.replace(/\s*\[[^\]]+\]\s*$/, ""));
+            out.push(...body, fence);
+            continue;
+          }
+          if (twoslash || /\btwoslash\b/.test(info)) {
             const html = await renderTwoslashBlock(code);
             slots.push(html);
             out.push("", SLOT(slots.length - 1), "");
@@ -260,6 +380,16 @@ export default defineConfig({
           out.push(line, ...body, fence);
         }
         return { src: out.join("\n"), slots };
+      }
+
+      async function renderPythonHoverBlock(code: string, hovers: PyHover[]) {
+        const hl = await getTwoslashHighlighter();
+        return hl.codeToHtml(code, {
+          lang: "python",
+          themes: { light: "github-light", dark: "github-dark" },
+          defaultColor: false,
+          transformers: [pythonHoverTransformer(hovers)],
+        });
       }
 
       async function renderTwoslashBlock(code: string) {

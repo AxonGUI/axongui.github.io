@@ -49,7 +49,12 @@ await AxonCross.web("charts").Series.reload("600s");
 在这个页面点上面第二个按钮，`charts` 窗口的日志会多一条「收到 Peer.ping」。
 :::
 
-```js
+```js twoslash
+// @noErrors
+import { Axon, AxonCall, AxonController, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 // 1. 开第二个窗口（名字就叫 charts）
 const windows = await Axon.DemoController.cross_open();
 // → ["AxonDocs", "charts"]

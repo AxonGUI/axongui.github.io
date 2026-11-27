@@ -53,11 +53,21 @@ The same three methods, depending on whether you need keyword arguments or a tim
 
 ::: code-group
 
-```js [positional]
+```js twoslash [positional]
+// @noErrors
+import { Axon, AxonCall, AxonController, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 const sum = await Axon.DemoController.add(2, 3);   // 5
 ```
 
-```js [kwargs + timeout]
+```js twoslash [kwargs + timeout]
+// @noErrors
+import { Axon, AxonCall, AxonController, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 // [positional args, keyword args, timeout in ms]
 const info = await Axon.DemoController.with_kwargs([1], { b: 2, label: "hi" });
 // { sum: 3, label: "hi" }
@@ -66,7 +76,12 @@ const info = await Axon.DemoController.with_kwargs([1], { b: 2, label: "hi" });
 await Axon.DemoController.slow([1500], {}, 300);
 ```
 
-```js [async method]
+```js twoslash [async method]
+// @noErrors
+import { Axon, AxonCall, AxonController, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 const text = await Axon.DemoController.delayed("hi", 300);   // "async:hi"
 ```
 
@@ -89,7 +104,12 @@ the Axon client):
 The third value is a timeout in milliseconds. When it fires, JS immediately gets `Timeout Error`, but the
 **Python call keeps running** — it is not cancelled.
 
-```js [app.js]
+```js twoslash [app.js]
+// @noErrors
+import { Axon, AxonCall, AxonController, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 // Python blocks for 1500ms, we only wait 300ms
 try {
   await Axon.DemoController.slow([1500], {}, 300);
@@ -104,7 +124,12 @@ try {
 
 A Python exception becomes a rejected promise on the JS side, so `try/catch` receives it.
 
-```js [app.js]
+```js twoslash [app.js]
+// @noErrors
+import { Axon, AxonCall, AxonController, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 try {
   await Axon.DemoController.fail("manual");
 } catch (err) {

@@ -18,6 +18,7 @@
   "scripts": {
     "docs:dev": "node scripts/copy-vendor.mjs && vitepress dev --host 127.0.0.1 --port 5174",
     "docs:build": "node scripts/copy-vendor.mjs && vitepress build",
-    "docs:preview": "vitepress preview --host 127.0.0.1"
+    "docs:preview": "vitepress preview --host 127.0.0.1",
+    "pyhover": "python3 scripts/py_hover.py"
   }
 }

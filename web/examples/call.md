@@ -46,11 +46,21 @@ class DemoController:
 
 ::: code-group
 
-```js [位置参数]
+```js twoslash [位置参数]
+// @noErrors
+import { Axon, AxonCall, AxonController, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 const sum = await Axon.DemoController.add(2, 3);   // 5
 ```
 
-```js [关键字参数 + 超时]
+```js twoslash [关键字参数 + 超时]
+// @noErrors
+import { Axon, AxonCall, AxonController, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 // [位置参数数组, 关键字参数, 超时毫秒]
 const info = await Axon.DemoController.with_kwargs([1], { b: 2, label: "hi" });
 // { sum: 3, label: "hi" }
@@ -59,7 +69,12 @@ const info = await Axon.DemoController.with_kwargs([1], { b: 2, label: "hi" });
 await Axon.DemoController.slow([1500], {}, 300);
 ```
 
-```js [async 方法]
+```js twoslash [async 方法]
+// @noErrors
+import { Axon, AxonCall, AxonController, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 const text = await Axon.DemoController.delayed("hi", 300);   // "async:hi"
 ```
 
@@ -79,7 +94,12 @@ const text = await Axon.DemoController.delayed("hi", 300);   // "async:hi"
 
 第三个参数是超时毫秒数。超时后 JS 侧立刻收到 `Timeout Error`，但 **Python 里那次调用仍在继续跑**，不会被打断。
 
-```js [app.js]
+```js twoslash [app.js]
+// @noErrors
+import { Axon, AxonCall, AxonController, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 // Python 要阻塞 1500ms，这里只等 300ms
 try {
   await Axon.DemoController.slow([1500], {}, 300);
@@ -94,7 +114,12 @@ try {
 
 Python 的异常会变成 JS 的 rejected promise，`try/catch` 就能接住。
 
-```js [app.js]
+```js twoslash [app.js]
+// @noErrors
+import { Axon, AxonCall, AxonController, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 try {
   await Axon.DemoController.fail("manual");
 } catch (err) {

@@ -205,3 +205,16 @@
   提供文件；小图片、PDF、下载类附件继续用 `axon://`。
 - 附带：`fetch()` 能从本机页面读 `axon://`，是因为 scheme 声明了 `CorsEnabled` 且响应带了
   `Access-Control-Allow-Origin: *`；少任一条就只剩 `<img>` 能用、`fetch` 报 `Failed to fetch`。
+
+## 为什么 Python 的类型提示不用 pyright
+
+试过 `pyright-langserver --stdio` + 手写 LSP 客户端（`initialize` / `didOpen` / `hover`，并应答 `workspace/configuration`）：
+
+- 同一份文件用 `pyright` CLI 能解析 `from axon import AxonAsset`（`extraPaths` 指向 venv 的 site-packages），
+  走 LSP 却一直返回 `(import) AxonAsset: Unknown`
+- `pyrootconfig.json` 的 `venvPath`/`venv`、`initializationOptions.settings.python.analysis.extraPaths`、
+  按 section 应答 `workspace/configuration` 都试过，无效
+
+所以改成「静态分析 + 反射」：自己解析块里的 `ast`，再对 import 进来的符号反射真实安装的包。
+好处是确定、快（200ms 出全站）、不依赖语言服务；代价是只能解析「块里定义的 + 从 axon 导入的」符号，
+局部变量和复杂泛型不展开——这也正好符合「类型提示是为了展示」的目的。

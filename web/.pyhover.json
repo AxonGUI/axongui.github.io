@@ -1,0 +1,1570 @@
+{
+ "06698b37d753728170bcd123d8524ea695cf3d40": [
+  {
+   "line": 1,
+   "start": 4,
+   "end": 11,
+   "text": "module axon.AxonGUI"
+  },
+  {
+   "line": 1,
+   "start": 13,
+   "end": 27,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 1,
+   "start": 29,
+   "end": 33,
+   "text": "module axon.Axon"
+  },
+  {
+   "line": 1,
+   "start": 35,
+   "end": 43,
+   "text": "from axon: AxonCall: _AxonCallNamespace"
+  },
+  {
+   "line": 2,
+   "start": 4,
+   "end": 13,
+   "text": "module axon.AxonEvent"
+  },
+  {
+   "line": 2,
+   "start": 15,
+   "end": 24,
+   "text": "module axon.AxonStore"
+  },
+  {
+   "line": 2,
+   "start": 26,
+   "end": 38,
+   "text": "module axon.AxonMagicGUI"
+  }
+ ],
+ "3ed79dff4707450c98a95a27b3790cba162c986e": [
+  {
+   "line": 3,
+   "start": 0,
+   "end": 4,
+   "text": "sum_: int"
+  }
+ ],
+ "181348a3eb48a6b56f59d32d5930becf9f2287b7": [
+  {
+   "line": 0,
+   "start": 6,
+   "end": 13,
+   "text": "class CalcApi"
+  },
+  {
+   "line": 3,
+   "start": 12,
+   "end": 19,
+   "text": "class CalcApi"
+  }
+ ],
+ "0e4d8f0b27fc379116023698b5cda8672f702e42": [
+  {
+   "line": 1,
+   "start": 17,
+   "end": 24,
+   "text": "module axon.AxonGUI"
+  },
+  {
+   "line": 4,
+   "start": 7,
+   "end": 14,
+   "text": "module axon.AxonGUI"
+  }
+ ],
+ "cbd580b0a618e5b58456985bb39820502bf73bff": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 31,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 2,
+   "start": 1,
+   "end": 15,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 3,
+   "start": 6,
+   "end": 10,
+   "text": "class Calc"
+  },
+  {
+   "line": 7,
+   "start": 1,
+   "end": 15,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 8,
+   "start": 6,
+   "end": 12,
+   "text": "class Common"
+  }
+ ],
+ "96fc6d3e84f1636a17acadae90a3ecb148ba972c": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 21,
+   "text": "module axon.Axon"
+  },
+  {
+   "line": 2,
+   "start": 5,
+   "end": 9,
+   "text": "module axon.Axon"
+  }
+ ],
+ "51529b9b5d6471935ab3158e90fb6067b6149eea": [
+  {
+   "line": 1,
+   "start": 6,
+   "end": 10,
+   "text": "class Demo"
+  }
+ ],
+ "8d281b054aa983910c86d48ec919630c00ba964a": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 25,
+   "text": "from axon: AxonCall: _AxonCallNamespace"
+  },
+  {
+   "line": 2,
+   "start": 0,
+   "end": 8,
+   "text": "from axon: AxonCall: _AxonCallNamespace"
+  },
+  {
+   "line": 3,
+   "start": 0,
+   "end": 8,
+   "text": "from axon: AxonCall: _AxonCallNamespace"
+  },
+  {
+   "line": 4,
+   "start": 0,
+   "end": 8,
+   "text": "from axon: AxonCall: _AxonCallNamespace"
+  },
+  {
+   "line": 5,
+   "start": 0,
+   "end": 8,
+   "text": "from axon: AxonCall: _AxonCallNamespace"
+  }
+ ],
+ "d28553caaba1fc21e491fea02b05f9ceffbd1687": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 26,
+   "text": "module axon.AxonEvent"
+  },
+  {
+   "line": 2,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonEvent"
+  },
+  {
+   "line": 3,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonEvent"
+  },
+  {
+   "line": 4,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonEvent"
+  },
+  {
+   "line": 5,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonEvent"
+  },
+  {
+   "line": 7,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonEvent"
+  },
+  {
+   "line": 8,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonEvent"
+  },
+  {
+   "line": 9,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonEvent"
+  }
+ ],
+ "80231a48db54d22e0e47becb2675a1dc2f18b84a": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 26,
+   "text": "module axon.AxonStore"
+  },
+  {
+   "line": 2,
+   "start": 8,
+   "end": 17,
+   "text": "module axon.AxonStore"
+  }
+ ],
+ "3e35a2080d0213dca8f4acfd52ea37f64d62540c": [
+  {
+   "line": 1,
+   "start": 17,
+   "end": 29,
+   "text": "module axon.AxonMagicGUI"
+  },
+  {
+   "line": 4,
+   "start": 0,
+   "end": 12,
+   "text": "module axon.AxonMagicGUI"
+  },
+  {
+   "line": 6,
+   "start": 4,
+   "end": 11,
+   "text": "def on_main() -> str"
+  },
+  {
+   "line": 9,
+   "start": 9,
+   "end": 21,
+   "text": "module axon.AxonMagicGUI"
+  },
+  {
+   "line": 9,
+   "start": 26,
+   "end": 33,
+   "text": "def on_main() -> str"
+  }
+ ],
+ "7b1c495e9279d83ab24960b97f56f5eb369a672b": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 21,
+   "text": "module axon.Axon"
+  },
+  {
+   "line": 0,
+   "start": 23,
+   "end": 39,
+   "text": "from axon: class AxonTimeoutError"
+  },
+  {
+   "line": 0,
+   "start": 41,
+   "end": 55,
+   "text": "from axon: class JSRuntimeError"
+  },
+  {
+   "line": 3,
+   "start": 4,
+   "end": 8,
+   "text": "module axon.Axon"
+  },
+  {
+   "line": 4,
+   "start": 7,
+   "end": 23,
+   "text": "from axon: class AxonTimeoutError"
+  },
+  {
+   "line": 6,
+   "start": 7,
+   "end": 21,
+   "text": "from axon: class JSRuntimeError"
+  }
+ ],
+ "a4e5a9bf9cbf801e5060cdcfa13a21c0441e00cd": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 26,
+   "text": "module axon.AxonCross"
+  },
+  {
+   "line": 2,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonCross"
+  },
+  {
+   "line": 2,
+   "start": 10,
+   "end": 17,
+   "text": "windows() -> list[str]"
+  },
+  {
+   "line": 3,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonCross"
+  },
+  {
+   "line": 3,
+   "start": 10,
+   "end": 13,
+   "text": "has(web_name: str) -> bool"
+  },
+  {
+   "line": 4,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonCross"
+  },
+  {
+   "line": 4,
+   "start": 10,
+   "end": 14,
+   "text": "call(web_name: str, controller_id: str, func: str, args: Any, kwargs: dict[str, Any] | None = None, timeout: float | None = None) -> axon.AxonPYCall.AxonFuture[Any]"
+  },
+  {
+   "line": 5,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonCross"
+  },
+  {
+   "line": 5,
+   "start": 10,
+   "end": 19,
+   "text": "broadcast(controller_id: str, func: str, args: Any, kwargs: dict[str, Any] | None = None, timeout: float | None = None, exclude: Iterable[str] = ()) -> dict[str, axon.AxonPYCall.AxonFuture[Any]]"
+  },
+  {
+   "line": 6,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonCross"
+  },
+  {
+   "line": 6,
+   "start": 10,
+   "end": 14,
+   "text": "emit(type: str, args: Any, exclude: Iterable[str] = ()) -> list[axon.AxonPYCall.AxonFuture[Any]]"
+  },
+  {
+   "line": 7,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonCross"
+  },
+  {
+   "line": 7,
+   "start": 10,
+   "end": 17,
+   "text": "emit_to(web_name: str, type: str, args: Any) -> axon.AxonPYCall.AxonFuture[Any]"
+  }
+ ],
+ "fbc80d7ef681215c31176ecd85fae2c775c6aa32": [
+  {
+   "line": 1,
+   "start": 17,
+   "end": 24,
+   "text": "module axon.AxonGUI"
+  },
+  {
+   "line": 4,
+   "start": 7,
+   "end": 14,
+   "text": "module axon.AxonGUI"
+  }
+ ],
+ "88236f776547162dafbe94ef71468759182ce5c3": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 31,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 2,
+   "start": 1,
+   "end": 15,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 3,
+   "start": 6,
+   "end": 10,
+   "text": "class Calc"
+  },
+  {
+   "line": 7,
+   "start": 1,
+   "end": 15,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 8,
+   "start": 6,
+   "end": 12,
+   "text": "class Common"
+  }
+ ],
+ "5a5a353041b33ccba9955760b4bb2b2ef702503e": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 21,
+   "text": "module axon.Axon"
+  },
+  {
+   "line": 2,
+   "start": 5,
+   "end": 9,
+   "text": "module axon.Axon"
+  }
+ ],
+ "cc1c9bedd16d4d11bd958dbee12bbb9ed8f96dcc": [
+  {
+   "line": 1,
+   "start": 6,
+   "end": 10,
+   "text": "class Demo"
+  }
+ ],
+ "b35c2186e805c70dd978fcd9826c1c438e7e5401": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 25,
+   "text": "from axon: AxonCall: _AxonCallNamespace"
+  },
+  {
+   "line": 2,
+   "start": 0,
+   "end": 8,
+   "text": "from axon: AxonCall: _AxonCallNamespace"
+  },
+  {
+   "line": 3,
+   "start": 0,
+   "end": 8,
+   "text": "from axon: AxonCall: _AxonCallNamespace"
+  },
+  {
+   "line": 4,
+   "start": 0,
+   "end": 8,
+   "text": "from axon: AxonCall: _AxonCallNamespace"
+  },
+  {
+   "line": 5,
+   "start": 0,
+   "end": 8,
+   "text": "from axon: AxonCall: _AxonCallNamespace"
+  }
+ ],
+ "8c7268f0a2b58859d1698b64dd29b92af2112dc7": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 26,
+   "text": "module axon.AxonEvent"
+  },
+  {
+   "line": 2,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonEvent"
+  },
+  {
+   "line": 3,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonEvent"
+  },
+  {
+   "line": 4,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonEvent"
+  },
+  {
+   "line": 5,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonEvent"
+  },
+  {
+   "line": 7,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonEvent"
+  },
+  {
+   "line": 8,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonEvent"
+  },
+  {
+   "line": 9,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonEvent"
+  }
+ ],
+ "0ad8d4e17a0c4599f26189e3abcc080cc1667265": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 26,
+   "text": "module axon.AxonStore"
+  },
+  {
+   "line": 2,
+   "start": 8,
+   "end": 17,
+   "text": "module axon.AxonStore"
+  }
+ ],
+ "28ec0dd6c9513d82334f2824bb05df7cd20039e3": [
+  {
+   "line": 1,
+   "start": 17,
+   "end": 29,
+   "text": "module axon.AxonMagicGUI"
+  },
+  {
+   "line": 4,
+   "start": 0,
+   "end": 12,
+   "text": "module axon.AxonMagicGUI"
+  },
+  {
+   "line": 6,
+   "start": 4,
+   "end": 11,
+   "text": "def on_main() -> str"
+  },
+  {
+   "line": 9,
+   "start": 9,
+   "end": 21,
+   "text": "module axon.AxonMagicGUI"
+  },
+  {
+   "line": 9,
+   "start": 26,
+   "end": 33,
+   "text": "def on_main() -> str"
+  }
+ ],
+ "b4112bf46f72e46e4843b2e6a53ae4722fce3920": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 21,
+   "text": "module axon.Axon"
+  },
+  {
+   "line": 0,
+   "start": 23,
+   "end": 39,
+   "text": "from axon: class AxonTimeoutError"
+  },
+  {
+   "line": 0,
+   "start": 41,
+   "end": 55,
+   "text": "from axon: class JSRuntimeError"
+  },
+  {
+   "line": 3,
+   "start": 4,
+   "end": 8,
+   "text": "module axon.Axon"
+  },
+  {
+   "line": 4,
+   "start": 7,
+   "end": 23,
+   "text": "from axon: class AxonTimeoutError"
+  },
+  {
+   "line": 6,
+   "start": 7,
+   "end": 21,
+   "text": "from axon: class JSRuntimeError"
+  }
+ ],
+ "ac63eab88df6525ff289eed892b5e740b803382a": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 26,
+   "text": "module axon.AxonAsset"
+  },
+  {
+   "line": 0,
+   "start": 28,
+   "end": 42,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 2,
+   "start": 1,
+   "end": 15,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 3,
+   "start": 6,
+   "end": 12,
+   "text": "class Report"
+  },
+  {
+   "line": 6,
+   "start": 15,
+   "end": 24,
+   "text": "module axon.AxonAsset"
+  },
+  {
+   "line": 6,
+   "start": 25,
+   "end": 35,
+   "text": "from_bytes(data: bytes | bytearray | memoryview, name: str = 'blob', mime: str | None = None) -> str"
+  },
+  {
+   "line": 9,
+   "start": 15,
+   "end": 24,
+   "text": "module axon.AxonAsset"
+  },
+  {
+   "line": 9,
+   "start": 25,
+   "end": 34,
+   "text": "from_file(path: str | pathlib.Path, name: str | None = None, mime: str | None = None) -> str"
+  },
+  {
+   "line": 12,
+   "start": 15,
+   "end": 24,
+   "text": "module axon.AxonAsset"
+  },
+  {
+   "line": 12,
+   "start": 25,
+   "end": 32,
+   "text": "release(url_or_token: str) -> bool"
+  }
+ ],
+ "d2e598e7faf9ff29bfdeafd20395061c7757c0cd": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 21,
+   "text": "module axon.Axon"
+  },
+  {
+   "line": 3,
+   "start": 10,
+   "end": 14,
+   "text": "module axon.Axon"
+  }
+ ],
+ "1b2460bfce27caa7c3d0ca964fc799b5546dacf9": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 31,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 2,
+   "start": 1,
+   "end": 15,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 3,
+   "start": 6,
+   "end": 20,
+   "text": "class DemoController"
+  }
+ ],
+ "4d834c943b78d77f773ed59c55059dc72ec3a18e": [
+  {
+   "line": 0,
+   "start": 4,
+   "end": 10,
+   "text": "def stream(self, count: int) -> dict"
+  }
+ ],
+ "4001a3233f93a9ab5882c10e0ce3cee895236281": [
+  {
+   "line": 3,
+   "start": 17,
+   "end": 31,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 3,
+   "start": 33,
+   "end": 45,
+   "text": "module axon.AxonMagicGUI"
+  },
+  {
+   "line": 5,
+   "start": 1,
+   "end": 15,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 6,
+   "start": 6,
+   "end": 20,
+   "text": "class DemoController"
+  },
+  {
+   "line": 16,
+   "start": 15,
+   "end": 27,
+   "text": "module axon.AxonMagicGUI"
+  }
+ ],
+ "68a85fa944df7c64cb364db7c2bd56a2b3acb83f": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 24,
+   "text": "module axon.AxonGUI"
+  },
+  {
+   "line": 0,
+   "start": 26,
+   "end": 38,
+   "text": "module axon.AxonMagicGUI"
+  },
+  {
+   "line": 3,
+   "start": 0,
+   "end": 12,
+   "text": "module axon.AxonMagicGUI"
+  },
+  {
+   "line": 4,
+   "start": 7,
+   "end": 14,
+   "text": "module axon.AxonGUI"
+  },
+  {
+   "line": 5,
+   "start": 9,
+   "end": 16,
+   "text": "module axon.AxonGUI"
+  }
+ ],
+ "25c7090ad4c55b8f73f2c221e89ee061fa417658": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 26,
+   "text": "module axon.AxonCross"
+  },
+  {
+   "line": 2,
+   "start": 10,
+   "end": 19,
+   "text": "module axon.AxonCross"
+  },
+  {
+   "line": 2,
+   "start": 20,
+   "end": 29,
+   "text": "broadcast(controller_id: str, func: str, args: Any, kwargs: dict[str, Any] | None = None, timeout: float | None = None, exclude: Iterable[str] = ()) -> dict[str, axon.AxonPYCall.AxonFuture[Any]]"
+  },
+  {
+   "line": 5,
+   "start": 12,
+   "end": 21,
+   "text": "module axon.AxonCross"
+  },
+  {
+   "line": 5,
+   "start": 22,
+   "end": 29,
+   "text": "results(futures: dict[str, axon.AxonPYCall.AxonFuture[Any]], timeout: float | None = None) -> list[dict[str, Any]]"
+  }
+ ],
+ "b5838d9f924e05a08aceb6c5530b33bf4c697c6e": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 31,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 0,
+   "start": 33,
+   "end": 42,
+   "text": "module axon.AxonEvent"
+  },
+  {
+   "line": 2,
+   "start": 1,
+   "end": 15,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 3,
+   "start": 6,
+   "end": 11,
+   "text": "class Shell"
+  },
+  {
+   "line": 6,
+   "start": 8,
+   "end": 17,
+   "text": "module axon.AxonEvent"
+  }
+ ],
+ "e3b65e4cfddeefe632574fff9dfb12c7479d23cf": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 26,
+   "text": "module axon.AxonCross"
+  },
+  {
+   "line": 2,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonCross"
+  },
+  {
+   "line": 2,
+   "start": 10,
+   "end": 14,
+   "text": "emit(type: str, args: Any, exclude: Iterable[str] = ()) -> list[axon.AxonPYCall.AxonFuture[Any]]"
+  },
+  {
+   "line": 3,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonCross"
+  },
+  {
+   "line": 3,
+   "start": 10,
+   "end": 17,
+   "text": "emit_to(web_name: str, type: str, args: Any) -> axon.AxonPYCall.AxonFuture[Any]"
+  }
+ ],
+ "9bad095aebea5bba12bf1cd1a916a2b1a577dbf1": [
+  {
+   "line": 1,
+   "start": 17,
+   "end": 31,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 3,
+   "start": 1,
+   "end": 15,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 4,
+   "start": 6,
+   "end": 20,
+   "text": "class DemoController"
+  },
+  {
+   "line": 5,
+   "start": 4,
+   "end": 11,
+   "text": "counter: int"
+  },
+  {
+   "line": 8,
+   "start": 20,
+   "end": 27,
+   "text": "counter: int"
+  }
+ ],
+ "caee2a723e86821972e67e706074095291542242": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 21,
+   "text": "module axon.Axon"
+  },
+  {
+   "line": 3,
+   "start": 5,
+   "end": 9,
+   "text": "module axon.Axon"
+  }
+ ],
+ "dbaa0be57aedb86fb38aa37712ead295cf69439d": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 26,
+   "text": "module axon.AxonStore"
+  },
+  {
+   "line": 5,
+   "start": 8,
+   "end": 17,
+   "text": "module axon.AxonStore"
+  }
+ ],
+ "27b1e5a86b3828bf7c1b405c98ff12678eb2c94d": [
+  {
+   "line": 5,
+   "start": 17,
+   "end": 31,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 5,
+   "start": 33,
+   "end": 40,
+   "text": "module axon.AxonGUI"
+  },
+  {
+   "line": 9,
+   "start": 1,
+   "end": 15,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 10,
+   "start": 6,
+   "end": 13,
+   "text": "class Greeter"
+  },
+  {
+   "line": 14,
+   "start": 4,
+   "end": 8,
+   "text": "def main() -> int"
+  },
+  {
+   "line": 16,
+   "start": 11,
+   "end": 18,
+   "text": "module axon.AxonGUI"
+  },
+  {
+   "line": 22,
+   "start": 21,
+   "end": 25,
+   "text": "def main() -> int"
+  }
+ ],
+ "6d759cea384c37e407ad65844f8901ce31dc4a09": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 31,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 2,
+   "start": 1,
+   "end": 15,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 3,
+   "start": 6,
+   "end": 13,
+   "text": "class Greeter"
+  },
+  {
+   "line": 4,
+   "start": 4,
+   "end": 11,
+   "text": "counter: int"
+  }
+ ],
+ "7dde0576423b57271107fd824cebd639dbbdfdaa": [
+  {
+   "line": 0,
+   "start": 6,
+   "end": 12,
+   "text": "class DocsJS(Protocol)"
+  },
+  {
+   "line": 1,
+   "start": 4,
+   "end": 9,
+   "text": "value: float"
+  },
+  {
+   "line": 5,
+   "start": 4,
+   "end": 11,
+   "text": "def connect(web_name: str) -> AxonJsApi"
+  }
+ ],
+ "847e240b6f44420bd6fba1ea983d950bdaaa3a16": [
+  {
+   "line": 4,
+   "start": 17,
+   "end": 31,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 4,
+   "start": 33,
+   "end": 45,
+   "text": "module axon.AxonMagicGUI"
+  },
+  {
+   "line": 10,
+   "start": 1,
+   "end": 15,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 11,
+   "start": 6,
+   "end": 9,
+   "text": "class App"
+  },
+  {
+   "line": 16,
+   "start": 4,
+   "end": 8,
+   "text": "def main() -> int"
+  },
+  {
+   "line": 18,
+   "start": 4,
+   "end": 16,
+   "text": "module axon.AxonMagicGUI"
+  },
+  {
+   "line": 24,
+   "start": 17,
+   "end": 21,
+   "text": "def main() -> int"
+  }
+ ],
+ "1b88e05efc20171d9b1edf3e74bfdeaaf8bf4113": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 31,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 2,
+   "start": 1,
+   "end": 15,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 3,
+   "start": 6,
+   "end": 10,
+   "text": "class Calc"
+  }
+ ],
+ "b5671b0917754d5d0bbc0217dd014fca9799b360": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 21,
+   "text": "module axon.Axon"
+  },
+  {
+   "line": 2,
+   "start": 9,
+   "end": 13,
+   "text": "module axon.Axon"
+  }
+ ],
+ "5e3e352b5d98c0b0ac47eb105c0e91bb0a05468e": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 26,
+   "text": "module axon.AxonAsset"
+  },
+  {
+   "line": 0,
+   "start": 28,
+   "end": 42,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 2,
+   "start": 1,
+   "end": 15,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 3,
+   "start": 6,
+   "end": 12,
+   "text": "class Report"
+  },
+  {
+   "line": 6,
+   "start": 15,
+   "end": 24,
+   "text": "module axon.AxonAsset"
+  },
+  {
+   "line": 6,
+   "start": 25,
+   "end": 35,
+   "text": "from_bytes(data: bytes | bytearray | memoryview, name: str = 'blob', mime: str | None = None) -> str"
+  },
+  {
+   "line": 9,
+   "start": 15,
+   "end": 24,
+   "text": "module axon.AxonAsset"
+  },
+  {
+   "line": 9,
+   "start": 25,
+   "end": 34,
+   "text": "from_file(path: str | pathlib.Path, name: str | None = None, mime: str | None = None) -> str"
+  },
+  {
+   "line": 12,
+   "start": 15,
+   "end": 24,
+   "text": "module axon.AxonAsset"
+  },
+  {
+   "line": 12,
+   "start": 25,
+   "end": 32,
+   "text": "release(url_or_token: str) -> bool"
+  }
+ ],
+ "14fce5bd9b7a0333b0892c733f32ac86ebeb9e25": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 21,
+   "text": "module axon.Axon"
+  },
+  {
+   "line": 3,
+   "start": 10,
+   "end": 14,
+   "text": "module axon.Axon"
+  }
+ ],
+ "116aa6a1e25c9f38928dce52106e657e74f5b210": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 31,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 2,
+   "start": 1,
+   "end": 15,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 3,
+   "start": 6,
+   "end": 20,
+   "text": "class DemoController"
+  }
+ ],
+ "1fc0497797017032c74cada2261865ac29110a17": [
+  {
+   "line": 2,
+   "start": 17,
+   "end": 31,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 2,
+   "start": 33,
+   "end": 42,
+   "text": "module axon.AxonEvent"
+  },
+  {
+   "line": 4,
+   "start": 1,
+   "end": 15,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 5,
+   "start": 6,
+   "end": 20,
+   "text": "class DemoController"
+  },
+  {
+   "line": 11,
+   "start": 8,
+   "end": 17,
+   "text": "module axon.AxonEvent"
+  }
+ ],
+ "ede94e7af576ec5dbdc9c7e0341ee4587c2aa52c": [
+  {
+   "line": 3,
+   "start": 17,
+   "end": 31,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 3,
+   "start": 33,
+   "end": 45,
+   "text": "module axon.AxonMagicGUI"
+  },
+  {
+   "line": 5,
+   "start": 1,
+   "end": 15,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 6,
+   "start": 6,
+   "end": 20,
+   "text": "class DemoController"
+  },
+  {
+   "line": 16,
+   "start": 15,
+   "end": 27,
+   "text": "module axon.AxonMagicGUI"
+  }
+ ],
+ "1c528b698ccb232cced95834c1b49a496042c17b": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 26,
+   "text": "module axon.AxonCross"
+  },
+  {
+   "line": 2,
+   "start": 10,
+   "end": 19,
+   "text": "module axon.AxonCross"
+  },
+  {
+   "line": 2,
+   "start": 20,
+   "end": 29,
+   "text": "broadcast(controller_id: str, func: str, args: Any, kwargs: dict[str, Any] | None = None, timeout: float | None = None, exclude: Iterable[str] = ()) -> dict[str, axon.AxonPYCall.AxonFuture[Any]]"
+  },
+  {
+   "line": 5,
+   "start": 12,
+   "end": 21,
+   "text": "module axon.AxonCross"
+  },
+  {
+   "line": 5,
+   "start": 22,
+   "end": 29,
+   "text": "results(futures: dict[str, axon.AxonPYCall.AxonFuture[Any]], timeout: float | None = None) -> list[dict[str, Any]]"
+  }
+ ],
+ "de78ad649f0efdcc4e3682f7f86ee72aaf4635a0": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 31,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 0,
+   "start": 33,
+   "end": 42,
+   "text": "module axon.AxonEvent"
+  },
+  {
+   "line": 2,
+   "start": 1,
+   "end": 15,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 3,
+   "start": 6,
+   "end": 11,
+   "text": "class Shell"
+  },
+  {
+   "line": 6,
+   "start": 8,
+   "end": 17,
+   "text": "module axon.AxonEvent"
+  }
+ ],
+ "46dfa65c1bb5219d6188b676f9791302d76ea57d": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 26,
+   "text": "module axon.AxonCross"
+  },
+  {
+   "line": 2,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonCross"
+  },
+  {
+   "line": 2,
+   "start": 10,
+   "end": 14,
+   "text": "emit(type: str, args: Any, exclude: Iterable[str] = ()) -> list[axon.AxonPYCall.AxonFuture[Any]]"
+  },
+  {
+   "line": 3,
+   "start": 0,
+   "end": 9,
+   "text": "module axon.AxonCross"
+  },
+  {
+   "line": 3,
+   "start": 10,
+   "end": 17,
+   "text": "emit_to(web_name: str, type: str, args: Any) -> axon.AxonPYCall.AxonFuture[Any]"
+  }
+ ],
+ "8f8674d8f7c1cb8cf529d8c177644555b90dd5f5": [
+  {
+   "line": 1,
+   "start": 6,
+   "end": 11,
+   "text": "class Shell"
+  },
+  {
+   "line": 3,
+   "start": 25,
+   "end": 34,
+   "text": "module axon.AxonCross"
+  },
+  {
+   "line": 3,
+   "start": 36,
+   "end": 43,
+   "text": "module axon.AxonGUI"
+  },
+  {
+   "line": 5,
+   "start": 11,
+   "end": 20,
+   "text": "module axon.AxonCross"
+  },
+  {
+   "line": 5,
+   "start": 21,
+   "end": 24,
+   "text": "has(web_name: str) -> bool"
+  },
+  {
+   "line": 7,
+   "start": 17,
+   "end": 24,
+   "text": "module axon.AxonGUI"
+  }
+ ],
+ "e43a878adc218d5cc5de768b846cc2f3ffde822b": [
+  {
+   "line": 1,
+   "start": 17,
+   "end": 31,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 3,
+   "start": 1,
+   "end": 15,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 4,
+   "start": 6,
+   "end": 20,
+   "text": "class DemoController"
+  },
+  {
+   "line": 5,
+   "start": 4,
+   "end": 11,
+   "text": "counter: int"
+  },
+  {
+   "line": 8,
+   "start": 20,
+   "end": 27,
+   "text": "counter: int"
+  }
+ ],
+ "7c23847d2b331a214ca64c7a3989775ba955b5c5": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 21,
+   "text": "module axon.Axon"
+  },
+  {
+   "line": 3,
+   "start": 5,
+   "end": 9,
+   "text": "module axon.Axon"
+  }
+ ],
+ "2c82776d1e524dcaba4f967415eb4ab18b1b2f5f": [
+  {
+   "line": 0,
+   "start": 17,
+   "end": 26,
+   "text": "module axon.AxonStore"
+  },
+  {
+   "line": 5,
+   "start": 8,
+   "end": 17,
+   "text": "module axon.AxonStore"
+  }
+ ],
+ "ff882fc8bd57f33d6084fc4d562a0687b68505c1": [
+  {
+   "line": 5,
+   "start": 17,
+   "end": 31,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 5,
+   "start": 33,
+   "end": 40,
+   "text": "module axon.AxonGUI"
+  },
+  {
+   "line": 9,
+   "start": 1,
+   "end": 15,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 10,
+   "start": 6,
+   "end": 13,
+   "text": "class Greeter"
+  },
+  {
+   "line": 14,
+   "start": 4,
+   "end": 8,
+   "text": "def main() -> int"
+  },
+  {
+   "line": 16,
+   "start": 11,
+   "end": 18,
+   "text": "module axon.AxonGUI"
+  },
+  {
+   "line": 22,
+   "start": 21,
+   "end": 25,
+   "text": "def main() -> int"
+  }
+ ],
+ "a005ada8669b5b84309200003451252ab7ea13fa": [
+  {
+   "line": 1,
+   "start": 6,
+   "end": 12,
+   "text": "class DocsJS(Protocol)"
+  },
+  {
+   "line": 2,
+   "start": 4,
+   "end": 9,
+   "text": "value: float"
+  },
+  {
+   "line": 6,
+   "start": 4,
+   "end": 11,
+   "text": "def connect(web_name: str) -> AxonJsApi"
+  }
+ ],
+ "37986ce7594c03eb00f1005fbc16b0c0714c5b21": [
+  {
+   "line": 4,
+   "start": 17,
+   "end": 31,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 4,
+   "start": 33,
+   "end": 45,
+   "text": "module axon.AxonMagicGUI"
+  },
+  {
+   "line": 10,
+   "start": 1,
+   "end": 15,
+   "text": "from axon: AxonController(...)"
+  },
+  {
+   "line": 11,
+   "start": 6,
+   "end": 9,
+   "text": "class App"
+  },
+  {
+   "line": 16,
+   "start": 4,
+   "end": 8,
+   "text": "def main() -> int"
+  },
+  {
+   "line": 18,
+   "start": 4,
+   "end": 16,
+   "text": "module axon.AxonMagicGUI"
+  },
+  {
+   "line": 24,
+   "start": 17,
+   "end": 21,
+   "text": "def main() -> int"
+  }
+ ]
+}

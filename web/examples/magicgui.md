@@ -30,7 +30,12 @@ class DemoController:
         return AxonMagicGUI.run(on_main).result(5)
 ```
 
-```js [app.js]
+```js twoslash [app.js]
+// @noErrors
+import { Axon, AxonCall, AxonController, AxonCross, AxonEvent, AxonInit, AxonStore } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 const onMainThread = await Axon.DemoController.ask();
 ```
 

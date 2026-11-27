@@ -26,7 +26,12 @@ print(store.prop("theme").value)
 
 ## JS 侧
 
-```js [app.js]
+```js twoslash [app.js]
+// @noErrors
+import { Axon, AxonCall, AxonController, AxonCross, AxonEvent, AxonInit } from "axon-gui";
+await AxonInit();
+const WEB = "MainView";
+// ---cut---
 import { AxonStore } from "axon-gui";
 
 const store = new AxonStore("docs-store");   // 名字要和 Python 侧一致
