@@ -351,3 +351,11 @@ twoslashOptions: { extraFiles: { "axon.generated.d.ts": axonGeneratedDts } }
 **根因**：Angular 的迁移脚本只按「相邻大版本」设计。
 
 **修法**：一版一版升：先 `update @angular/core@21 @angular/cli@21 …`，跑通构建，再升 22。每步都要重新 `npm install` 让 peer 依赖（如 TypeScript 版本）跟着变。
+
+## 关窗口时在飞调用不了结：等 `destroyed` 等不到
+
+`deleteLater()` 排的销毁要等事件循环走到空闲才执行，而 `QCoreApplication.processEvents()`
+**不处理 `DeferredDelete` 事件**（这是 Qt 的明确规定）。所以把「窗口没了 → 把发给它的在飞调用
+了结掉」挂在 `destroyed` 信号上，在验证台里永远不触发、在真机上又太晚。
+
+正确做法是在 `_forget_window()`（`closeEvent` 会调）里直接了结。

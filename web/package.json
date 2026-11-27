@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "dependencies": {
-    "axon-gui": "^1.4.2",
+    "axon-gui": "^1.5.0",
     "promise-retry": "^2.0.1",
     "qwebchannel": "^6.2.0",
     "uuid": ">=14.0.0"

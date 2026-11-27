@@ -155,6 +155,10 @@ AxonEvent.dispatchPYEvent({ type: "demo:pong", args: [1, 2, 3] });
 Built-in events (dispatched by the Qt window): `loadFinished`, `contextMenu`, `dragEnter`, `dragMove`,
 `drop`, `dragLeave`, `hide`, `show`.
 
+When the channel drops **mid-flight** (window closed, page navigating away), pending promises reject with
+`AxonChannelLostError` (`CHANNEL_LOST`) and `AxonChannelStatus.reason` becomes `"page-unloaded"`.
+Previously those promises stayed pending forever: `await` on them neither resolved nor reached `catch`.
+
 ## Errors
 
 Everything thrown across the bridge is an `Error` subclass with a stable `code`, so you never match on message text:
@@ -163,6 +167,7 @@ Everything thrown across the bridge is an `Error` subclass with a stable `code`,
 | --- | --- | --- |
 | `AxonTimeoutError` | `TIMEOUT` | `timeout` expired before Python answered |
 | `AxonNotConnectedError` | `NOT_CONNECTED` | a call was made before the channel was up |
+| `AxonChannelLostError` | `CHANNEL_LOST` | the channel dropped mid-flight (page unloaded / renderer exited) |
 | `AxonRemoteError` | `REMOTE` | Python raised; the message is carried over |
 | `AxonError` | `AXON` | base class of the three |
 
@@ -177,7 +182,7 @@ try {
 ```
 
 All four are exported from `axon-gui`. Python has the mirror set (`AxonError / AxonTimeoutError /
-AxonNotConnectedError / JSRuntimeError` — see [Python API](/en/api/python#errors)); `AxonTimeoutError` also extends the
+AxonNotConnectedError / AxonChannelLostError / JSRuntimeError` — see [Python API](/en/api/python#errors)); `AxonTimeoutError` also extends the
 builtin `TimeoutError`.
 
 ## `AxonStore` — cross-process key/value

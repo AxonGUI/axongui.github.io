@@ -49,7 +49,7 @@ app.exec()
 | --- | --- |
 | `web_name` | 窗口名，进程内唯一；控制器和 `Axon("...")` 都用它定位 |
 | `url` | 页面地址，可以是 `http://`、`file://` |
-| `options` | `{"disable_native_context_menu": True}` 可关掉 Qt 原生右键菜单，让前端自己画 |
+| `options` | `{"disable_native_context_menu": True}` 可关掉 Qt 原生右键菜单，让前端自己画；`crash_recovery` / `crash_reload_limit` 控制崩溃后的行为（见下文「崩溃之后」） |
 
 | 方法 / 属性 | 说明 |
 | --- | --- |
@@ -59,6 +59,33 @@ app.exec()
 | `web_name` | 窗口名 |
 
 页面加载完成且 JS 通道就绪后，会向页面派发 `loadFinished` 事件。
+
+### 崩溃之后
+
+渲染进程崩掉（窗口还在、页面进程没了）时，Axon 做三件事，而不是留一张白纸：
+
+1. 发给这个窗口、还在等回包的调用**立刻**变成 `AxonChannelLostError`（`CHANNEL_LOST`）——以前它们会一直挂着，没写 `timeout` 就是永远；
+2. 在 Python 侧派发 `renderProcessCrashed` 事件，帮你把「刚才崩了」这件事记下来；
+3. 默认自动重载页面，重载后通道重新握手、调用恢复可用。当前状态看 `view.render_crashed` / `view.last_crash`。
+
+```python
+from axon import AxonEvent
+
+AxonEvent.add_listener(
+    "renderProcessCrashed",
+    lambda info: print(f"{info['webName']} 崩了：{info['status']}，作废 {info['failedCalls']} 个调用"),
+)
+```
+
+事件参数：`webName`、`status`（如 `KilledTerminationStatus`）、`exitCode`、`failedCalls`、`willReload`。
+
+重载有上限（默认连续 3 次），页面稳定 5 秒才把计数清零，避免「崩-重载-崩」死循环。要自己接管恢复：
+
+```python
+view = AxonGUI("MainView", url, options={"crash_recovery": "none", "crash_reload_limit": 3})
+```
+
+`"none"` 时只记录状态、派发事件，不重载。
 
 ## `AxonController` —— 让 JS 能调用 Python
 
@@ -211,8 +238,9 @@ result = AxonMagicGUI.run(on_main).result(5)
 | --- | --- | --- |
 | `AxonTimeoutError` | `TIMEOUT` | 等不到 JS 回包（同时继承内置 `TimeoutError`） |
 | `AxonNotConnectedError` | `NOT_CONNECTED` | 目标窗口不存在 / 已经关掉 |
+| `AxonChannelLostError` | `CHANNEL_LOST` | 通道中途断开（页面卸载 / 渲染进程崩溃），发出去的调用等不到回包 |
 | `JSRuntimeError` | `JS_RUNTIME` | JS 侧抛了异常，被带回来 |
-| `AxonError` | `AXON` | 上面三个的基类 |
+| `AxonError` | `AXON` | 上面四个的基类 |
 
 ```python
 from axon import Axon, AxonTimeoutError, JSRuntimeError
