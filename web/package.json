@@ -20,6 +20,7 @@
     "docs:dev": "node scripts/copy-vendor.mjs && vitepress dev --host 127.0.0.1 --port 5174",
     "docs:build": "node scripts/copy-vendor.mjs && vitepress build",
     "docs:preview": "vitepress preview --host 127.0.0.1",
-    "pyhover": "sh -c '${AXON_PYTHON:-python3} scripts/py_hover.py'"
+    "pyhover": "sh -c '${AXON_PYTHON:-python3} scripts/py_hover.py'",
+    "types": "sh -c 'cd .. && ${AXON_GUI:-axon-gui} types --only ts --ts-out web/axon.generated.d.ts --controllers controller.DemoController'"
   }
 }
