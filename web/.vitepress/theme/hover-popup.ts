@@ -15,7 +15,10 @@ let installed = false;
 function ensurePopup(): HTMLElement {
   if (popup) return popup;
   const el = document.createElement("div");
-  el.className = "axon-hover-popup";
+  // twoslash / shiki：浮层的内容来自 `@shikijs/twoslash` 的 rich renderer 与 shiki 的
+  // token span，两者的样式规则都以 `.twoslash` / `.shiki` 为祖先；搬到 body 之后
+  // 祖先链断了，样式会整体丢失，所以这里把类名补回去。
+  el.className = "axon-hover-popup twoslash shiki";
   el.setAttribute("role", "tooltip");
   el.hidden = true;
   document.body.appendChild(el);

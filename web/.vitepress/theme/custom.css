@@ -347,7 +347,7 @@ body.has-axon-download { padding-bottom: 92px; }
   position: fixed;
   z-index: 60;
   max-width: min(72ch, calc(100vw - 2rem));
-  padding: 0.55rem 0.75rem;
+  padding: 0;
   border: 1px solid var(--vp-c-divider);
   border-radius: 8px;
   background: var(--vp-c-bg);
@@ -358,6 +358,26 @@ body.has-axon-download { padding-bottom: 92px; }
   pointer-events: none;
   overflow-wrap: anywhere;
 }
+/* 浮层内容原本是塞在 `pre` 里的绝对定位元素；搬出来之后要让它回到正常流，
+   其余外观（底色 / 圆角 / 边框）由外层 .axon-hover-popup 提供。 */
+.axon-hover-popup .twoslash-popup-container {
+  position: static;
+  display: block;
+  opacity: 1;
+  transform: none;
+  z-index: auto;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+.axon-hover-popup .twoslash-popup-code,
+.axon-hover-popup .twoslash-popup-docs {
+  display: block;
+}
+
 .axon-hover-popup code {
   font-family: var(--vp-font-family-mono);
   font-size: 0.78rem;
