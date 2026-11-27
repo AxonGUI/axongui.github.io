@@ -422,3 +422,42 @@ TS/JS 用 twoslash 编译真实类型；Python 没有等价的构建期工具链
 | 结果推断 | `const sum = await Axon.DemoController.add(2, 3)` → `const sum: number` |
 | 虚构控制器名 | 仍为 `any`（不在文档站控制器里，属预期） |
 | 回退路径 | 没有 `web/axon.generated.d.ts` 时构建不报错，退回 `any`（与旧行为一致） |
+
+## Python 3.12 / 3.13 / 3.14（5.7.3）
+
+PySide6 6.12 发的是 `cp310-abi3` 轮子、元数据 `>=3.10,<3.16`，所以 3.13 / 3.14 本来就能装上；
+但「能装」不等于「跑得动」，这一节是三个小版本各跑一遍真 WebEngine 的结果。
+
+| 解释器 | 验证台 | 跨窗口 | AxonShell 自检 |
+| --- | --- | --- | --- |
+| 3.12.15 | 49 / 49 | 18 / 18 | PASS |
+| 3.13.18 | 49 / 49 | 18 / 18 | PASS |
+| 3.14.10 | 49 / 49 | 18 / 18 | PASS |
+
+复现：
+
+```bash
+uv venv /tmp/py313 --python 3.13
+uv pip install --python /tmp/py313/bin/python -e core-py
+QT_QPA_PLATFORM=offscreen /tmp/py313/bin/python core-py/tests/run_web_tests.py
+```
+
+CI 的 `interface` 任务也改成了 3.12 / 3.13 / 3.14 矩阵，以后 Python 小版本升级会自己暴露问题。
+`requires-python` 写的是 `>=3.12,<3.16`：上界跟着 PySide6 的实际支持面走，避免在还没有 Qt 轮子的
+3.16 上装出一个 `import` 就报错的环境。
+
+### 3.14 顺带修掉的崩溃：关窗口后 Chromium 线程检查
+
+跑全量验证时 3.14 会 abort，3.12 / 3.13 不会：
+
+```
+Check failed: checker.CalledOnValidBrowserThread(thread_identifier).
+Must be called on Chrome_UIThread; actually called on Unknown Thread.
+```
+
+原因是关掉的窗口只从窗口表里摘掉、没显式销毁，`QWebEngineView` / `QWebEnginePage` 等
+Python GC；回收如果落在工作线程（控制器线程池、asyncio 线程），C++ 析构就在非 GUI 线程跑。
+3.14 改了循环 GC 的触发时机，同一段代码更容易撞上。
+
+现在关窗口时会 `deleteLater()`，并把包装对象寄存到 `_retired_windows`，等 Qt 在主线程发出
+`destroyed` 再放开引用 —— 三版本复跑 68 项全过。

@@ -11,13 +11,13 @@
 
 | 需要 | 说明 |
 | --- | --- |
-| Python 3.12+ | `python --version` 确认一下 |
+| Python 3.12 / 3.13 / 3.14 | `python --version` 确认一下（三个版本都有真 WebEngine 验证，见[验证记录](/notes/verified)） |
 | Node.js 20+ | 只有网页侧需要构建（Vue/TypeScript）时才用到；纯 HTML 页面不需要 |
 | Linux 额外依赖 | `sudo apt-get install -y libxkbfile1`（Qt WebEngine 需要，缺了 `import axon` 会直接失败） |
 
 ## 方式一：用官方模板生成项目（推荐）
 
-官方模板有三套：**Vue 3**、**React 19**、**Angular 20**，都配好了构建和示例，选一套直接开始写界面。
+官方模板有三套：**Vue 3**、**React 19**、**Angular 22**，都配好了构建和示例，选一套直接开始写界面。
 
 **第一步仍然是安装 `axon-gui`**——`init` 这个命令来自它，而且它要能在任意目录里调用
 （装在全局、或者用 `uv tool` / `pipx` 这类独立的命令行环境里），不能只在某个项目的
@@ -43,7 +43,7 @@ pip install --user axon-gui
 # 第二步：生成项目（在任何空目录里都行）
 axon-gui init myapp                 # 默认 Vue 3
 axon-gui init myapp -t react        # React 19
-axon-gui init myapp -t angular      # Angular 20
+axon-gui init myapp -t angular      # Angular 22
 ```
 
 三套模板的用法完全一样：`main.py` 起窗口、`controller/` 写 Python、`web/` 写界面。
