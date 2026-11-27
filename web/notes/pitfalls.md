@@ -265,3 +265,13 @@ VitePress 2 用内置的 `markdown-it-async` 让 markdown 插件可以异步：�
 解析成独立的 `comment` 节点，过滤掉 `type === "comment"` 即可，代码正文本来就在 `<code>`
 里不受影响。附带的 `.lang` 语言标签与 `button.copy` 是 VitePress fence 包装自带，浮层里
 `display:none`。
+
+## 悬停浮层里的字特别小（10px 左右）
+
+官方样式 `.twoslash .twoslash-popup-docs { font-size: 0.8em }` —— 浮层原本在代码块内部，`0.8em`
+是相对**代码块字号**（VitePress 约 14px）算的，所以看着是「比代码小一圈」。
+
+我们把浮层搬到 `body` 之后，`em` 改相对外层容器；外层当时又写了 `font-size: 0.8rem`，
+于是 0.8 × 0.8rem ≈ 10.2px —— 两重缩小，比官方还小。
+
+修法：浮层里用绝对字号（代码行 13px、说明 13.5px/1.7、内边距 8px 12px），不再依赖 `em` 链。

@@ -353,8 +353,10 @@ body.has-axon-download { padding-bottom: 92px; }
   background: var(--vp-c-bg);
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
   color: var(--vp-c-text-1);
-  font-size: 0.8rem;
-  line-height: 1.55;
+  /* 说明文字的大小：官方 .twoslash-popup-docs 是 0.8em（相对代码块字号），我们把浮层
+     搬出 pre 后它会相对这里的字号再缩一次，两重缩小会到 10px 左右，所以这里直接给绝对值。 */
+  font-size: 14px;
+  line-height: 1.6;
   pointer-events: none;
   overflow-wrap: anywhere;
 }
@@ -376,6 +378,17 @@ body.has-axon-download { padding-bottom: 92px; }
 .axon-hover-popup .twoslash-popup-code,
 .axon-hover-popup .twoslash-popup-docs {
   display: block;
+  padding: 8px 12px !important;
+}
+
+/* 代码行 13px、说明文字 13.5px：比正文（16px）略小一圈，但不至于费力。 */
+.axon-hover-popup .twoslash-popup-code {
+  font-size: 13px;
+  line-height: 1.5;
+}
+.axon-hover-popup .twoslash-popup-docs {
+  font-size: 13.5px;
+  line-height: 1.7;
 }
 
 /* 说明文字是 Markdown 渲染出来的块级内容，收紧间距免得浮层过高。 */
@@ -411,7 +424,7 @@ body.has-axon-download { padding-bottom: 92px; }
 
 .axon-hover-popup code {
   font-family: var(--vp-font-family-mono);
-  font-size: 0.78rem;
+  font-size: 0.9em;
   white-space: pre-wrap;
   color: var(--vp-c-text-1);
 }
