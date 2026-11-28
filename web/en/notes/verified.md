@@ -12,7 +12,7 @@ sudo apt-get install -y libxkbfile1        # QtWebEngine runtime dependency
 core-py/.venv/bin/python core-py/tests/run_web_tests.py
 ```
 
-Current result: **37 / 37 passed, 0 failed** (Linux, 2026-11-23; Windows 10 IoT LTSC, same table, see below).
+Current result: **49 / 49** assertions pass on Python 3.12 / 3.13 / 3.14 (Linux), together with **18 / 18** multi-window and **20 / 20** crash-recovery / channel-loss checks. macOS (arm64 and x86_64 runners) runs all of them too — see the macOS section at the bottom. (The tables below are the original 37-check snapshot kept for history.)
 
 ## JavaScript → Python
 
@@ -175,3 +175,32 @@ dropped. See [Pitfalls](/en/notes/pitfalls#white-page-after-packaging-windowed-e
 The earlier v5.3.3 single-file build behaved differently on the same machine: noticeably slower cold
 start (unpacking 200+ MB every launch) and a hard-coded 1280×840 window that overflowed the screen. Both
 were fixed in v5.3.4.
+
+## macOS (5.8.0, both architectures)
+
+macOS had no reading at all until now. `.github/workflows/macos.yml` runs the suites on two native runners:
+
+| Runner | OS | Interface | Multi-window | Crash/loss | Window visibility |
+| --- | --- | --- | --- | --- | --- |
+| `macos-latest` (arm64) | macOS Tahoe 26.7.2 | 49 / 49 | 18 / 18 | 20 / 20 | 6 / 6 |
+| `macos-15-intel` (x86_64) | macOS Sequoia 15.7.9 | 49 / 49 | 18 / 18 | 20 / 20 | 6 / 6 |
+
+Both on Qt 6.11.1 with the `cocoa` platform plugin (not `offscreen`). The visibility check requires
+`QWindow.isExposed()` to be true, a real window size, and a screen — so these greens are not
+"headless counts as passing".
+
+The window layer (`axon-shell`) ran `main.py --smoke` on the same runners:
+
+```
+[smoke] info={'connected': True, 'drag': True, 'regions': 3, 'platform': 'darwin', ...}
+[smoke] window={... 'visible': True, 'focused': True, 'resizable': True}
+[smoke] PASS
+```
+
+The client artifacts now include macOS: `AxonDocs-macos-arm64.tar.gz` (180.6 MB), unsigned —
+clear the quarantine flag with `xattr -dr com.apple.quarantine AxonDocs` before opening.
+
+### Runner-name gotcha
+
+`macos-13` (Intel) has been retired by GitHub: putting it in a matrix does not fail, the job just
+**queues forever**. The current x86_64 standard image is `macos-15-intel`; arm64 is `macos-latest`.
