@@ -497,3 +497,31 @@ def wait_future(future, timeout=10.0):
 
 另外 `processEvents()` **不处理 `DeferredDelete`**，所以「关窗口了结在飞调用」不能挂在
 `destroyed` 上等，要在 `_forget_window()` 里直接做。
+
+## macOS（5.8.0，两个架构）
+
+macOS 之前是零读数。现在 `macos.yml` 在 GitHub 的两台原生 runner 上真跑：
+
+| 机器 | 系统 | 验证台 | 跨窗口 | 崩溃/断线 | 窗口可见性 |
+| --- | --- | --- | --- | --- | --- |
+| `macos-latest`（arm64） | macOS Tahoe 26.7.2 | 49 / 49 | 18 / 18 | 20 / 20 | 6 / 6 |
+| `macos-15-intel`（x86_64） | macOS Sequoia 15.7.9 | 49 / 49 | 18 / 18 | 20 / 20 | 6 / 6 |
+
+两台都是 Qt 6.11.1、平台插件 `cocoa`（不是 offscreen），窗口可见性验证要求
+`isExposed()` 为真、窗口有真实尺寸（1100×720）并且落在某块屏上——所以这组绿不是「无头也算过」。
+
+窗口层（`axon-shell`）在同一批机器上也跑过 `main.py --smoke`：
+
+```
+[smoke] info={'connected': True, 'drag': True, 'regions': 3, 'platform': 'darwin', ...}
+[smoke] window={... 'visible': True, 'focused': True, 'resizable': True}
+[smoke] PASS
+```
+
+客户端产物也补上了 macOS：`AxonDocs-macos-arm64.tar.gz`（180.6 MB）。没有签名/公证，
+下载后要 `xattr -dr com.apple.quarantine AxonDocs`。
+
+### 两个 runner 名字上的坑
+
+`macos-13`（Intel）已经被 GitHub 退役，写进矩阵里的表现是**任务永远排队**（不报错，就是不开始）。
+现役的 x86_64 标准镜像是 `macos-15-intel`，arm64 是 `macos-latest`。

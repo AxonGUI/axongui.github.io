@@ -18,6 +18,24 @@ route two if you want to wire it yourself or only need a plain HTML page.
 | Node.js 20+ | only needed to build the web side (Vue/TypeScript); a plain HTML page does not need it |
 | Extra Linux dependency | `sudo apt-get install -y libxkbfile1` (required by Qt WebEngine — without it `import axon` fails immediately) |
 
+Platform support (each backed by a real-WebEngine run, see [verification notes](/en/notes/verified)):
+
+| System | Status |
+| --- | --- |
+| Windows 10/11 x64 | supported |
+| Linux x64 | supported (needs the extra dependency above) |
+| macOS arm64 (Apple Silicon) | supported (verified with a real window in CI) |
+| macOS x86_64 (Intel) | supported (verified with a real window in CI) |
+
+macOS builds are not signed or notarized yet; before opening the client downloaded from
+[Releases](https://github.com/AxonGUI/axongui.github.io/releases/latest), clear the quarantine flag:
+
+```bash
+xattr -dr com.apple.quarantine AxonDocs
+```
+
+Apps you build yourself with `pip install axon-gui` are not affected.
+
 ## Route 1: generate a project from the official template (recommended)
 
 The template ships Vue 3 + Vite + TypeScript configured, ready for a real UI.

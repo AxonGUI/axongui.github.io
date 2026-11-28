@@ -359,3 +359,12 @@ twoslashOptions: { extraFiles: { "axon.generated.d.ts": axonGeneratedDts } }
 了结掉」挂在 `destroyed` 信号上，在验证台里永远不触发、在真机上又太晚。
 
 正确做法是在 `_forget_window()`（`closeEvent` 会调）里直接了结。
+
+## CI 里写 `macos-13`：任务永远排队，不报错
+
+GitHub 已经退役 macOS 13 的 Intel 镜像。把它写进 `runs-on` 的矩阵里不会失败——**任务就是一直
+queued**，容易误判成「排队慢」而白等半小时。现役的 x86_64 标准镜像是 `macos-15-intel`，
+arm64 是 `macos-latest`。
+
+顺带一条：macOS 上跑 Qt WebEngine 用 `QT_QPA_PLATFORM=cocoa`，不要用 `offscreen`——
+offscreen 平台的 `isExposed()` 也会返回 True，用它做「窗口是否真的出现」的判据会得到假绿。

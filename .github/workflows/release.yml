@@ -20,6 +20,10 @@ jobs:
             artifact: AxonDocs-windows-x64.zip
           - os: ubuntu-22.04
             artifact: AxonDocs-linux-x64.tar.gz
+          # 之前完全没构建过 macOS 产物。macOS 没签名/公证，用户要自己
+          # 去掉 quarantine（README 里写了），但「能下载到」和「没有」是两件事。
+          - os: macos-latest
+            artifact: AxonDocs-macos-arm64.tar.gz
     env:
       QT_QPA_PLATFORM: offscreen
       QTWEBENGINE_CHROMIUM_FLAGS: --no-sandbox --disable-gpu --disable-dev-shm-usage
@@ -51,6 +55,9 @@ jobs:
         run: python scripts/build_client.py
       - name: 自检
         shell: bash
+        # macOS 上 offscreen 跑 Qt WebEngine 不可靠，改用 cocoa（runner 有真会话）
+        env:
+          QT_QPA_PLATFORM: ${{ runner.os == 'macOS' && 'cocoa' || 'offscreen' }}
         run: |
           if [ "${{ runner.os }}" = "Windows" ]; then
             ./build/client/dist/AxonDocs/AxonDocs.exe --smoke

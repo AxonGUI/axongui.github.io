@@ -15,6 +15,23 @@
 | Node.js 20+ | 只有网页侧需要构建（Vue/TypeScript）时才用到；纯 HTML 页面不需要 |
 | Linux 额外依赖 | `sudo apt-get install -y libxkbfile1`（Qt WebEngine 需要，缺了 `import axon` 会直接失败） |
 
+平台支持（都有真 WebEngine 的验证记录，见[验证记录](/notes/verified)）：
+
+| 系统 | 状态 |
+| --- | --- |
+| Windows 10/11 x64 | 支持 |
+| Linux x64 | 支持（需要上面那行额外依赖） |
+| macOS arm64（Apple Silicon） | 支持（CI 上真窗口验证过） |
+| macOS x86_64（Intel） | 支持（CI 上真窗口验证过） |
+
+macOS 上还没有签名/公证，从 [Releases](https://github.com/AxonGUI/axongui.github.io/releases/latest) 下载的客户端第一次打开前要先去掉隔离标记：
+
+```bash
+xattr -dr com.apple.quarantine AxonDocs
+```
+
+自己 `pip install axon-gui` 写的应用不受这个影响。
+
 ## 方式一：用官方模板生成项目（推荐）
 
 官方模板有三套：**Vue 3**、**React 19**、**Angular 22**，都配好了构建和示例，选一套直接开始写界面。
